@@ -90,9 +90,7 @@ export default function (Vue, options) {
         this.defineAspectRatio(image)
 
         image.onload = () => {
-          setTimeout(() => {
-            this.image = this.source
-          }, 2000)
+          this.image = this.source
         }
 
         image.src = this.source
