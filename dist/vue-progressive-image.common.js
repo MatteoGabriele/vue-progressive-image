@@ -1,5 +1,5 @@
 /*!
- * vue-progressive-image v1.1.1
+ * vue-progressive-image v1.2.0
  * (c) 2017 Matteo Gabriele
  * Released under the ISC License.
  */
@@ -118,7 +118,9 @@ var progressiveImg = function (Vue, options) {
         this.defineAspectRatio(image);
 
         image.onload = function () {
-          _this2.image = _this2.src;
+          setTimeout(function () {
+            _this2.image = _this2.src;
+          }, _this2.options.delay || 0);
         };
 
         image.src = this.src;
