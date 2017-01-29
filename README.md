@@ -79,3 +79,8 @@ Vue.use(VueProgressiveImage, {
   blur: 30
 })
 ```
+
+# Issues and features requests
+Please drop an issue, if you find something that doesn't work, or a feature request at https://github.com/MatteoGabriele/vue-progressive-image/issues
+
+Follow me on twitter [@matteo_gabriele](https://twitter.com/matteo_gabriele)
