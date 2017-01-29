@@ -1,5 +1,5 @@
 /*!
- * vue-progressive-image v0.0.1
+ * vue-progressive-image v1.0.0
  * (c) 2017 Matteo Gabriele
  * Released under the ISC License.
  */
