@@ -1,0 +1,30 @@
+.component {
+  position: relative;
+  overflow: hidden;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  transition: opacity 1s;
+  backface-visibility: hidden;
+}
+
+.before {
+  opacity: 1;
+}
+
+.enter {
+  opacity: 0;
+}
+
+.placeholder {
+  composes: image;
+  z-index: 0;
+
+  /* this is needed so Safari keeps sharp edges */
+  transform: scale(1)
+}
