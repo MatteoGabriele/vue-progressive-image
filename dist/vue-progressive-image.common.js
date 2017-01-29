@@ -25,14 +25,14 @@ var template = "<div :class=\"style.component\">\n  <div :style=\"wrapperStyle\"
 
 var style = __$styleInject("._component_1rttq_1 {\n  position: relative;\n  overflow: hidden;\n}\n\n._image_1rttq_6 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  z-index: 1;\n  transition: opacity 1s;\n  backface-visibility: hidden;\n}\n\n._before_1rttq_16 {\n  opacity: 1;\n}\n\n._enter_1rttq_20 {\n  opacity: 0;\n}\n\n._placeholder_1rttq_24 {\n  z-index: 0;\n\n  /* this is needed so Safari keeps sharp edges */\n  transform: scale(1)\n}\n", { "component": "_component_1rttq_1", "image": "_image_1rttq_6", "before": "_before_1rttq_16", "enter": "_enter_1rttq_20", "placeholder": "_placeholder_1rttq_24 _image_1rttq_6" });
 
-var progressiveImage = function (Vue, options) {
+var progressiveImg = function (Vue, options) {
   return {
-    name: 'progressive-image',
+    name: 'progressive-img',
 
     template: template,
 
     props: {
-      source: {
+      src: {
         type: String,
         required: true
       },
@@ -118,10 +118,10 @@ var progressiveImage = function (Vue, options) {
         this.defineAspectRatio(image);
 
         image.onload = function () {
-          _this2.image = _this2.source;
+          _this2.image = _this2.src;
         };
 
-        image.src = this.source;
+        image.src = this.src;
       },
       loadPlaceholder: function loadPlaceholder() {
         var _this3 = this;
@@ -131,7 +131,7 @@ var progressiveImage = function (Vue, options) {
         }
 
         var image = new Image();
-        var source = this.placeholder;
+        var src = this.placeholder;
 
         /**
          * It no local placeholder is provided and a global placeholder is passed in the plugin
@@ -140,14 +140,14 @@ var progressiveImage = function (Vue, options) {
          * The local placeholder always wins
          */
         if (this.options.placeholder && !this.placeholder) {
-          source = this.options.placeholder;
+          src = this.options.placeholder;
         }
 
         image.onload = function () {
-          _this3.placeholderImage = source;
+          _this3.placeholderImage = src;
         };
 
-        image.src = source;
+        image.src = src;
       },
       handleImageLoading: function handleImageLoading() {
         this.loadPlaceholder();
@@ -160,7 +160,13 @@ var progressiveImage = function (Vue, options) {
 var install = function install(Vue) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-  Vue.component('progressive-image', progressiveImage(Vue, options));
+  var component = progressiveImg(Vue, options);
+
+  /**
+   * The component will have both suffix for better usability
+   */
+  Vue.component('progressive-img', component);
+  Vue.component('progressive-image', component);
 };
 
 var index = {
