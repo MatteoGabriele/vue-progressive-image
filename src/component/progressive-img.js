@@ -1,14 +1,14 @@
-import template from './progressive-image.html'
-import style from './progressive-image.css'
+import template from './progressive-img.html'
+import style from './progressive-img.css'
 
 export default function (Vue, options) {
   return {
-    name: 'progressive-image',
+    name: 'progressive-img',
 
     template,
 
     props: {
-      source: {
+      src: {
         type: String,
         required: true
       },
@@ -90,10 +90,10 @@ export default function (Vue, options) {
         this.defineAspectRatio(image)
 
         image.onload = () => {
-          this.image = this.source
+          this.image = this.src
         }
 
-        image.src = this.source
+        image.src = this.src
       },
 
       loadPlaceholder () {
@@ -102,7 +102,7 @@ export default function (Vue, options) {
         }
 
         const image = new Image()
-        let source = this.placeholder
+        let src = this.placeholder
 
         /**
          * It no local placeholder is provided and a global placeholder is passed in the plugin
@@ -111,14 +111,14 @@ export default function (Vue, options) {
          * The local placeholder always wins
          */
         if (this.options.placeholder && !this.placeholder) {
-          source = this.options.placeholder
+          src = this.options.placeholder
         }
 
         image.onload = () => {
-          this.placeholderImage = source
+          this.placeholderImage = src
         }
 
-        image.src = source
+        image.src = src
       },
 
       handleImageLoading () {
