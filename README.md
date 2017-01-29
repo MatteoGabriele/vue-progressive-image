@@ -62,8 +62,6 @@ It is possible to adjust the level of blur applied to the placeholder image
 
 During the installation process it is possible to pass some default global options
 
-**Global options will be applied only to components that don't specify their own options**
-
 
 #### placeholder
 *	type: String
@@ -77,7 +75,7 @@ Vue.use(VueProgressiveImage, {
 
 #### blur
 *	type: Number
-* required: false
+*	required: false
 *	default: 5
 
 ```js
@@ -85,6 +83,21 @@ Vue.use(VueProgressiveImage, {
   blur: 30
 })
 ```
+
+#### delay
+*	type: Number
+*	default: 0
+
+This options is for debug only. It lets you have an easy look at the placeholder before the main image is fully loaded.
+
+```js
+Vue.use(VueProgressiveImage, {
+  delay: 2000 // 2 seconds before the image is displayed
+})
+```
+
+**Global options like `placeholder` and `blur` will be applied only to components that don't specify their own options**
+
 
 # Issues and features requests
 Please drop an issue, if you find something that doesn't work, or a feature request at https://github.com/MatteoGabriele/vue-progressive-image/issues
