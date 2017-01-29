@@ -3,7 +3,7 @@
 Vue progressive image loading plugin
 
 
-![alt tag](./example.gif)
+![alt tag](https://github.com/MatteoGabriele/vue-progressive-image/blob/master/example.gif)
 
 
 ## Installation
