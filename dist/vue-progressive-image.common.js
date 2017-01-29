@@ -25,132 +25,144 @@ var template = "<div :class=\"style.component\">\n  <div :style=\"wrapperStyle\"
 
 var style = __$styleInject("._component_1rttq_1 {\n  position: relative;\n  overflow: hidden;\n}\n\n._image_1rttq_6 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  z-index: 1;\n  transition: opacity 1s;\n  backface-visibility: hidden;\n}\n\n._before_1rttq_16 {\n  opacity: 1;\n}\n\n._enter_1rttq_20 {\n  opacity: 0;\n}\n\n._placeholder_1rttq_24 {\n  z-index: 0;\n\n  /* this is needed so Safari keeps sharp edges */\n  transform: scale(1)\n}\n", { "component": "_component_1rttq_1", "image": "_image_1rttq_6", "before": "_before_1rttq_16", "enter": "_enter_1rttq_20", "placeholder": "_placeholder_1rttq_24 _image_1rttq_6" });
 
-/**
- * @name progressive-image component
- * @author Matteo Gabriele <matteo@blocklevel.nl>
- */
-var progressiveImage = {
-  name: 'progressive-image',
+var progressiveImage = function (Vue, options) {
+  return {
+    name: 'progressive-image',
 
-  template: template,
+    template: template,
 
-  props: {
-    source: {
-      type: String,
-      required: true
-    },
-    placeholder: {
-      type: String,
-      required: false
-    },
-    fadeSpeed: {
-      type: Number,
-      default: 1
-    },
-    blur: {
-      type: Number,
-      default: 5
-    },
-    alt: {
-      type: String,
-      required: false
-    }
-  },
-
-  data: function data() {
-    return {
-      style: style,
-      image: null,
-      placeholderImage: null,
-      aspectRatio: 56.25
-    };
-  },
-
-
-  computed: {
-    shouldPlaceholderRender: function shouldPlaceholderRender() {
-      return this.placeholder && this.placeholderImage;
-    },
-    shouldImageRender: function shouldImageRender() {
-      return this.image;
-    },
-    wrapperStyle: function wrapperStyle() {
-      return {
-        paddingBottom: this.aspectRatio + '%'
-      };
-    },
-    placeholderStyle: function placeholderStyle() {
-      if (this.blur === 0) {
-        return {};
+    props: {
+      source: {
+        type: String,
+        required: true
+      },
+      placeholder: {
+        type: String,
+        required: false
+      },
+      blur: {
+        type: Number,
+        required: false
+      },
+      alt: {
+        type: String,
+        required: false
       }
+    },
 
+    data: function data() {
       return {
-        filter: 'blur(' + this.blur + 'px)'
+        options: options,
+        style: style,
+        defaultBlur: 5,
+        image: null,
+        placeholderImage: null,
+        aspectRatio: 56.25
       };
-    }
-  },
-
-  created: function created() {
-    this.handleImageLoading();
-  },
+    },
 
 
-  methods: {
-    defineAspectRatio: function defineAspectRatio(img) {
-      var _this = this;
+    computed: {
+      shouldPlaceholderRender: function shouldPlaceholderRender() {
+        return this.placeholderImage;
+      },
+      shouldImageRender: function shouldImageRender() {
+        return this.image;
+      },
+      wrapperStyle: function wrapperStyle() {
+        return {
+          paddingBottom: this.aspectRatio + '%'
+        };
+      },
+      placeholderStyle: function placeholderStyle() {
+        var blur = this.blur || this.options.blur || this.defaultBlur;
 
-      var interval = setInterval(function () {
-        if (!img.naturalWidth) {
+        if (blur === 0) {
+          return {};
+        }
+
+        return {
+          filter: 'blur(' + blur + 'px)'
+        };
+      }
+    },
+
+    created: function created() {
+      this.handleImageLoading();
+    },
+
+
+    methods: {
+      defineAspectRatio: function defineAspectRatio(img) {
+        var _this = this;
+
+        var interval = setInterval(function () {
+          if (!img.naturalWidth) {
+            return;
+          }
+
+          clearInterval(interval);
+
+          var naturalHeight = img.naturalHeight,
+              naturalWidth = img.naturalWidth;
+
+
+          _this.aspectRatio = naturalHeight / naturalWidth * 100;
+        }, 100);
+      },
+      loadImage: function loadImage() {
+        var _this2 = this;
+
+        var image = new Image();
+
+        this.defineAspectRatio(image);
+
+        image.onload = function () {
+          setTimeout(function () {
+            _this2.image = _this2.source;
+          }, 2000);
+        };
+
+        image.src = this.source;
+      },
+      loadPlaceholder: function loadPlaceholder() {
+        var _this3 = this;
+
+        if (!this.placeholder && !this.options.placeholder) {
           return;
         }
 
-        clearInterval(interval);
+        var image = new Image();
+        var source = this.placeholder;
 
-        var naturalHeight = img.naturalHeight,
-            naturalWidth = img.naturalWidth;
+        /**
+         * It no local placeholder is provided and a global placeholder is passed in the plugin
+         * options, then the global placeholder is loaded
+         *
+         * The local placeholder always wins
+         */
+        if (this.options.placeholder && !this.placeholder) {
+          source = this.options.placeholder;
+        }
 
+        image.onload = function () {
+          _this3.placeholderImage = source;
+        };
 
-        _this.aspectRatio = naturalHeight / naturalWidth * 100;
-      }, 100);
-    },
-    loadImage: function loadImage() {
-      var _this2 = this;
-
-      var image = new Image();
-
-      this.defineAspectRatio(image);
-
-      image.onload = function () {
-        _this2.image = _this2.source;
-      };
-
-      image.src = this.source;
-    },
-    loadPlaceholder: function loadPlaceholder() {
-      var _this3 = this;
-
-      var image = new Image();
-
-      image.onload = function () {
-        _this3.placeholderImage = _this3.placeholder;
-      };
-
-      image.src = this.placeholder;
-    },
-    handleImageLoading: function handleImageLoading() {
-      if (this.placeholder) {
+        image.src = source;
+      },
+      handleImageLoading: function handleImageLoading() {
         this.loadPlaceholder();
+        this.loadImage();
       }
-
-      this.loadImage();
     }
-  }
+  };
 };
 
 var install = function install(Vue) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-  Vue.component('progressive-image', progressiveImage);
+  Vue.component('progressive-image', progressiveImage(Vue, options));
 };
 
 var index = {

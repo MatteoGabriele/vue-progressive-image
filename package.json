@@ -75,5 +75,7 @@
     "webpack-combine-loaders": "^2.0.3",
     "zlib": "^1.0.5"
   },
-  "dependencies": {}
+  "dependencies": {
+    "lodash.merge": "^4.6.0"
+  }
 }
