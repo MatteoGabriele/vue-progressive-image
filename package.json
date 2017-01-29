@@ -22,14 +22,19 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/MatteoGabriele/vue-progressive-image"
   },
-  "keywords": [],
+  "keywords": [
+    "progressive",
+    "image",
+    "img",
+    "lazy loading"
+  ],
   "license": "ISC",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/MatteoGabriele/vue-progressive-image/issues"
   },
-  "homepage": "",
+  "homepage": "https://github.com/MatteoGabriele/vue-progressive-image#readme",
   "devDependencies": {
     "autoprefixer": "^6.7.0",
     "babel-core": "^6.17.0",
