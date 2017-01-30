@@ -106,12 +106,6 @@ export default function (Vue, options) {
         const image = new Image()
         let src = this.placeholder
 
-        /**
-         * If no local placeholder is provided and a global placeholder is passed in the plugin
-         * options, the global placeholder is loaded
-         *
-         * The local placeholder always wins
-         */
         if (this.options.placeholder && !this.placeholder) {
           src = this.options.placeholder
         }
