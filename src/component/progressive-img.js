@@ -107,8 +107,8 @@ export default function (Vue, options) {
         let src = this.placeholder
 
         /**
-         * It no local placeholder is provided and a global placeholder is passed in the plugin
-         * options, then the global placeholder is loaded
+         * If no local placeholder is provided and a global placeholder is passed in the plugin
+         * options, the global placeholder is loaded
          *
          * The local placeholder always wins
          */
