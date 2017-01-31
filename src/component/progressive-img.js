@@ -1,5 +1,6 @@
 import template from './progressive-img.html'
 import style from './progressive-img.css'
+import { is } from '../utils'
 
 export default function (Vue, options) {
   return {
@@ -53,15 +54,17 @@ export default function (Vue, options) {
       },
 
       placeholderStyle () {
-        const blur = this.blur || this.options.blur || this.defaultBlur
+        let blur = this.defaultBlur
 
-        if (blur === 0) {
-          return {}
+        if (is(this.blur)) {
+          return this.getBlurStyle(this.blur)
         }
 
-        return {
-          filter: `blur(${blur}px)`
+        if (is(this.options.blur)) {
+          return this.getBlurStyle(this.options.blur)
         }
+
+        return this.getBlurStyle(blur)
       }
     },
 
@@ -70,6 +73,16 @@ export default function (Vue, options) {
     },
 
     methods: {
+      getBlurStyle (amount) {
+        if (amount === 0) {
+          return {}
+        }
+
+        return {
+          filter: `blur(${amount}px)`
+        }
+      },
+
       defineAspectRatio (img) {
         const interval = setInterval(() => {
           if (!img.naturalWidth) {
