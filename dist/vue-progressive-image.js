@@ -1,5 +1,5 @@
 /*!
- * vue-progressive-image v1.2.0
+ * vue-progressive-image v1.2.1
  * (c) 2017 Matteo Gabriele
  * Released under the ISC License.
  */
@@ -28,6 +28,16 @@ function __$styleInject(css, returnValue) {
 var template = "<div :class=\"style.component\">\n  <div :style=\"wrapperStyle\">\n    <transition :enter-class=\"style.enter\" :enter-active-class=\"style.before\">\n      <img v-if=\"shouldImageRender\" :class=\"style.image\" :src=\"image\" :alt=\"alt\">\n    </transition>\n    <img v-if=\"shouldPlaceholderRender\" :class=\"style.placeholder\" :style=\"placeholderStyle\" :src=\"placeholderImage\">\n  </div>\n</div>\n";
 
 var style = __$styleInject("._component_1rttq_1 {\n  position: relative;\n  overflow: hidden;\n}\n\n._image_1rttq_6 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  z-index: 1;\n  transition: opacity 1s;\n  backface-visibility: hidden;\n}\n\n._before_1rttq_16 {\n  opacity: 1;\n}\n\n._enter_1rttq_20 {\n  opacity: 0;\n}\n\n._placeholder_1rttq_24 {\n  z-index: 0;\n\n  /* this is needed so Safari keeps sharp edges */\n  transform: scale(1)\n}\n", { "component": "_component_1rttq_1", "image": "_image_1rttq_6", "before": "_before_1rttq_16", "enter": "_enter_1rttq_20", "placeholder": "_placeholder_1rttq_24 _image_1rttq_6" });
+
+/**
+ * Whining helper
+ * @param  {String} message
+ */
+
+
+var is = function is(value) {
+  return typeof value !== 'undefined' && value !== null;
+};
 
 var progressiveImg = function (Vue, options) {
   return {
@@ -79,15 +89,17 @@ var progressiveImg = function (Vue, options) {
         };
       },
       placeholderStyle: function placeholderStyle() {
-        var blur = this.blur || this.options.blur || this.defaultBlur;
+        var blur = this.defaultBlur;
 
-        if (blur === 0) {
-          return {};
+        if (is(this.blur)) {
+          return this.getBlurStyle(this.blur);
         }
 
-        return {
-          filter: 'blur(' + blur + 'px)'
-        };
+        if (is(this.options.blur)) {
+          return this.getBlurStyle(this.options.blur);
+        }
+
+        return this.getBlurStyle(blur);
       }
     },
 
@@ -97,6 +109,15 @@ var progressiveImg = function (Vue, options) {
 
 
     methods: {
+      getBlurStyle: function getBlurStyle(amount) {
+        if (amount === 0) {
+          return {};
+        }
+
+        return {
+          filter: 'blur(' + amount + 'px)'
+        };
+      },
       defineAspectRatio: function defineAspectRatio(img) {
         var _this = this;
 
