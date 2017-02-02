@@ -10,7 +10,6 @@
   width: 100%;
   z-index: 1;
   transition: opacity 1s;
-  backface-visibility: hidden;
 }
 
 .before {
