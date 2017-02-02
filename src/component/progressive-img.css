@@ -10,6 +10,7 @@
   width: 100%;
   z-index: 1;
   transition: opacity 1s;
+  transform: translateZ(0) scale(1);
 }
 
 .before {
@@ -25,5 +26,5 @@
   z-index: 0;
 
   /* this is needed so Safari keeps sharp edges */
-  transform: scale(1)
+  transform: scale(1);
 }
