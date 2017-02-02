@@ -94,7 +94,7 @@ export default function (Vue, options) {
           const { naturalHeight, naturalWidth } = img
 
           this.aspectRatio = (naturalHeight / naturalWidth) * 100
-        }, 100)
+        }, 20)
       },
 
       loadImage () {
