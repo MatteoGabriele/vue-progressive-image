@@ -3,41 +3,12 @@ var zlib = require('zlib')
 var banner = require('./banner')
 var rollup = require('rollup')
 var uglify = require('uglify-js')
-var babel = require('rollup-plugin-babel')
-var html = require('rollup-plugin-html')
 var pack = require('../package.json')
-var postcss = require('rollup-plugin-postcss')
-var postcssModules = require('postcss-modules')
+var plugins = require('./plugins')
 
-const cssExportMap = {}
-
-// CommonJS build.
-// this is used as the "main" field in package.json
-// and used by bundlers like Webpack and Browserify.
 rollup.rollup({
   entry: 'src/index.js',
-  plugins: [
-    postcss({
-      extensions: [ '.css' ],
-      plugins: [
-        postcssModules({
-          getJSON (id, exportTokens) {
-            cssExportMap[id] = exportTokens;
-          }
-        }),
-      ],
-      getExport (id) {
-        return cssExportMap[id];
-      }
-    }),
-    html({
-      include: '**/*.html'
-    }),
-    babel({
-      babelrc: false,
-      presets: ['es2015-rollup', 'stage-2']
-    })
-  ]
+  plugins: plugins
 })
 .then(function (bundle) {
   return write('dist/' + pack.name + '.common.js', bundle.generate({
@@ -45,32 +16,11 @@ rollup.rollup({
     banner: banner
   }).code)
 })
-// Standalone Dev Build
+
 .then(function () {
   return rollup.rollup({
     entry: 'src/index.js',
-    plugins: [
-      postcss({
-        extensions: [ '.css' ],
-        plugins: [
-          postcssModules({
-            getJSON (id, exportTokens) {
-              cssExportMap[id] = exportTokens;
-            }
-          }),
-        ],
-        getExport (id) {
-          return cssExportMap[id];
-        }
-      }),
-      html({
-        include: '**/*.html'
-      }),
-      babel({
-        babelrc: false,
-        presets: ['es2015-rollup', 'stage-2']
-      })
-    ]
+    plugins: plugins
   })
   .then(function (bundle) {
     return write('dist/' + pack.name + '.js', bundle.generate({
@@ -81,31 +31,9 @@ rollup.rollup({
   })
 })
 .then(function () {
-  // Standalone Production Build
   return rollup.rollup({
     entry: 'src/index.js',
-    plugins: [
-      postcss({
-        extensions: [ '.css' ],
-        plugins: [
-          postcssModules({
-            getJSON (id, exportTokens) {
-              cssExportMap[id] = exportTokens;
-            }
-          }),
-        ],
-        getExport (id) {
-          return cssExportMap[id];
-        }
-      }),
-      html({
-        include: '**/*.html'
-      }),
-      babel({
-        babelrc: false,
-        presets: ['es2015-rollup', 'stage-2']
-      })
-    ]
+    plugins: plugins
   })
   .then(function (bundle) {
     var code = bundle.generate({
@@ -134,7 +62,7 @@ function write (dest, code) {
   return new Promise(function (resolve, reject) {
     fs.writeFile(dest, code, function (err) {
       if (err) return reject(err)
-      console.log(blue(dest) + ' ' + getSize(code))
+      console.log(dest + ' ' + getSize(code))
       resolve()
     })
   })
@@ -158,8 +86,4 @@ function getSize (code) {
 
 function logError (e) {
   console.log(e)
-}
-
-function blue (str) {
-  return '\x1b[1m\x1b[34m' + str + '\x1b[39m\x1b[22m'
 }
