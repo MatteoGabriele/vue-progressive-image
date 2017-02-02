@@ -1,5 +1,5 @@
 /*!
- * vue-progressive-image v1.2.2
+ * vue-progressive-image v1.2.3
  * (c) 2017 Matteo Gabriele
  * Released under the ISC License.
  */
@@ -27,7 +27,7 @@ function __$styleInject(css, returnValue) {
 }
 var template = "<div :class=\"style.component\">\n  <div :style=\"wrapperStyle\">\n    <transition :enter-class=\"style.enter\" :enter-active-class=\"style.before\">\n      <img v-if=\"shouldImageRender\" :class=\"style.image\" :src=\"image\" :alt=\"alt\">\n    </transition>\n    <img v-if=\"shouldPlaceholderRender\" :class=\"style.placeholder\" :style=\"placeholderStyle\" :src=\"placeholderImage\">\n  </div>\n</div>\n";
 
-var style = __$styleInject("._component_t6cre_1 {\n  position: relative;\n  overflow: hidden;\n}\n\n._image_t6cre_6 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  z-index: 1;\n  transition: opacity 1s;\n}\n\n._before_t6cre_15 {\n  opacity: 1;\n}\n\n._enter_t6cre_19 {\n  opacity: 0;\n}\n\n._placeholder_t6cre_23 {\n  z-index: 0;\n\n  /* this is needed so Safari keeps sharp edges */\n  transform: scale(1)\n}\n", { "component": "_component_t6cre_1", "image": "_image_t6cre_6", "before": "_before_t6cre_15", "enter": "_enter_t6cre_19", "placeholder": "_placeholder_t6cre_23 _image_t6cre_6" });
+var style = __$styleInject("._component_16a4v_1 {\n  position: relative;\n  overflow: hidden;\n}\n\n._image_16a4v_6 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  z-index: 1;\n  transition: opacity 1s;\n  transform: translateZ(0) scale(1);\n}\n\n._before_16a4v_16 {\n  opacity: 1;\n}\n\n._enter_16a4v_20 {\n  opacity: 0;\n}\n\n._placeholder_16a4v_24 {\n  z-index: 0;\n\n  /* this is needed so Safari keeps sharp edges */\n  transform: scale(1);\n}\n", { "component": "_component_16a4v_1", "image": "_image_16a4v_6", "before": "_before_16a4v_16", "enter": "_enter_16a4v_20", "placeholder": "_placeholder_16a4v_24 _image_16a4v_6" });
 
 /**
  * Whining helper
