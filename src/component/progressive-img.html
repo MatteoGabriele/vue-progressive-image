@@ -10,11 +10,15 @@
         :alt="alt"
       />
     </transition>
-    <img
-      v-if="shouldPlaceholderRender"
-      :class="style.placeholder"
-      :style="placeholderStyle"
-      :src="placeholderImage"
-    />
+    <transition
+      :enter-class="style.enter"
+      :enter-active-class="style.before">
+      <img
+        v-if="shouldPlaceholderRender"
+        :class="style.placeholder"
+        :style="placeholderStyle"
+        :src="placeholderImage"
+      />
+    </transition>
   </div>
 </div>

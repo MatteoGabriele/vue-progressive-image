@@ -34,22 +34,23 @@ export default function (Vue, options) {
         defaultBlur: 5,
         image: null,
         placeholderImage: null,
-        aspectRatio: 56.25
+        aspectRatio: 0.5625,
+        isPollingKilled: false
       }
     },
 
     computed: {
       shouldPlaceholderRender () {
-        return this.placeholderImage
+        return !!this.placeholderImage
       },
 
       shouldImageRender () {
-        return this.image
+        return !!this.image
       },
 
       wrapperStyle () {
         return {
-          paddingBottom: `${this.aspectRatio}%`
+          paddingBottom: `${this.aspectRatio * 100}%`
         }
       },
 
@@ -84,28 +85,45 @@ export default function (Vue, options) {
       },
 
       defineAspectRatio (img) {
-        const interval = setInterval(() => {
+        const delay = this.options.timeout || 2500
+        const pollInterval = this.options.pollInterval || 80
+
+        const poll = setInterval(() => {
           if (!img.naturalWidth) {
             return
           }
 
-          clearInterval(interval)
+          clearInterval(poll)
 
           const { naturalHeight, naturalWidth } = img
 
-          this.aspectRatio = (naturalHeight / naturalWidth) * 100
-        }, 20)
+          this.aspectRatio = naturalHeight / naturalWidth
+        }, pollInterval)
+
+        setTimeout(() => {
+          if (img.naturalWidth) {
+            return
+          }
+
+          clearInterval(poll)
+          this.isPollingKilled = true
+        }, delay)
       },
 
       loadImage () {
         const image = new Image()
+        const delay = this.options.delay || 0
 
         this.defineAspectRatio(image)
 
         image.onload = () => {
           setTimeout(() => {
-            this.image = this.src
-          }, this.options.delay || 0)
+            if (this.isPollingKilled) {
+              this.defineAspectRatio(image)
+            }
+
+            this.image = image.src
+          }, delay)
         }
 
         image.src = this.src

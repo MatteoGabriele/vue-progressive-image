@@ -9,8 +9,8 @@
   left: 0;
   width: 100%;
   z-index: 1;
-  transition: opacity 1s;
-  transform: translateZ(0) scale(1);
+  transition: opacity 1s ease-out;
+  transform: translateZ(0);
 }
 
 .before {
