@@ -1,13 +1,11 @@
-import progressiveImg from './component/progressive-img'
+import pImg from './component/progressive-img/progressive-img'
+import pBackground from './component/progressive-background/progressive-background'
 
 const install = function (Vue, options = {}) {
-  const component = progressiveImg(Vue, options)
-
-  /**
-   * The component will have both suffix for better usability
-   */
-  Vue.component('progressive-img', component)
-  Vue.component('progressive-image', component)
+  // The component will have both suffix for better usability
+  Vue.component('progressive-img', pImg(options))
+  Vue.component('progressive-image', pImg(options))
+  Vue.component('progressive-background', pBackground(options))
 }
 
 export default {

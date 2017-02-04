@@ -9,7 +9,7 @@
   left: 0;
   width: 100%;
   z-index: 1;
-  transition: opacity 1s ease-out;
+  transition: all 1s ease-out;
   transform: translateZ(0);
 }
 
@@ -24,7 +24,8 @@
 .placeholder {
   composes: image;
   z-index: 0;
-
-  /* this is needed so Safari keeps sharp edges */
+  overflow: hidden;
+  transition: all 500ms ease-out;
+  backface-visibility: hidden;
   transform: scale(1);
 }
