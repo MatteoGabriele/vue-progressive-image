@@ -1,6 +1,21 @@
 import { is } from '../utils'
 
 export default {
+  props: {
+    src: {
+      type: String,
+      required: true
+    },
+    placeholder: {
+      type: String,
+      required: false
+    },
+    blur: {
+      type: Number,
+      required: false
+    }
+  },
+
   data () {
     return {
       applyRatio: true,
@@ -9,7 +24,8 @@ export default {
       image: null,
       placeholderImage: null,
       aspectRatio: 0.5625,
-      isPollingKilled: false
+      isPollingKilled: false,
+      cached: false
     }
   },
 
@@ -94,17 +110,25 @@ export default {
 
       this.defineAspectRatio(image)
 
-      image.onload = () => {
-        setTimeout(() => {
-          if (this.isPollingKilled) {
-            this.defineAspectRatio(image)
-          }
+      // The onload function can be triggered with a delay
+      // so that the animation between a placeholder and the
+      // final image is easier to see
+      image.onload = setTimeout(() => {
+        if (this.image) {
+          return
+        }
 
-          this.image = image.src
-        }, delay)
-      }
+        if (this.isPollingKilled) {
+          this.defineAspectRatio(image)
+        }
+
+        this.image = image.src
+      }, delay)
 
       image.src = this.src
+
+      // Check if the image is cached
+      this.cached = image.complete
     },
 
     loadPlaceholder () {

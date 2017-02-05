@@ -9,26 +9,14 @@ export default function (options) {
 
     template,
 
-    mixins: [image],
-
     props: {
-      src: {
-        type: String,
-        required: true
-      },
-      placeholder: {
-        type: String,
-        required: false
-      },
-      blur: {
-        type: Number,
-        required: false
-      },
       noRatio: {
         type: Boolean,
         required: false
       }
     },
+
+    mixins: [image],
 
     data () {
       return {
