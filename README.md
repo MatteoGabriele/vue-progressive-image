@@ -21,7 +21,9 @@ import VueProgressiveImage from 'vue-progressive-image'
 Vue.use(VueProgressiveImage)
 ```
 
-In the template then, instead of using the normal `img` tag to load images
+#### Progressive image
+
+Instead of using the normal `img` tag to load images
 
 ```html
 <img src="https://unsplash.it/1920/1080" />
@@ -33,9 +35,17 @@ use the `progressive-img` component already globally available after the plugin 
 <progressive-img src="https://unsplash.it/1920/1080" />
 ```
 
+#### Progressive background
+
+It is also possible to apply progressive images as backgrounds
+
+```html
+<progressive-background src="https://unsplash.it/1920/1080" />
+```
+
 ## Placeholders
 
-To be able to immediately show some feedback to the user, it is possible to pass a placeholder image, which should be really small, something arount 48x27px for example, depending on the aspect ratio of the main image.
+To be able to immediately show some feedback to the user, it is possible to pass a placeholder image, which could be really small in size or just with a really low quality.
 
 The placeholder will be blurred and displayed almost instantly.
 
@@ -45,6 +55,17 @@ The placeholder will be blurred and displayed almost instantly.
   placeholder="https://unsplash.it/48/27?image=0"
 />
 ```
+
+or
+
+```html
+<progressive-background
+  src="https://unsplash.it/1920/1080?image=0"
+  placeholder="https://unsplash.it/48/27?image=0"
+/>
+```
+
+**The placeholder needs to have the same aspect ratio**
 
 ### Blur
 
@@ -57,6 +78,39 @@ It is possible to adjust the level of blur applied to the placeholder image
   blur="30"
 />
 ```
+or
+
+```html
+<progressive-background
+  src="https://unsplash.it/1920/1080?image=0"
+  placeholder="https://unsplash.it/48/27?image=0"
+  blur="30"
+/>
+```
+
+### Ratio
+
+It is possible to remove the padding that adds the aspect ratio to the container.
+
+```html
+<progressive-img
+  src="https://unsplash.it/1920/1080?image=0"
+  placeholder="https://unsplash.it/48/27?image=0"
+  blur="30"
+/>
+```
+
+or
+
+```html
+<progressive-background
+  src="https://unsplash.it/1920/1080?image=0"
+  placeholder="https://unsplash.it/48/27?image=0"
+  blur="30"
+/>
+```
+
+
 
 ## Options
 
