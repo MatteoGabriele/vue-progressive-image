@@ -37,7 +37,7 @@ use the `progressive-img` component already globally available after the plugin 
 
 #### Progressive background
 
-It is also possible to apply progressive images as backgrounds
+It is also possible to apply progressive images as backgrounds and it will have the same props as the progressive-img component
 
 ```html
 <progressive-background src="https://unsplash.it/1920/1080" />
@@ -56,15 +56,6 @@ The placeholder will be blurred and displayed almost instantly.
 />
 ```
 
-or
-
-```html
-<progressive-background
-  src="https://unsplash.it/1920/1080?image=0"
-  placeholder="https://unsplash.it/48/27?image=0"
-/>
-```
-
 **The placeholder needs to have the same aspect ratio**
 
 ### Blur
@@ -78,35 +69,16 @@ It is possible to adjust the level of blur applied to the placeholder image
   blur="30"
 />
 ```
-or
-
-```html
-<progressive-background
-  src="https://unsplash.it/1920/1080?image=0"
-  placeholder="https://unsplash.it/48/27?image=0"
-  blur="30"
-/>
-```
 
 ### Ratio
 
 It is possible to remove the padding that adds the aspect ratio to the container.
 
-```html
-<progressive-img
-  src="https://unsplash.it/1920/1080?image=0"
-  placeholder="https://unsplash.it/48/27?image=0"
-  blur="30"
-/>
-```
-
-or
 
 ```html
-<progressive-background
-  src="https://unsplash.it/1920/1080?image=0"
-  placeholder="https://unsplash.it/48/27?image=0"
-  blur="30"
+<progressive-img 
+	src="https://unsplash.it/1920/1080?image=0"
+	no-ratio
 />
 ```
 
