@@ -1,5 +1,5 @@
 /*!
- * vue-progressive-image v1.3.1
+ * vue-progressive-image v1.3.2
  * (c) 2017 Matteo Gabriele
  * Released under the ISC License.
  */
@@ -79,10 +79,6 @@ var image = {
     },
     blurStyle: function blurStyle() {
       var blur = this.defaultBlur;
-
-      if (this.shouldImageRender) {
-        return this.getBlurStyle(0);
-      }
 
       if (is(this.blur)) {
         return this.getBlurStyle(this.blur);
@@ -195,9 +191,9 @@ var image = {
   }
 };
 
-var template = "<div :class=\"style.component\">\n  <div :style=\"wrapperStyle\">\n    <transition :enter-class=\"style.enter\" :enter-active-class=\"style.before\">\n      <img v-if=\"shouldImageRender\" :class=\"style.image\" :src=\"image\" :alt=\"alt\">\n    </transition>\n    <transition :enter-class=\"style.enter\" :enter-active-class=\"style.before\">\n      <img v-if=\"shouldPlaceholderRender\" :class=\"style.placeholder\" :style=\"blurStyle\" :src=\"placeholderImage\">\n    </transition>\n  </div>\n</div>\n";
+var template = "<div :class=\"style.component\">\n  <div :style=\"wrapperStyle\">\n    <transition :enter-class=\"style.enter\" :enter-active-class=\"style.before\">\n      <img v-if=\"shouldImageRender\" :class=\"style.image\" :src=\"image\" :alt=\"alt\">\n    </transition>\n    <transition :enter-class=\"style.enter\" :enter-active-class=\"style.before\">\n      <img v-if=\"shouldPlaceholderRender\" :class=\"shouldImageRender ? style.out : style.placeholder\" :style=\"blurStyle\" :src=\"placeholderImage\">\n    </transition>\n  </div>\n</div>\n";
 
-var style = __$styleInject("._component_14i8g_1 {\n  position: relative;\n  overflow: hidden;\n}\n\n._image_14i8g_6 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  z-index: 1;\n  transition: all 1s ease-out;\n  transform: translateZ(0);\n}\n\n._before_14i8g_16 {\n  opacity: 1;\n}\n\n._enter_14i8g_20 {\n  opacity: 0;\n}\n\n._placeholder_14i8g_24 {\n  z-index: 0;\n  overflow: hidden;\n  transition: all 500ms ease-out;\n  backface-visibility: hidden;\n  transform: scale(1);\n}\n", { "component": "_component_14i8g_1", "image": "_image_14i8g_6", "before": "_before_14i8g_16", "enter": "_enter_14i8g_20", "placeholder": "_placeholder_14i8g_24 _image_14i8g_6" });
+var style = __$styleInject("._component_8fn4g_1 {\n  position: relative;\n  overflow: hidden;\n}\n\n._image_8fn4g_6 {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  z-index: 1;\n  transition: all 1s ease-out;\n  transform: translateZ(0);\n}\n\n._before_8fn4g_16 {\n  opacity: 1;\n}\n\n._enter_8fn4g_20 {\n  opacity: 0;\n}\n\n._placeholder_8fn4g_24 {\n  z-index: 0;\n  overflow: hidden;\n  transition: all 500ms ease-out;\n  backface-visibility: hidden;\n  transform: scale(1);\n}\n\n._out_8fn4g_33 {\n  transition: all 500ms ease-out 900ms;\n  opacity: 0;\n}\n", { "component": "_component_8fn4g_1", "image": "_image_8fn4g_6", "before": "_before_8fn4g_16", "enter": "_enter_8fn4g_20", "placeholder": "_placeholder_8fn4g_24 _image_8fn4g_6", "out": "_out_8fn4g_33 _placeholder_8fn4g_24 _image_8fn4g_6" });
 
 var pImg = function (options) {
   return {
