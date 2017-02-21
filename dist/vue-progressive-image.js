@@ -1,5 +1,5 @@
 /*!
- * vue-progressive-image v1.3.0
+ * vue-progressive-image v1.3.1
  * (c) 2017 Matteo Gabriele
  * Released under the ISC License.
  */
@@ -83,6 +83,10 @@ var image = {
     },
     blurStyle: function blurStyle() {
       var blur = this.defaultBlur;
+
+      if (this.shouldImageRender) {
+        return this.getBlurStyle(0);
+      }
 
       if (is(this.blur)) {
         return this.getBlurStyle(this.blur);
