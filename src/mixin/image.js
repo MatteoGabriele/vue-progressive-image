@@ -51,6 +51,10 @@ export default {
     blurStyle () {
       let blur = this.defaultBlur
 
+      if (this.shouldImageRender) {
+        return this.getBlurStyle(0)
+      }
+
       if (is(this.blur)) {
         return this.getBlurStyle(this.blur)
       }
