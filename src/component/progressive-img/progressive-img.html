@@ -15,7 +15,7 @@
       :enter-active-class="style.before">
       <img
         v-if="shouldPlaceholderRender"
-        :class="style.placeholder"
+        :class="shouldImageRender ? style.out : style.placeholder"
         :style="blurStyle"
         :src="placeholderImage"
       />
