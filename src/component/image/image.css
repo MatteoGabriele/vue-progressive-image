@@ -1,0 +1,37 @@
+.component {
+  position: relative;
+  overflow: hidden;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  transition: all 1s ease-out;
+  transform: translateZ(0);
+}
+
+.before {
+  opacity: 1;
+}
+
+.enter {
+  opacity: 0;
+}
+
+.placeholder {
+  composes: image;
+  z-index: 0;
+  overflow: hidden;
+  transition: all 500ms ease-out;
+  backface-visibility: hidden;
+  transform: translateZ(0) scale(1);
+}
+
+.out {
+  composes: placeholder;
+  transition: all 500ms ease-out 900ms;
+  opacity: 0;
+}
