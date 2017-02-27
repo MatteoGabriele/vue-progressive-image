@@ -83,6 +83,38 @@ It is possible to remove the padding that adds the aspect ratio to the container
 ```
 
 
+## Events
+
+Each component emits an event whenever an image is loaded.
+
+Because we usually load two images, a main image and a placeholder, two events are dispatched `onLoad` and `onLoadPlaceholder`
+
+in your js file
+
+```js
+export default {
+	methods: {
+		onLoadImage () {
+			// main image is loaded
+		},
+		onLoadPlaceholderImage () {
+			// placeholder image is loaded
+		}
+	}
+}
+```
+
+in the html just add the events you need to listen to 
+
+```html
+<progressive-img
+  @onLoad="onLoadImage"
+  @onLoadPlaceholder="onLoadPlaceholderImage"
+  src="https://unsplash.it/1920/1080?image=0"
+  placeholder="https://unsplash.it/48/27?image=0"
+/>
+```
+
 
 ## Options
 
