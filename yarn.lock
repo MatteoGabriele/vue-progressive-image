@@ -2306,8 +2306,8 @@ postcss-discard-comments@^2.0.4:
     postcss "^5.0.14"
 
 postcss-discard-duplicates@^2.0.1:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/postcss-discard-duplicates/-/postcss-discard-duplicates-2.0.2.tgz#02be520e91571ffb10738766a981d5770989bb32"
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/postcss-discard-duplicates/-/postcss-discard-duplicates-2.1.0.tgz#b9abf27b88ac188158a5eb12abcae20263b91932"
   dependencies:
     postcss "^5.0.4"
 

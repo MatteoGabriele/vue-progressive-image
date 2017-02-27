@@ -3,6 +3,7 @@ var webpackDevConfig = require('./webpack.dev.config')
 var vue = require('./rules/vue')
 var merge = require('webpack-merge')
 var CompressionPlugin = require("compression-webpack-plugin")
+var banner = require('./banner')
 
 vue.options.cssModules.localIdentName = '[hash:5]'
 
@@ -37,6 +38,11 @@ module.exports = merge.smart({}, webpackDevConfig, {
       test: /\.js$|\.html$/,
       threshold: 10240,
       minRatio: 0.8
+    }),
+
+    new webpack.BannerPlugin({
+      banner,
+      raw: true
     })
   ]
 })
