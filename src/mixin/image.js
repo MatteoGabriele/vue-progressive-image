@@ -123,6 +123,9 @@ export default {
         }
 
         this.image = image.src
+
+        // Dispatches an event on image load
+        this.$emit('onLoad', image.src)
       }, delay)
 
       image.src = this.src
@@ -145,6 +148,9 @@ export default {
 
       image.onload = () => {
         this.placeholderImage = src
+
+        // Dispatches an event on placeholder image load
+        this.$emit('onLoadPlaceholder', src)
       }
 
       image.src = src
