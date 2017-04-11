@@ -13,12 +13,15 @@ export default {
     blur: {
       type: Number,
       required: false
+    },
+    noRatio: {
+      type: Boolean,
+      required: false
     }
   },
 
   data () {
     return {
-      applyRatio: true,
       options: {},
       defaultBlur: 5,
       image: null,
@@ -39,7 +42,7 @@ export default {
     },
 
     wrapperStyle () {
-      if (!this.applyRatio) {
+      if (this.noRatio) {
         return
       }
 
