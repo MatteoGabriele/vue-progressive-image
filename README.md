@@ -76,8 +76,8 @@ It is possible to remove the padding that adds the aspect ratio to the container
 
 ```html
 <progressive-img 
-	src="https://unsplash.it/1920/1080?image=10"
-	no-ratio
+  src="https://unsplash.it/1920/1080?image=10"
+  no-ratio
 />
 ```
 
@@ -92,14 +92,14 @@ in your js file
 
 ```js
 export default {
-	methods: {
-		onLoadImage () {
-			// main image is loaded
-		},
-		onLoadPlaceholderImage () {
-			// placeholder image is loaded
-		}
-	}
+  methods: {
+    onLoadImage () {
+      // main image is loaded
+    },
+    onLoadPlaceholderImage () {
+      // placeholder image is loaded
+    }
+  }
 }
 ```
 
