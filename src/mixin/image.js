@@ -7,16 +7,13 @@ export default {
       required: true
     },
     placeholder: {
-      type: String,
-      required: false
+      type: String
     },
     blur: {
-      type: Number,
-      required: false
+      type: Number
     },
     noRatio: {
-      type: Boolean,
-      required: false
+      type: Boolean
     }
   },
 
@@ -43,7 +40,7 @@ export default {
 
     wrapperStyle () {
       if (this.noRatio) {
-        return
+        return {}
       }
 
       return {

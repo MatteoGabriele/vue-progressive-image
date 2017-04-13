@@ -20,7 +20,6 @@ const mergeOptions = function (component, options = {}) {
  * @param  {Object} [options={}]
  */
 const install = function (Vue, options = {}) {
-  // The component will have both suffix for better usability
   Vue.component('progressive-img', mergeOptions(image, options))
   Vue.component('progressive-background', mergeOptions(background, options))
 }

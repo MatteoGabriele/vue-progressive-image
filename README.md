@@ -26,13 +26,13 @@ Vue.use(VueProgressiveImage)
 Instead of using the normal `img` tag to load images
 
 ```html
-<img src="https://unsplash.it/1920/1080" />
+<img src="https://unsplash.it/1920/1080?image=10" />
 ```
 
 use the `progressive-img` component already globally available after the plugin installation
 
 ```html
-<progressive-img src="https://unsplash.it/1920/1080" />
+<progressive-img src="https://unsplash.it/1920/1080?image=10" />
 ```
 
 #### Progressive background
@@ -40,23 +40,22 @@ use the `progressive-img` component already globally available after the plugin 
 It is also possible to apply progressive images as backgrounds and it will have the same props as the progressive-img component
 
 ```html
-<progressive-background src="https://unsplash.it/1920/1080" />
+<progressive-background src="https://unsplash.it/1920/1080?image=10" />
 ```
+
 
 ## Placeholders
 
-To be able to immediately show some feedback to the user, it is possible to pass a placeholder image, which could be really small in size or just with a really low quality.
+To be able to immediately show some feedback to the user, it is possible to pass a placeholder image, which should be the same size of the real image but with a very very very low quality: the image is blurred so you could go crazy with optimization, the low the better :)
 
-The placeholder will be blurred and displayed almost instantly.
+in this example I actually use the same image, but you have the idea here
 
 ```html
 <progressive-img
-  src="https://unsplash.it/1920/1080?image=0"
-  placeholder="https://unsplash.it/48/27?image=0"
+  src="https://unsplash.it/1920/1080?image=10"
+  placeholder="https://unsplash.it/1920/1080?image=10"
 />
 ```
-
-**The placeholder needs to have the same aspect ratio**
 
 ### Blur
 
@@ -64,8 +63,8 @@ It is possible to adjust the level of blur applied to the placeholder image
 
 ```html
 <progressive-img
-  src="https://unsplash.it/1920/1080?image=0"
-  placeholder="https://unsplash.it/48/27?image=0"
+  src="https://unsplash.it/1920/1080?image=10"
+  placeholder="https://unsplash.it/1920/1080?image=10"
   blur="30"
 />
 ```
@@ -77,7 +76,7 @@ It is possible to remove the padding that adds the aspect ratio to the container
 
 ```html
 <progressive-img 
-	src="https://unsplash.it/1920/1080?image=0"
+	src="https://unsplash.it/1920/1080?image=10"
 	no-ratio
 />
 ```
@@ -110,8 +109,8 @@ in the html just add the events you need to listen to
 <progressive-img
   @onLoad="onLoadImage"
   @onLoadPlaceholder="onLoadPlaceholderImage"
-  src="https://unsplash.it/1920/1080?image=0"
-  placeholder="https://unsplash.it/48/27?image=0"
+  src="https://unsplash.it/1920/1080?image=10"
+  placeholder="https://unsplash.it/1920/1080?image=10"
 />
 ```
 
