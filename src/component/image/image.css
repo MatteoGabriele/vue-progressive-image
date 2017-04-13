@@ -7,7 +7,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  max-width: 100%;
   z-index: 1;
   transition: all 1s ease-out;
   transform: translateZ(0);
