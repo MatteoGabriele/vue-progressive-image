@@ -1,6 +1,6 @@
 {
   "name": "vue-progressive-image",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Vue progressive image loading plugin",
   "main": "dist/vue-progressive-image.js",
   "scripts": {
