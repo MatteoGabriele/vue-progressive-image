@@ -3,9 +3,13 @@
   "version": "1.4.2",
   "description": "Vue progressive image loading plugin",
   "main": "dist/vue-progressive-image.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "webpack --config config/webpack.dev.config.js -w",
-    "build": "webpack --config config/webpack.prod.config.js"
+    "build": "webpack --config config/webpack.prod.config.js",
+    "prepublish": "webpack --config config/webpack.prod.config.js"
   },
   "author": {
     "name": "Matteo Gabriele",
