@@ -1,23 +1,25 @@
 <script src="./image.js"></script>
-<style module src="./image.css"></style>
+<style src="./image.css"></style>
+
 <template>
-  <div :class="$style.component">
-    <div :style="wrapperStyle">
+  <div ref="image" class="progressive-image">
+    <div class="progressive-image-wrapper" :style="wrapperStyle">
       <transition
-        :enter-class="$style.enter"
-        :enter-active-class="$style.before">
+        enter-class="progressive-image-enter"
+        enter-active-class="progressive-image-before-enter">
         <img
           v-if="shouldImageRender"
-          :class="$style.image"
+          class="progressive-image-main"
           :src="image"
         />
       </transition>
       <transition
-        :enter-class="$style.enter"
-        :enter-active-class="$style.before">
+        enter-class="progressive-image-enter"
+        enter-active-class="progressive-image-before-enter">
         <img
           v-if="shouldPlaceholderRender"
-          :class="shouldImageRender ? $style.out : $style.placeholder"
+          class="progressive-image-placeholder"
+          :class="{ 'progressive-image-placeholder-out': shouldImageRender }"
           :style="blurStyle"
           :src="placeholderImage"
         />

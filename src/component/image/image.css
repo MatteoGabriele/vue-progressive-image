@@ -1,29 +1,33 @@
-.component {
+.progressive-image {
   position: relative;
   overflow: hidden;
 }
 
-.image {
+.progressive-image-main {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: -10px;
+  left: -10px;
   width: auto;
-  max-width: 100%;
+  max-width: calc(100% + 20px);
   z-index: 1;
   transition: all 1s ease-out;
   transform: translateZ(0);
 }
 
-.before {
+.progressive-image-before-enter {
   opacity: 1;
 }
 
-.enter {
+.progressive-image-enter {
   opacity: 0;
 }
 
-.placeholder {
-  composes: image;
+.progressive-image-placeholder {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: auto;
+  max-width: calc(100% + 16px);
   z-index: 0;
   overflow: hidden;
   transition: all 500ms ease-out;
@@ -31,8 +35,7 @@
   transform: translateZ(0) scale(1);
 }
 
-.out {
-  composes: placeholder;
-  transition: all 500ms ease-out 900ms;
+.progressive-image-placeholder-out {
+  transition: all 500ms ease-out 720ms;
   opacity: 0;
 }
