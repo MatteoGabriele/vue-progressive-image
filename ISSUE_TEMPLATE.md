@@ -14,7 +14,7 @@ Tell us what actually happens.
 
 ### Environment
 
-Run these commands in the project folder and fill in their results:
+Run this command in the project folder and fill in the result:
 
 `npm ls vue-progressive-image`: 
 
