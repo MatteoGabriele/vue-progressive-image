@@ -58,7 +58,9 @@
     width: auto;
     max-width: calc(100% + 20px);
     z-index: 1;
-    transition: all 1s ease-out;
+    transition-duration: 1s;
+    transition-property: all;
+    transition-timing-function: ease-out;
     transform: translateZ(0);
   }
 
@@ -76,7 +78,9 @@
     left: -8px;
     z-index: 0;
     overflow: hidden;
-    transition: all 500ms ease-out;
+    transition-duration: 500ms;
+    transition-property: all;
+    transition-timing-function: ease-out;
     backface-visibility: hidden;
     transform: translateZ(0) scale(1.2);
     width: 100%;
@@ -85,7 +89,10 @@
   }
 
   .progressive-image-placeholder-out {
-    transition: all 500ms ease-out 720ms;
+    transition-duration: inherit;
+    transition-property: all;
+    transition-timing-function: ease-out;
+    transition-delay: 1.2s;
     opacity: 0;
   }
 </style>

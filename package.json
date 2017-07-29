@@ -7,7 +7,7 @@
     "dist"
   ],
   "scripts": {
-    "dev": "webpack --config config/webpack.dev.config.js -w",
+    "dev": "webpack --config config/webpack.dev.config.js -w --hide-modules",
     "build": "webpack --config config/webpack.prod.config.js --optimize-minimize --hide-modules",
     "prepublish": "webpack --config config/webpack.prod.config.js"
   },
