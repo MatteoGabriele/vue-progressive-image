@@ -20,7 +20,7 @@ export default {
   data () {
     return {
       options: {},
-      defaultBlur: 5,
+      defaultBlur: 20,
       image: null,
       placeholderImage: null,
       aspectRatio: 0.5625,

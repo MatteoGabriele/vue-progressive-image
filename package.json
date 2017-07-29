@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "dev": "webpack --config config/webpack.dev.config.js -w",
-    "build": "webpack --config config/webpack.prod.config.js",
+    "build": "webpack --config config/webpack.prod.config.js --optimize-minimize --hide-modules",
     "prepublish": "webpack --config config/webpack.prod.config.js"
   },
   "author": {
@@ -46,7 +46,7 @@
     "style-loader": "^0.13.2",
     "vue-loader": "^11.1.3",
     "vue-template-compiler": "^2.2.1",
-    "webpack": "^2.2.1",
+    "webpack": "^3.4.1",
     "webpack-merge": "^3.0.0"
   }
 }

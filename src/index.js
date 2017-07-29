@@ -1,5 +1,5 @@
-import image from './component/image/image.vue'
-import background from './component/background/background.vue'
+import image from './component/image.vue'
+import background from './component/background.vue'
 
 /**
  * Merges plugin installation options with a component
