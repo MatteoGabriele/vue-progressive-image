@@ -46,7 +46,7 @@ It is also possible to apply progressive images as backgrounds and it will have 
 
 ## Placeholders
 
-To be able to immediately show some feedback to the user, it is possible to pass a placeholder image, which should be the same size of the real image but with a very very very low quality: the image is blurred so you could go crazy with optimization, the low the better :)
+To be able to immediately show some feedback to the user, it is possible to pass a placeholder image, which could be also 1% the size of the main image: it will be blurred so you can go crazy with optimizations here.
 
 in this example I actually use the same image, but you have the idea here
 
