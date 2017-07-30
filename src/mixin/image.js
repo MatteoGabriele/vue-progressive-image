@@ -19,7 +19,7 @@ export default {
 
   data () {
     return {
-      hasRendered: false,
+      isRendered: false,
       options: {},
       defaultBlur: 20,
       image: null,
@@ -36,7 +36,7 @@ export default {
     },
 
     shouldImageRender () {
-      return this.hasRendered
+      return this.isRendered
     },
 
     wrapperStyle () {
@@ -133,7 +133,7 @@ export default {
         this.$nextTick(() => {
           // timeout for a custom delay
           setTimeout(() => {
-            this.hasRendered = true
+            this.isRendered = true
           }, delay)
         })
 
