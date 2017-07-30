@@ -53,12 +53,12 @@
 
   .progressive-image-main {
     position: absolute;
-    top: -10px;
-    left: -10px;
+    top: 0px;
+    left: 0px;
     width: auto;
-    max-width: calc(100% + 20px);
+    max-width: 100%;
     z-index: 1;
-    transition-duration: 1s;
+    transition-duration: 1.2s;
     transition-property: all;
     transition-timing-function: ease-out;
     transform: translateZ(0);
@@ -74,15 +74,15 @@
 
   .progressive-image-placeholder {
     position: absolute;
-    top: -8px;
-    left: -8px;
+    top: 0px;
+    left: 0px;
     z-index: 0;
     overflow: hidden;
     transition-duration: 500ms;
     transition-property: all;
     transition-timing-function: ease-out;
     backface-visibility: hidden;
-    transform: translateZ(0) scale(1.2);
+    transform: translateZ(0) scale(1.1);
     width: 100%;
     height: 100%;
     background-size: cover;
@@ -92,7 +92,14 @@
     transition-duration: inherit;
     transition-property: all;
     transition-timing-function: ease-out;
-    transition-delay: 1.2s;
+
+    /**
+     * the transitioon delay needs to be 200ms longer than the
+     * .progressive-image-main transition-duration, otherwise it will flick
+     * because there won't be a background.
+    */
+    transition-delay: 1.3s;
+
     opacity: 0;
   }
 </style>
