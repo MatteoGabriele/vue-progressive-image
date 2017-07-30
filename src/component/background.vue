@@ -1,5 +1,9 @@
 <template>
   <div :class="$style.component">
+    <div v-if="!shouldImageRender">
+      <canvas width="1" height="1" class="canvas" ref="canvas"></canvas>
+      <img ref="main" :src="image" hidden>
+    </div>
     <div :style="wrapperStyle">
       <transition
         :enter-class="$style.enter"
@@ -64,6 +68,13 @@
     overflow: hidden;
   }
 
+  .canvas {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
   .image {
     position: absolute;
     top: 0;
@@ -80,7 +91,7 @@
 
   .placeholder {
     composes: image;
-    transform: translateZ(0) scale(1);
+    transform: translateZ(0) scale(1.1);
     z-index: 0;
   }
 

@@ -1,12 +1,14 @@
 <template>
   <div ref="image" class="progressive-image">
+    <canvas v-if="!shouldImageRender" width="1" height="1" class="canvas" ref="canvas"></canvas>
     <div class="progressive-image-wrapper" :style="wrapperStyle">
       <transition
         enter-class="progressive-image-enter"
         enter-active-class="progressive-image-before-enter">
         <img
-          v-if="shouldImageRender"
+          v-show="shouldImageRender"
           class="progressive-image-main"
+          ref="main"
           :src="image"
         />
       </transition>
@@ -49,6 +51,13 @@
   .progressive-image {
     position: relative;
     overflow: hidden;
+  }
+
+  .canvas {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   .progressive-image-main {
@@ -94,11 +103,11 @@
     transition-timing-function: ease-out;
 
     /**
-     * the transitioon delay needs to be 200ms longer than the
+     * the transitioon delay needs to be longer than the
      * .progressive-image-main transition-duration, otherwise it will flick
      * because there won't be a background.
     */
-    transition-delay: 1.3s;
+    transition-delay: 1.6s;
 
     opacity: 0;
   }

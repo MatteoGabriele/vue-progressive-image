@@ -19,6 +19,7 @@ export default {
 
   data () {
     return {
+      hasRendered: false,
       options: {},
       defaultBlur: 20,
       image: null,
@@ -35,7 +36,7 @@ export default {
     },
 
     shouldImageRender () {
-      return !!this.image
+      return this.hasRendered
     },
 
     wrapperStyle () {
@@ -63,7 +64,7 @@ export default {
     }
   },
 
-  created () {
+  mounted () {
     this.handleImageLoading()
   },
 
@@ -110,10 +111,7 @@ export default {
 
       this.defineAspectRatio(image)
 
-      // The onload function can be triggered with a delay
-      // so that the animation between a placeholder and the
-      // final image is easier to see
-      image.onload = setTimeout(() => {
+      image.onload = () => {
         if (this.image) {
           return
         }
@@ -122,11 +120,26 @@ export default {
           this.defineAspectRatio(image)
         }
 
+        // assign the image
         this.image = image.src
 
-        // Dispatches an event on image load
+        // the drawImage it's a synchronous method, so when it's done
+        // the nextTick will notify the view that we're ready
+        // to fadeIn the main image
+        const ctx = this.$refs.canvas.getContext('2d')
+        ctx.drawImage(this.$refs.main, 0, 0, 1, 1)
+
+        // next tick to know when the image is rendered
+        this.$nextTick(() => {
+          // timeout for a custom delay
+          setTimeout(() => {
+            this.hasRendered = true
+          }, delay)
+        })
+
+        // dispatches an event on image load
         this.$emit('onLoad', image.src)
-      }, delay)
+      }
 
       image.src = this.src
 
