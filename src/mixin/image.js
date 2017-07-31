@@ -127,7 +127,7 @@ export default {
         // the nextTick will notify the view that we're ready
         // to fadeIn the main image
         const ctx = this.$refs.canvas.getContext('2d')
-        ctx.drawImage(this.$refs.main, 0, 0, 1, 1)
+        ctx.drawImage(this.$refs.main, 0, 0)
 
         // next tick to know when the image is rendered
         this.$nextTick(() => {
