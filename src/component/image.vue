@@ -93,7 +93,7 @@
     backface-visibility: hidden;
     transform: translateZ(0) scale(1.1);
     width: 100%;
-    height: auto;
+    height: 100%;
     background-size: cover;
   }
 
