@@ -64,8 +64,8 @@
     position: absolute;
     top: 0px;
     left: 0px;
-    width: auto;
-    max-width: 100%;
+    width: 100%;
+    height: auto;
     z-index: 1;
     transition-duration: 1.2s;
     transition-property: all;
