@@ -65,7 +65,7 @@ It is possible to adjust the level of blur applied to the placeholder image
 <progressive-img
   src="https://unsplash.it/1920/1080?image=10"
   placeholder="https://unsplash.it/1920/1080?image=10"
-  blur="30"
+  :blur="30"
 />
 ```
 
