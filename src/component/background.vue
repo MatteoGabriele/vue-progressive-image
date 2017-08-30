@@ -10,7 +10,9 @@
         :enter-active-class="$style.before">
         <div v-if="shouldImageRender" :class="$style.image" :style="imageStyle"></div>
       </transition>
-
+      <div :class="$style.slot">
+        <slot />
+      </div>
       <transition
         :enter-class="$style.enter"
         :enter-active-class="$style.before">
@@ -66,6 +68,11 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
+  }
+
+  .slot {
+    position: relative;
+    z-index: 1;
   }
 
   .canvas {
