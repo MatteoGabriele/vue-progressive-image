@@ -30,6 +30,12 @@ export default {
     }
   },
 
+  watch: {
+    src (value) {
+      this.handleImageLoading()
+    }
+  },
+
   computed: {
     shouldPlaceholderRender () {
       return !!this.placeholderImage
