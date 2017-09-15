@@ -32,12 +32,6 @@ export default {
 
   watch: {
     src (value) {
-      // this.image = null
-      // this.placeholderImage = null
-      // this.isRendered = false
-      // this.isPollingKilled = false
-      // this.cached = false
-
       this.handleImageLoading()
     }
   },
