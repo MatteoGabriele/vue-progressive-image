@@ -32,6 +32,12 @@ export default {
 
   watch: {
     src (value) {
+      // this.image = null
+      // this.placeholderImage = null
+      // this.isRendered = false
+      // this.isPollingKilled = false
+      // this.cached = false
+
       this.handleImageLoading()
     }
   },
@@ -115,6 +121,10 @@ export default {
       const image = new Image()
       const delay = this.options.delay || 0
 
+      // reset the image holder
+      this.image = null
+      this.isRendered = false
+
       this.defineAspectRatio(image)
 
       image.onload = () => {
@@ -148,9 +158,6 @@ export default {
       }
 
       image.src = this.src
-
-      // Check if the image is cached
-      this.cached = image.complete
     },
 
     loadPlaceholder () {
