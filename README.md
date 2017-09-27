@@ -75,9 +75,20 @@ It is possible to remove the padding that adds the aspect ratio to the container
 
 
 ```html
-<progressive-img 
+<progressive-img
   src="https://unsplash.it/1920/1080?image=10"
   no-ratio
+/>
+```
+
+## Image fallback
+
+In case of a loading error of the main image, it is possible to add a fallback image which can display an error image or just another image.
+
+```html
+<progressive-img
+  src="https://this_url_should_cause_an_error"
+  fallback="https://unsplash.it/1920/1080?image=10"
 />
 ```
 
@@ -93,22 +104,30 @@ in your js file
 ```js
 export default {
   methods: {
-    onLoadImage () {
+    onLoad () {
       // main image is loaded
     },
-    onLoadPlaceholderImage () {
+    onLoadPlaceholder () {
       // placeholder image is loaded
+    },
+    onError (error) {
+      // main image error
+    },
+    onErrorPlaceholder (error) {
+      // placeholder image error
     }
   }
 }
 ```
 
-in the html just add the events you need to listen to 
+in the html just add the events you need to listen to
 
 ```html
 <progressive-img
-  @onLoad="onLoadImage"
-  @onLoadPlaceholder="onLoadPlaceholderImage"
+  @onLoad="onLoad"
+  @onLoadPlaceholder="onLoadPlaceholder"
+  @onError="onError"
+  @onErrorPlaceholder="onErrorPlaceholder"
   src="https://unsplash.it/1920/1080?image=10"
   placeholder="https://unsplash.it/1920/1080?image=10"
 />

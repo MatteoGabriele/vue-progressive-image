@@ -14,6 +14,9 @@ export default {
     },
     noRatio: {
       type: Boolean
+    },
+    fallback: {
+      type: String
     }
   },
 
@@ -26,12 +29,13 @@ export default {
       placeholderImage: null,
       aspectRatio: 0.5625,
       isPollingKilled: false,
-      cached: false
+      cached: false,
+      imageError: false
     }
   },
 
   watch: {
-    src (value) {
+    src () {
       this.handleImageLoading()
     }
   },
@@ -114,6 +118,7 @@ export default {
     loadImage () {
       const image = new Image()
       const delay = this.options.delay || 0
+      const imageSource = this.imageError ? this.fallback : image.src
 
       // reset the image holder
       this.image = null
@@ -131,7 +136,7 @@ export default {
         }
 
         // assign the image
-        this.image = image.src
+        this.image = imageSource
 
         // the drawImage it's a synchronous method, so when it's done
         // the nextTick will notify the view that we're ready
@@ -147,11 +152,25 @@ export default {
           }, delay)
         })
 
-        // dispatches an event on image load
+        this.imageError = false
+
         this.$emit('onLoad', image.src)
       }
 
-      image.src = this.src
+      image.onerror = error => {
+        this.$emit('onError', error)
+
+        if (process.env.NODE_ENV !== 'production' && !this.fallback) {
+          console.warn('[vue-progressive-image] An error occured during the image loading')
+        }
+
+        if (this.fallback) {
+          this.imageError = true
+          this.handleImageLoading()
+        }
+      }
+
+      image.src = imageSource
     },
 
     loadPlaceholder () {
@@ -171,6 +190,14 @@ export default {
 
         // Dispatches an event on placeholder image load
         this.$emit('onLoadPlaceholder', src)
+      }
+
+      image.onerror = error => {
+        this.$emit('onPlaceholderError', error)
+
+        if (process.env.NODE_ENV !== 'production') {
+          console.warn('[vue-progressive-image] An error occured during the placeholder image loading')
+        }
       }
 
       image.src = src
