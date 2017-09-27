@@ -118,7 +118,7 @@ export default {
     loadImage () {
       const image = new Image()
       const delay = this.options.delay || 0
-      const imageSource = this.imageError ? this.fallback : image.src
+      const imageSource = this.imageError ? this.fallback : this.src
 
       // reset the image holder
       this.image = null
