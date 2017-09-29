@@ -12,6 +12,9 @@ export default {
     blur: {
       type: Number
     },
+    aspectRatio: {
+      type: Number
+    },
     noRatio: {
       type: Boolean
     },
@@ -27,7 +30,7 @@ export default {
       defaultBlur: 20,
       image: null,
       placeholderImage: null,
-      aspectRatio: 0.5625,
+      aspectRatioDetect: 0.5625,
       isPollingKilled: false,
       cached: false,
       imageError: false
@@ -49,13 +52,17 @@ export default {
       return this.isRendered
     },
 
+    calculatedRatio () {
+      return this.aspectRatio || this.aspectRatioDetect
+    },
+
     wrapperStyle () {
       if (this.noRatio) {
         return {}
       }
 
       return {
-        paddingBottom: `${this.aspectRatio * 100}%`
+        paddingBottom: `${this.calculatedRatio * 100}%`
       }
     },
 
@@ -102,7 +109,7 @@ export default {
 
         const { naturalHeight, naturalWidth } = img
 
-        this.aspectRatio = naturalHeight / naturalWidth
+        this.aspectRatioDetect = naturalHeight / naturalWidth
       }, pollInterval)
 
       setTimeout(() => {
@@ -124,14 +131,16 @@ export default {
       this.image = null
       this.isRendered = false
 
-      this.defineAspectRatio(image)
+      if (!this.aspectRatio) {
+        this.defineAspectRatio(image)
+      }
 
       image.onload = () => {
         if (this.image) {
           return
         }
 
-        if (this.isPollingKilled) {
+        if (this.isPollingKilled && !this.aspectRatio) {
           this.defineAspectRatio(image)
         }
 

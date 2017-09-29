@@ -81,6 +81,15 @@ It is possible to remove the padding that adds the aspect ratio to the container
 />
 ```
 
+It is also possible to manually specify the image aspact ratio when you know it. It allows the placeholder to be displayed in the correct aspect ratio. The ratio is calculated as `height / width`.
+
+```html
+<progressive-img
+  src="https://unsplash.it/1920/1080?image=10"
+  aspect-ratio="1.5"
+/>
+```
+
 ## Image fallback
 
 In case of a loading error of the main image, it is possible to add a fallback image which can display an error image or just another image.
