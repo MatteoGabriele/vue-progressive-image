@@ -13,8 +13,7 @@ export default {
       type: Number
     },
     aspectRatio: {
-      type: Number,
-      default: 0
+      type: Number
     },
     noRatio: {
       type: Boolean
@@ -53,11 +52,8 @@ export default {
       return this.isRendered
     },
 
-    aspectRatioFinal () {
-      if (this.aspectRatio) {
-        return this.aspectRatio
-      }
-      return this.aspectRatioDetect
+    calculatedRatio () {
+      return this.aspectRatio || this.aspectRatioDetect
     },
 
     wrapperStyle () {
@@ -66,7 +62,7 @@ export default {
       }
 
       return {
-        paddingBottom: `${this.aspectRatioFinal * 100}%`
+        paddingBottom: `${this.calculatedRatio * 100}%`
       }
     },
 
@@ -101,10 +97,6 @@ export default {
     },
 
     defineAspectRatio (img) {
-      // if the aspectRatio property was set, we do not need to detect
-      if (this.aspectRatio) {
-        return
-      }
       const delay = this.options.timeout || 2500
       const pollInterval = this.options.pollInterval || 80
 
@@ -139,14 +131,16 @@ export default {
       this.image = null
       this.isRendered = false
 
-      this.defineAspectRatio(image)
+      if (!this.aspectRatio) {
+        this.defineAspectRatio(image)
+      }
 
       image.onload = () => {
         if (this.image) {
           return
         }
 
-        if (this.isPollingKilled) {
+        if (this.isPollingKilled && !this.aspectRatio) {
           this.defineAspectRatio(image)
         }
 
