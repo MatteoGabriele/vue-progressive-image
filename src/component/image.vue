@@ -67,7 +67,7 @@
     width: 100%;
     height: auto;
     z-index: 1;
-    transition-duration: 1.2s;
+    transition-duration: 0.3s;
     transition-property: all;
     transition-timing-function: ease-out;
     transform: translateZ(0);
@@ -87,7 +87,7 @@
     left: 0px;
     z-index: 0;
     overflow: hidden;
-    transition-duration: 500ms;
+    transition-duration: 300ms;
     transition-property: all;
     transition-timing-function: ease-out;
     backface-visibility: hidden;
@@ -107,7 +107,7 @@
      * .progressive-image-main transition-duration, otherwise it will flick
      * because there won't be a background.
     */
-    transition-delay: 1.6s;
+    transition-delay: 0.4s;
 
     opacity: 0;
   }

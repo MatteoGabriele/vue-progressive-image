@@ -89,7 +89,7 @@
     width: 100%;
     height: 100%;
     z-index: 1;
-    transition: all 1s ease-out;
+    transition: all 0.4s ease-out;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
