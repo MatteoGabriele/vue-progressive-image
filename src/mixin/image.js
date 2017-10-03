@@ -3,7 +3,7 @@ import { is } from '../utils'
 export default {
   props: {
     src: {
-      type: String,
+      type: null,
       required: true
     },
     placeholder: {
