@@ -4,7 +4,7 @@
     <progressive-img
       src="/static/image-6.jpg"
       placeholder="/static/placeholder-6.jpg"
-      blur="100"
+      :blur="100"
     />
   </div>
 </template>

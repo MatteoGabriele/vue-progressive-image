@@ -184,6 +184,11 @@ Vue.use(VueProgressiveImage, {
 **Global options like `placeholder` and `blur` will be applied only to components that don't specify their own options**
 
 
+# Examples
+Check out the `example` folder in the root of the repository for a small vue page with some examples on how to use the plugin.
+If you want to add some new example, just make a PR and I will add them :)
+
+
 # Issues and features requests
 Please drop an issue, if you find something that doesn't work, or a feature request at https://github.com/MatteoGabriele/vue-progressive-image/issues
 
