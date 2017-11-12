@@ -147,11 +147,16 @@ export default {
         // assign the image
         this.image = imageSource
 
-        // the drawImage it's a synchronous method, so when it's done
-        // the nextTick will notify the view that we're ready
-        // to fadeIn the main image
-        const ctx = this.$refs.canvas.getContext('2d')
-        ctx.drawImage(this.$refs.main, 0, 0)
+        let ctx
+        try {
+          // the drawImage it's a synchronous method, so when it's done
+          // the nextTick will notify the view that we're ready
+          // to fadeIn the main image
+          ctx = this.$refs.canvas.getContext('2d')
+          ctx.drawImage(this.$refs.main, 0, 0)
+        } catch (e) {
+          // see https://github.com/MatteoGabriele/vue-progressive-image/issues/3
+        }
 
         // next tick to know when the image is rendered
         this.$nextTick(() => {
@@ -210,6 +215,10 @@ export default {
       }
 
       image.src = src
+    },
+
+    beforeDestroy () {
+      console.log('distroyed!')
     },
 
     handleImageLoading () {
