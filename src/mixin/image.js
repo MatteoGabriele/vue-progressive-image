@@ -126,7 +126,6 @@ export default {
       const image = new Image()
       const delay = this.options.delay || 0
       const fallbackSrc = this.fallback || this.options.fallback
-      console.log(fallbackSrc, this.imageError)
       const imageSource = this.imageError ? fallbackSrc : this.src
 
       // reset the image holder
