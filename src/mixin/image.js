@@ -125,7 +125,9 @@ export default {
     loadImage () {
       const image = new Image()
       const delay = this.options.delay || 0
-      const imageSource = this.imageError ? this.fallback : this.src
+      const fallbackSrc = this.fallback || this.options.fallback
+      console.log(fallbackSrc, this.imageError)
+      const imageSource = this.imageError ? fallbackSrc : this.src
 
       // reset the image holder
       this.image = null
@@ -155,7 +157,7 @@ export default {
           ctx = this.$refs.canvas.getContext('2d')
           ctx.drawImage(this.$refs.main, 0, 0)
         } catch (e) {
-          // see https://github.com/MatteoGabriele/vue-progressive-image/issues/3
+          // see https://github.com/MatteoGabriele/vue-progressive-image/issues/30
         }
 
         // next tick to know when the image is rendered
@@ -178,7 +180,7 @@ export default {
           console.warn('[vue-progressive-image] An error occured during the image loading')
         }
 
-        if (this.fallback) {
+        if (this.fallback || this.options.fallback) {
           this.imageError = true
           this.handleImageLoading()
         }
@@ -215,10 +217,6 @@ export default {
       }
 
       image.src = src
-    },
-
-    beforeDestroy () {
-      console.log('distroyed!')
     },
 
     handleImageLoading () {
