@@ -164,6 +164,8 @@ export default {
           // timeout for a custom delay
           setTimeout(() => {
             this.isRendered = true
+            // remove placeholder image
+            this.placeholderImage = null
           }, delay)
         })
 

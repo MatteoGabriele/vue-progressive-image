@@ -93,12 +93,11 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    transform: translateZ(0);
   }
 
   .placeholder {
     composes: image;
-    transform: translateZ(0) scale(1.1);
+    transform: scale(1.1);
     z-index: 0;
   }
 
