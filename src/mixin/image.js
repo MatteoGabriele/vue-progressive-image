@@ -20,6 +20,9 @@ export default {
     },
     fallback: {
       type: String
+    },
+    alt: {
+      type: String
     }
   },
 
