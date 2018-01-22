@@ -10,6 +10,7 @@
           class="progressive-image-main"
           ref="main"
           :src="image"
+          :alt="alt"
         />
       </transition>
       <transition
