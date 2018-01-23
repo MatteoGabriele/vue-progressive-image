@@ -199,11 +199,9 @@ export default {
       }
 
       const image = new Image()
-      let src = this.placeholder
+      const src = this.placeholder || this.options.placeholder
 
-      if (this.options.placeholder && !this.placeholder) {
-        src = this.options.placeholder
-      }
+      image.src = src
 
       image.onload = () => {
         this.placeholderImage = src
@@ -219,8 +217,6 @@ export default {
           console.warn('[vue-progressive-image] An error occured during the placeholder image loading')
         }
       }
-
-      image.src = src
     },
 
     handleImageLoading () {

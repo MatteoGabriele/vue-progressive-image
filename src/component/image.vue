@@ -41,7 +41,7 @@
       placeholderStyle () {
         return {
           ...this.blurStyle,
-          'background-image': `url(${this.placeholder})`
+          'background-image': `url(${this.placeholder || this.options.placeholder})`
         }
       }
     }
