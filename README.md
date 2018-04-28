@@ -59,7 +59,7 @@ in this example I actually use the same image, but you have the idea here
 
 ### The slot (or preloader slot)
 
-This slot would be mainly use as a preloader slot, but could be used for whatever purpose.
+This slot would be mainly used as a preloader slot, but could be used for whatever purpose.
 The slot exposes a `visible` property to be able to toggle its visibility based on when the image is preloading or it's rendered.
 
 ```html
