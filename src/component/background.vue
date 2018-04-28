@@ -1,5 +1,8 @@
 <template>
   <div :class="$style.component">
+    <div class="progressive-image-preloader">
+      <slot :visible="!shouldImageRender"></slot>
+    </div>
     <div v-if="!shouldImageRender">
       <canvas width="1" height="1" class="canvas" ref="canvas"></canvas>
       <img ref="main" :src="image" hidden>
@@ -107,5 +110,15 @@
 
   .enter {
     opacity: 0;
+  }
+
+  .progressive-image-preloader {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
   }
 </style>

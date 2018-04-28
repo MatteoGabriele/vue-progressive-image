@@ -1,5 +1,8 @@
 <template>
   <div ref="image" class="progressive-image">
+    <div class="progressive-image-preloader">
+      <slot :visible="!shouldImageRender"></slot>
+    </div>
     <canvas v-if="!shouldImageRender" width="1" height="1" class="canvas" ref="canvas"></canvas>
     <div class="progressive-image-wrapper" :style="wrapperStyle">
       <transition
@@ -111,5 +114,15 @@
     transition-delay: 0.4s;
 
     opacity: 0;
+  }
+
+  .progressive-image-preloader {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
   }
 </style>

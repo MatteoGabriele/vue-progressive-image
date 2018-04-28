@@ -57,6 +57,19 @@ in this example I actually use the same image, but you have the idea here
 />
 ```
 
+### The slot (or preloader slot)
+
+This slot would be mainly use as a preloader slot, but could be used for whatever purpose.
+The slot exposes a `visible` property to be able to toggle its visibility based on when the image is preloading or it's rendered.
+
+```html
+<progressive-img src="https://unsplash.it/1920/1080?image=10">
+  <div slot-scope="{ visible }" v-if="visible">
+    Loading the image...
+  </div>
+</progressive-img>
+```
+
 ### Blur
 
 It is possible to adjust the level of blur applied to the placeholder image
