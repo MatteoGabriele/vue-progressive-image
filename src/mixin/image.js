@@ -131,7 +131,15 @@ export default {
       const fallbackSrc = this.fallback || this.options.fallback
       const imageSource = this.imageError ? fallbackSrc : this.src
 
+      if (this.isCached(imageSource)) {
+        this.image = imageSource
+        this.placeholderImage = null
+        this.cached = true
+        return
+      }
+
       // reset the image holder
+      this.cached = false
       this.image = null
       this.isRendered = false
 
@@ -181,7 +189,7 @@ export default {
         this.$emit('onError', error)
 
         if (process.env.NODE_ENV !== 'production' && !this.fallback) {
-          console.warn('[vue-progressive-image] An error occured during the image loading')
+          console.warn(`[vue-progressive-image] Impossible to load "${this.src}"`)
         }
 
         if (this.fallback || this.options.fallback) {
@@ -191,6 +199,14 @@ export default {
       }
 
       image.src = imageSource
+    },
+
+    isCached (src) {
+      const image = new Image()
+
+      image.src = src
+
+      return image.complete
     },
 
     loadPlaceholder () {

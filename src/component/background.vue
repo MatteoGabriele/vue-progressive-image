@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.component">
+  <div class="component">
     <div class="progressive-image-preloader">
       <slot :visible="!shouldImageRender"></slot>
     </div>
@@ -8,18 +8,25 @@
       <img ref="main" :src="image" hidden>
     </div>
     <div :style="wrapperStyle">
+
+      <div v-if="cached" class="image" :style="imageStyle"></div>
+
       <transition
-        :enter-class="$style.enter"
-        :enter-active-class="$style.before">
-        <div v-if="shouldImageRender" :class="$style.image" :style="imageStyle"></div>
+        v-else
+        enter-class="enter"
+        enter-active-class="before">
+        <div v-if="shouldImageRender" class="image" :style="imageStyle"></div>
       </transition>
-      <div :class="$style.slot">
+
+      <div class="slot">
         <slot />
       </div>
+
       <transition
-        :enter-class="$style.enter"
-        :enter-active-class="$style.before">
-        <div v-if="shouldPlaceholderRender" :class="$style.placeholder" :style="placeholderStyle"></div>
+        v-if="!cached"
+        enter-class="enter"
+        enter-active-class="before">
+        <div v-if="shouldPlaceholderRender" class="placeholder" :style="placeholderStyle"></div>
       </transition>
     </div>
   </div>
@@ -65,7 +72,7 @@
   }
 </script>
 
-<style module lang="css">
+<style lang="css">
   .component {
     position: relative;
     width: 100%;
@@ -85,7 +92,7 @@
     left: 0;
   }
 
-  .image {
+  .image, .placeholder {
     position: absolute;
     top: 0;
     left: 0;
@@ -99,7 +106,6 @@
   }
 
   .placeholder {
-    composes: image;
     transform: scale(1.1);
     z-index: 0;
   }

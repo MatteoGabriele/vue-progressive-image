@@ -1,32 +1,46 @@
 <template>
   <div ref="image" class="progressive-image">
-    <div class="progressive-image-preloader">
-      <slot :visible="!shouldImageRender"></slot>
+    <div
+      v-if="cached"
+      class="progressive-image-wrapper"
+      :style="wrapperStyle">
+      <img
+        class="progressive-image-main"
+        ref="main"
+        :src="image"
+        :alt="alt"
+      />
     </div>
-    <canvas v-if="!shouldImageRender" width="1" height="1" class="canvas" ref="canvas"></canvas>
-    <div class="progressive-image-wrapper" :style="wrapperStyle">
-      <transition
-        enter-class="progressive-image-enter"
-        enter-active-class="progressive-image-before-enter">
-        <img
-          v-show="shouldImageRender"
-          class="progressive-image-main"
-          ref="main"
-          :src="image"
-          :alt="alt"
-        />
-      </transition>
-      <transition
-        enter-class="progressive-image-enter"
-        enter-active-class="progressive-image-before-enter">
-        <div
-          v-if="shouldPlaceholderRender"
-          class="progressive-image-placeholder"
-          :class="{ 'progressive-image-placeholder-out': shouldImageRender }"
-          :style="placeholderStyle">
-        </div>
-      </transition>
-    </div>
+
+    <span v-else>
+      <div class="progressive-image-preloader">
+        <slot :visible="!shouldImageRender"></slot>
+      </div>
+      <canvas v-if="!shouldImageRender" width="1" height="1" class="canvas" ref="canvas"></canvas>
+      <div class="progressive-image-wrapper" :style="wrapperStyle">
+        <transition
+          enter-class="progressive-image-enter"
+          enter-active-class="progressive-image-before-enter">
+          <img
+            v-show="shouldImageRender"
+            class="progressive-image-main"
+            ref="main"
+            :src="image"
+            :alt="alt"
+          />
+        </transition>
+        <transition
+          enter-class="progressive-image-enter"
+          enter-active-class="progressive-image-before-enter">
+          <div
+            v-if="shouldPlaceholderRender"
+            class="progressive-image-placeholder"
+            :class="{ 'progressive-image-placeholder-out': shouldImageRender }"
+            :style="placeholderStyle">
+          </div>
+        </transition>
+      </div>
+    </span>
   </div>
 </template>
 
