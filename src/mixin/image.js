@@ -29,13 +29,15 @@ export default {
   data () {
     return {
       isRendered: false,
-      options: {},
+      options: {
+        cache: true
+      },
       defaultBlur: 20,
       image: null,
       placeholderImage: null,
       aspectRatioDetect: 0.5625,
       isPollingKilled: false,
-      cached: false,
+      isImageCached: false,
       imageError: false
     }
   },
@@ -53,6 +55,10 @@ export default {
 
     shouldImageRender () {
       return this.isRendered
+    },
+
+    cached () {
+      return this.options.cache && this.isImageCached
     },
 
     calculatedRatio () {
@@ -101,7 +107,7 @@ export default {
 
     defineAspectRatio (img) {
       const delay = this.options.timeout || 2500
-      const pollInterval = this.options.pollInterval || 80
+      const pollInterval = this.options.pollInterval || 10
 
       const poll = setInterval(() => {
         if (!img.naturalWidth) {
@@ -125,15 +131,30 @@ export default {
       }, delay)
     },
 
+    isCached (src) {
+      const image = new Image()
+
+      image.src = src
+
+      return image.complete
+    },
+
     loadImage () {
       const image = new Image()
       const delay = this.options.delay || 0
       const fallbackSrc = this.fallback || this.options.fallback
       const imageSource = this.imageError ? fallbackSrc : this.src
 
-      // reset the image holder
-      this.image = null
-      this.isRendered = false
+      if (this.options.cache && this.isCached(imageSource)) {
+        this.image = imageSource
+        this.placeholderImage = null
+        this.isImageCached = true
+      } else {
+        // reset the image holder
+        this.image = null
+        this.isImageCached = false
+        this.isRendered = false
+      }
 
       if (!this.aspectRatio) {
         this.defineAspectRatio(image)

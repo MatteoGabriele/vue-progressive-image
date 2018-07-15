@@ -1,27 +1,35 @@
 <template>
   <div :class="$style.component">
-    <div class="progressive-image-preloader">
-      <slot :visible="!shouldImageRender"></slot>
-    </div>
-    <div v-if="!shouldImageRender">
-      <canvas width="1" height="1" class="canvas" ref="canvas"></canvas>
-      <img ref="main" :src="image" hidden>
-    </div>
-    <div :style="wrapperStyle">
-      <transition
-        :enter-class="$style.enter"
-        :enter-active-class="$style.before">
-        <div v-if="shouldImageRender" :class="$style.image" :style="imageStyle"></div>
-      </transition>
+    <div v-if="cached" :style="wrapperStyle">
+      <div :class="$style.image" :style="imageStyle"></div>
       <div :class="$style.slot">
         <slot />
       </div>
-      <transition
-        :enter-class="$style.enter"
-        :enter-active-class="$style.before">
-        <div v-if="shouldPlaceholderRender" :class="$style.placeholder" :style="placeholderStyle"></div>
-      </transition>
     </div>
+    <span v-else>
+      <div class="progressive-image-preloader">
+        <slot :visible="!shouldImageRender"></slot>
+      </div>
+      <div v-if="!shouldImageRender">
+        <canvas width="1" height="1" class="canvas" ref="canvas"></canvas>
+        <img ref="main" :src="image" hidden>
+      </div>
+      <div :style="wrapperStyle">
+        <transition
+          :enter-class="$style.enter"
+          :enter-active-class="$style.before">
+          <div v-if="shouldImageRender" :class="$style.image" :style="imageStyle"></div>
+        </transition>
+        <div :class="$style.slot">
+          <slot />
+        </div>
+        <transition
+          :enter-class="$style.enter"
+          :enter-active-class="$style.before">
+          <div v-if="shouldPlaceholderRender" :class="$style.placeholder" :style="placeholderStyle"></div>
+        </transition>
+      </div>
+    </span>
   </div>
 </template>
 
