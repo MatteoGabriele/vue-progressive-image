@@ -64,7 +64,7 @@ This slot has one property called "visible" that tells you when, for example, a 
 
 ```html
 <progressive-background src="https://unsplash.it/1920/1080?image=10">
-  <div name="content" slot-scope="{ visible }">
+  <div slot="content" slot-scope="{ visible }">
     <p>I am some content to display over the image</p>
     <div v-show="visible">I am the preloader</div>
   </div>
@@ -115,7 +115,6 @@ In case of a loading error of the main image, it is possible to add a fallback i
 />
 ```
 
-
 ## Events
 
 Each component emits an event whenever an image is loaded.
@@ -161,6 +160,18 @@ in the html just add the events you need to listen to
 
 During the installation process it is possible to pass some default global options
 
+#### Cached images
+*	type: Boolean
+*	default: true
+
+Cached images are checked by default. This check kills the animation if the image was already loaded once.
+If you would like to show the animation every time, even when is not needed, you can simply use the plugin options like so:
+
+```js
+Vue.use(VueProgressiveImage, {
+  cache: false
+})
+```
 
 #### placeholder
 *	type: String
