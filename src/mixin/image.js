@@ -17,6 +17,7 @@ export default {
       options: { cache: true },
       defaultBlur: 20,
       image: null,
+      originalWidth: 0,
       placeholderImage: null,
       aspectRatioDetect: 0.5625,
       isPollingKilled: false,
@@ -55,6 +56,12 @@ export default {
 
       return {
         paddingBottom: `${this.calculatedRatio * 100}%`
+      }
+    },
+
+    componentStyle () {
+      return {
+        maxWidth: this.originalWidth === 0 ? '100%' : `${this.originalWidth}px`
       }
     },
 
@@ -102,6 +109,7 @@ export default {
         const { naturalHeight, naturalWidth } = img
 
         this.aspectRatioDetect = naturalHeight / naturalWidth
+        this.originalWidth = naturalWidth
       }, pollInterval)
 
       setTimeout(() => {

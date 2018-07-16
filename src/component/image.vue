@@ -1,5 +1,5 @@
 <template>
-  <div ref="image" class="progressive-image">
+  <div ref="image" class="progressive-image" :style="componentStyle">
     <div
       v-if="cached"
       class="progressive-image-wrapper"
@@ -68,6 +68,8 @@
   .progressive-image {
     position: relative;
     overflow: hidden;
+    width: 100%;
+    display: inline-block
   }
 
   .canvas {
