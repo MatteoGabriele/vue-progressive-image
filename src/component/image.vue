@@ -5,7 +5,7 @@
       class="progressive-image-wrapper"
       :style="wrapperStyle">
       <img
-        class="progressive-image-main"
+        :class="['progressive-image-main', imageCustomClass]"
         :src="image"
         :alt="alt"
       />
@@ -18,7 +18,7 @@
           enter-active-class="progressive-image-before-enter">
           <img
             v-show="shouldImageRender"
-            class="progressive-image-main"
+            :class="['progressive-image-main', imageCustomClass]"
             ref="main"
             :src="image"
             :alt="alt"
@@ -44,6 +44,10 @@
 
   export default {
     name: 'progressive-img',
+
+    props: {
+      imageCustomClass: { type: String }
+    },
 
     mixins: [
       image
