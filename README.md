@@ -57,17 +57,18 @@ in this example I actually use the same image, but you have the idea here
 />
 ```
 
-### The slot (or preloader slot)
+### The slot (progressive-background only)
 
-This slot would be mainly used as a preloader slot, but could be used for whatever purpose.
-The slot exposes a `visible` property to be able to toggle its visibility based on when the image is preloading or it's rendered.
+The progressive-background has a "content" slot, which can hold content that needs to be rendered over the background image and also can hold a preloader.
+This slot has one property called "visible" that tells you when, for example, a preloader needs to be visible or not.
 
 ```html
-<progressive-img src="https://unsplash.it/1920/1080?image=10">
-  <div slot-scope="{ visible }" v-if="visible">
-    Loading the image...
+<progressive-background src="https://unsplash.it/1920/1080?image=10">
+  <div name="content" slot-scope="{ visible }">
+    <p>I am some content to display over the image</p>
+    <div v-show="visible">I am the preloader</div>
   </div>
-</progressive-img>
+</progressive-background>
 ```
 
 ### Blur

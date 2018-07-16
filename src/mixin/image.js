@@ -2,36 +2,19 @@ import { is } from '../utils'
 
 export default {
   props: {
-    src: {
-      type: null,
-      required: true
-    },
-    placeholder: {
-      type: String
-    },
-    blur: {
-      type: Number
-    },
-    aspectRatio: {
-      type: Number
-    },
-    noRatio: {
-      type: Boolean
-    },
-    fallback: {
-      type: String
-    },
-    alt: {
-      type: String
-    }
+    src: { type: null, required: true },
+    placeholder: { type: String },
+    blur: { type: Number },
+    aspectRatio: { type: Number },
+    noRatio: { type: Boolean },
+    fallback: { type: String },
+    alt: { type: String }
   },
 
   data () {
     return {
       isRendered: false,
-      options: {
-        cache: true
-      },
+      options: { cache: true },
       defaultBlur: 20,
       image: null,
       placeholderImage: null,

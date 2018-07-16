@@ -11,9 +11,6 @@
       />
     </div>
     <span v-else>
-      <div class="progressive-image-preloader">
-        <slot :visible="!shouldImageRender"></slot>
-      </div>
       <canvas v-if="!shouldImageRender" width="1" height="1" class="canvas" ref="canvas"></canvas>
       <div class="progressive-image-wrapper" :style="wrapperStyle">
         <transition
