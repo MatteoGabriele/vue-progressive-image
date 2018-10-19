@@ -8,7 +8,8 @@ export default {
     aspectRatio: { type: Number },
     noRatio: { type: Boolean },
     fallback: { type: String },
-    alt: { type: String }
+    alt: { type: String },
+    customClass: { type: String }
   },
 
   data () {

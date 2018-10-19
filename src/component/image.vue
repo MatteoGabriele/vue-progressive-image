@@ -1,5 +1,5 @@
 <template>
-  <div ref="image" class="progressive-image" :style="componentStyle">
+  <div ref="image" :class="['progressive-image', customClass]" :style="componentStyle">
     <div
       v-if="cached"
       class="progressive-image-wrapper"
@@ -11,7 +11,13 @@
       />
     </div>
     <span v-else>
-      <canvas v-if="!shouldImageRender" width="1" height="1" class="canvas" ref="canvas"></canvas>
+      <canvas
+        v-if="!shouldImageRender"
+        width="1"
+        height="1"
+        class="progressive-image-canvas"
+        ref="canvas">
+      </canvas>
       <div class="progressive-image-wrapper" :style="wrapperStyle">
         <transition
           enter-class="progressive-image-enter"
@@ -72,7 +78,7 @@
     display: inline-block
   }
 
-  .canvas {
+  .progressive-image-canvas {
     visibility: hidden;
     position: absolute;
     top: 0;
