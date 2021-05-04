@@ -211,7 +211,7 @@ Vue.use(VueProgressiveImage, {
 # Vue CLI et résolution assets
 
 Si vous souhaitez utiliser dans l'attribut `src` une URL nécessitant d'être résolu sous forme de require par webpack.
-Il faut ajouter les éléments ``et `` au vue-loader.
+Il faut ajouter les éléments `progressive-img` et `progressive-background` au vue-loader.
 
 Pour cela, ajouter à la racine le fichier vue.config.js avec la configuration suivante :
 
