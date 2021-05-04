@@ -208,6 +208,32 @@ Vue.use(VueProgressiveImage, {
 
 **Global options like `placeholder` and `blur` will be applied only to components that don't specify their own options**
 
+# Vue CLI et résolution assets
+
+Si vous souhaitez utiliser dans l'attribut `src` une URL nécessitant d'être résolu sous forme de require par webpack.
+Il faut ajouter les éléments ``et `` au vue-loader.
+
+Pour cela, ajouter à la racine le fichier vue.config.js avec la configuration suivante :
+
+```js
+// vue.config.js
+chainWebpack: (config) => {
+    config.module
+      .rule("vue")
+      .use("vue-loader")
+      .loader("vue-loader")
+      .options({
+        transformAssetUrls: {
+          video: ["src", "poster"],
+          source: "src",
+          img: "src",
+          image: "xlink:href",
+          "progressive-img": "src",
+          "progressive-background": "src",
+        },
+      });
+  },
+```
 
 # Examples
 Check out the `example` folder in the root of the repository for a small vue page with some examples on how to use the plugin.
