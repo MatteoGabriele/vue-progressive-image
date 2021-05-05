@@ -208,6 +208,39 @@ Vue.use(VueProgressiveImage, {
 
 **Global options like `placeholder` and `blur` will be applied only to components that don't specify their own options**
 
+## Vue CLI config to transform asset url
+
+If you want to use asset path in `src` attribute, you have to add `progressive-img` and `progressive-background` in vue-loader configuration.
+
+If you don't already have one, create a file called vue.config.js in the root of your project and add the following configuration :
+
+```js
+// vue.config.js
+chainWebpack: (config) => {
+    config.module
+      .rule("vue")
+      .use("vue-loader")
+      .loader("vue-loader")
+      .options({
+        transformAssetUrls: {
+          video: ["src", "poster"],
+          source: "src",
+          img: "src",
+          image: "xlink:href",
+          "progressive-img": "src",
+          "progressive-background": "src",
+        },
+      });
+  },
+```
+
+You can now use asset path :
+
+```html
+<progressive-img
+  src="@/assets/example.png"
+/>
+```
 
 # Examples
 Check out the `example` folder in the root of the repository for a small vue page with some examples on how to use the plugin.
