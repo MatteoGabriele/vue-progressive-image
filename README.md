@@ -2,9 +2,7 @@
 
 Vue progressive image loading plugin
 
-
 ![alt tag](https://raw.githubusercontent.com/MatteoGabriele/vue-progressive-image/master/example.gif)
-
 
 ## Installation
 
@@ -15,10 +13,17 @@ $ npm install vue-progressive-image
 ## Usage
 
 ```js
-import Vue from 'vue'
-import VueProgressiveImage from 'vue-progressive-image'
+import { createApp } from "vue";
+import App from "./App.vue";
 
-Vue.use(VueProgressiveImage)
+import "vue-progressive-image/dist/style.css";
+import VueProgressiveImage from "vue-progressive-image";
+
+const app = createApp(App);
+
+app.use(VueProgressiveImage);
+
+app.mount("#app");
 ```
 
 #### Progressive image
@@ -29,46 +34,36 @@ Instead of using the normal `img` tag to load images
 <img src="https://unsplash.it/1920/1080?image=10" />
 ```
 
-use the `progressive-img` component already globally available after the plugin installation
+use the `progressive-image` component already globally available after the plugin installation
 
 ```html
-<progressive-img src="https://unsplash.it/1920/1080?image=10" />
+<progressive-image src="https://unsplash.it/1920/1080?image=10" />
 ```
-
-#### Progressive background
-
-It is also possible to apply progressive images as backgrounds and it will have the same props as the progressive-img component
-
-```html
-<progressive-background src="https://unsplash.it/1920/1080?image=10" />
-```
-
 
 ## Placeholders
 
-To be able to immediately show some feedback to the user, it is possible to pass a placeholder image, which could be also 1% the size of the main image: it will be blurred so you can go crazy with optimizations here.
+To be able to show some feedback to the user as soon as you can, make sure to pass a placeholder image, which could be also 1% the size of the main image: it will be blurred so you can go crazy with optimizations here.
 
-in this example I actually use the same image, but you have the idea here
+in this example I have a 20x80 placeholder picture while waiting for a 1920x1080, you do you.
 
 ```html
-<progressive-img
+<progressive-image
   src="https://unsplash.it/1920/1080?image=10"
-  placeholder="https://unsplash.it/1920/1080?image=10"
+  placeholder-src="https://unsplash.it/20/80?image=10"
 />
 ```
 
-### The slot (progressive-background only)
+### The slot
 
-The progressive-background has a "content" slot, which can hold content that needs to be rendered over the background image and also can hold a preloader.
-This slot has one property called "visible" that tells you when, for example, a preloader needs to be visible or not.
+If you need to display some content or even just a loader on top of the image, you can use the default slot. A prop called `isLoading` can be used to show/hide any content while the images are loading.
 
 ```html
-<progressive-background src="https://unsplash.it/1920/1080?image=10">
-  <div slot="content" slot-scope="{ visible }">
-    <p>I am some content to display over the image</p>
-    <div v-show="visible">I am the preloader</div>
+<progressive-image src="https://unsplash.it/1920/1080?image=10">
+  <template #default="{ isLoading }">
+    <p v-if="isLoading">Loading...</p>
+    <p v-else>lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
   </div>
-</progressive-background>
+</progressive-image>
 ```
 
 ### Blur
@@ -76,29 +71,19 @@ This slot has one property called "visible" that tells you when, for example, a 
 It is possible to adjust the level of blur applied to the placeholder image
 
 ```html
-<progressive-img
+<progressive-image
   src="https://unsplash.it/1920/1080?image=10"
-  placeholder="https://unsplash.it/1920/1080?image=10"
-  :blur="30"
+  placeholder-src="https://unsplash.it/1920/1080?image=10"
+  blur="30"
 />
 ```
 
 ### Ratio
 
-It is possible to remove the padding that adds the aspect ratio to the container.
-
-
-```html
-<progressive-img
-  src="https://unsplash.it/1920/1080?image=10"
-  no-ratio
-/>
-```
-
-It is also possible to manually specify the image aspact ratio when you know it. It allows the placeholder to be displayed in the correct aspect ratio. The ratio is calculated as `height / width`.
+It is possible to manually specify the image aspact ratio when you know it. It allows the placeholder to be displayed in the correct aspect ratio. The ratio is calculated as `height / width`.
 
 ```html
-<progressive-img
+<progressive-image
   src="https://unsplash.it/1920/1080?image=10"
   aspect-ratio="1.5"
 />
@@ -109,9 +94,9 @@ It is also possible to manually specify the image aspact ratio when you know it.
 In case of a loading error of the main image, it is possible to add a fallback image which can display an error image or just another image.
 
 ```html
-<progressive-img
+<progressive-image
   src="https://this_url_should_cause_an_error"
-  fallback="https://unsplash.it/1920/1080?image=10"
+  fallback-src="https://unsplash.it/1920/1080?image=10"
 />
 ```
 
@@ -119,102 +104,78 @@ In case of a loading error of the main image, it is possible to add a fallback i
 
 Each component emits an event whenever an image is loaded.
 
-Because we usually load two images, a main image and a placeholder, two events are dispatched `onLoad` and `onLoadPlaceholder`
-
-in your js file
-
 ```js
-export default {
-  methods: {
-    onLoad () {
-      // main image is loaded
-    },
-    onLoadPlaceholder () {
-      // placeholder image is loaded
-    },
-    onError (error) {
-      // main image error
-    },
-    onErrorPlaceholder (error) {
-      // placeholder image error
-    }
-  }
-}
-```
-
-in the html just add the events you need to listen to
-
-```html
-<progressive-img
-  @onLoad="onLoad"
-  @onLoadPlaceholder="onLoadPlaceholder"
-  @onError="onError"
-  @onErrorPlaceholder="onErrorPlaceholder"
-  src="https://unsplash.it/1920/1080?image=10"
-  placeholder="https://unsplash.it/1920/1080?image=10"
+<progressive-image
+  src="https://this_url_should_cause_an_error"
+  fallback-src="https://unsplash.it/1920/1080?image=10"
+  @load="mainImageLoaded"
+  @error="placeholderImageError"
+  @placeholder-load="placeholderImageLoaded"
+  @placeholder-error="placeholderImageError"
 />
 ```
 
+### Component props
 
-## Options
+#### src
 
-During the installation process it is possible to pass some default global options
+type: String,
+required: true,
 
-#### Cached images
-*	type: Boolean
-*	default: true
+#### placeholder-src
 
-Cached images are checked by default. This check kills the animation if the image was already loaded once.
-If you would like to show the animation every time, even when is not needed, you can simply use the plugin options like so:
+- type: String
 
-```js
-Vue.use(VueProgressiveImage, {
-  cache: false
-})
-```
+#### fallback-src
 
-#### placeholder
-*	type: String
-*	required: false
-
-```js
-Vue.use(VueProgressiveImage, {
-  placeholder: 'https://unsplash.it/1920/1080?image=20'
-})
-```
-
-#### blur
-*	type: Number
-*	required: false
-*	default: 5
-
-```js
-Vue.use(VueProgressiveImage, {
-  blur: 30
-})
-```
+- type: String
 
 #### delay
-*	type: Number
-*	default: 0
 
-This options is for debug only. It lets you have an easy look at the placeholder before the main image is fully loaded.
+- type: [String, Number]
+- default: 0
 
-```js
-Vue.use(VueProgressiveImage, {
-  delay: 2000 // 2 seconds before the image is displayed
-})
-```
+#### blur
 
-**Global options like `placeholder` and `blur` will be applied only to components that don't specify their own options**
+- type: [String, Number]
+- default: 20
 
+#### alt
 
-# Examples
-Check out the `example` folder in the root of the repository for a small vue page with some examples on how to use the plugin.
-If you want to add some new example, just make a PR and I will add them :)
+- type: String
 
+#### circle
+
+- type: Boolean
+- default: false
+
+#### object-cover
+
+- type: Boolean
+- default: false
+
+#### object-contain
+
+- type: Boolean
+- default: false
+
+#### select-none
+
+- type: Boolean
+- default: false
+
+#### aspect-ratio
+
+- type: [String, Number]
+- default: 0.5625
+
+#### poll-interval
+
+- type: [String, Number]
+- default: 10
 
 # Issues and features requests
+
 Please drop an issue, if you find something that doesn't work, or a feature request at https://github.com/MatteoGabriele/vue-progressive-image/issues
 
 Follow me on twitter [@matteo_gabriele](https://twitter.com/matteo_gabriele)
