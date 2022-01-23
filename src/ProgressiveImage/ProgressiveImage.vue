@@ -37,11 +37,7 @@
 
 <script>
 import { ref, onMounted, computed } from "vue";
-import {
-  PLACEHOLDER_LOAD_SUCCESS,
-  PLACEHOLDER_LOAD_FAIL,
-  MAIN_IMAGE_LOAD_SUCCESS,
-} from "./constants";
+import { MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR } from "./constants";
 import useImage from "./use/image";
 import useObjectToArray from "./use/objectToArray";
 import props from "./props";
@@ -49,11 +45,7 @@ import props from "./props";
 export default {
   name: "ProgressiveImage",
 
-  emits: [
-    PLACEHOLDER_LOAD_SUCCESS,
-    PLACEHOLDER_LOAD_FAIL,
-    MAIN_IMAGE_LOAD_SUCCESS,
-  ],
+  emits: [MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR],
 
   props,
 
@@ -127,9 +119,10 @@ export default {
         }, props.delay * 1);
       });
 
-      mainImage.onError(() => {
+      mainImage.onError((error) => {
         isMainImageRendered.value = true;
         isFallbackImageRendered.value = true;
+        emit(MAIN_IMAGE_LOAD_ERROR, error);
       });
     };
 

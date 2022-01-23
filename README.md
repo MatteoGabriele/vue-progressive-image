@@ -102,16 +102,14 @@ In case of a loading error of the main image, it is possible to add a fallback i
 
 ## Events
 
-Each component emits an event whenever an image is loaded.
+When the image loads correctly or throws an error, an event is emitted.
 
 ```js
 <progressive-image
   src="https://this_url_should_cause_an_error"
   fallback-src="https://unsplash.it/1920/1080?image=10"
-  @load="mainImageLoaded"
+  @success="mainImageLoaded"
   @error="placeholderImageError"
-  @placeholder-load="placeholderImageLoaded"
-  @placeholder-error="placeholderImageError"
 />
 ```
 
