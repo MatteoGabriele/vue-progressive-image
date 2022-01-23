@@ -117,8 +117,8 @@ When the image loads correctly or throws an error, an event is emitted.
 
 #### src
 
-type: String,
-required: true,
+- type: String,
+- required: true,
 
 #### placeholder-src
 
