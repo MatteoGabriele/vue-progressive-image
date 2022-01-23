@@ -66,6 +66,14 @@ If you need to display some content or even just a loader on top of the image, y
 </progressive-image>
 ```
 
+### Circle
+
+This props renders the image as a responsive circle
+
+<progressive-image circle src="https://unsplash.it/1920/1080?image=10" />
+
+````
+
 ### Object cover and object contain
 
 These 2 options make the image act more like a background. `object-cover` will scale the image to cover the whole container, while `object-contain` scales the image so the whole images is shown. The aspect ratio of the image is respected.
@@ -76,7 +84,7 @@ These 2 options make the image act more like a background. `object-cover` will s
   object-contain
   src="https://unsplash.it/1920/1080?image=10"
 />
-```
+````
 
 ### Select none
 
