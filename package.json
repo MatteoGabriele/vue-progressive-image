@@ -2,14 +2,19 @@
   "name": "vue-progressive-image",
   "version": "3.2.0",
   "description": "Vue progressive image loading plugin",
-  "main": "dist/vue-progressive-image.js",
+  "main": "./dist/vue-progressive-image.umd.js",
+  "module": "./dist/vue-progressive-image.es.js",
+  "unpkg": "./dist/vue-progressive-image.umd.js",
+  "jsdelivr": "./dist/vue-progressive-image.umd.js",
   "files": [
     "dist"
   ],
   "scripts": {
-    "dev": "webpack --config config/webpack.dev.config.js -w --hide-modules",
-    "build": "webpack --config config/webpack.prod.config.js --optimize-minimize --hide-modules",
-    "prepublish": "webpack --config config/webpack.prod.config.js --optimize-minimize --hide-modules"
+    "test": "vitest --reporter=verbose",
+    "test:update": "vitest --update",
+    "dev": "cross-env NODE_ENV=development vite build --watch",
+    "build": "cross-env NODE_ENV=production vite build",
+    "prepublish": "yarn test && yarn build"
   },
   "author": {
     "name": "Matteo Gabriele",
@@ -36,17 +41,17 @@
   },
   "homepage": "https://github.com/MatteoGabriele/vue-progressive-image#readme",
   "devDependencies": {
-    "babel-core": "^6.23.1",
-    "babel-loader": "^6.3.2",
-    "babel-preset-es2015": "^6.22.0",
-    "babel-preset-stage-2": "^6.22.0",
-    "babel-register": "^6.23.0",
-    "compression-webpack-plugin": "^0.3.2",
-    "css-loader": "^0.26.2",
-    "style-loader": "^0.13.2",
-    "vue-loader": "^11.1.3",
-    "vue-template-compiler": "^2.2.1",
-    "webpack": "^3.4.1",
-    "webpack-merge": "^3.0.0"
+    "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.16.8",
+    "@vitejs/plugin-vue": "^2.0.1",
+    "@vue/test-utils": "^2.0.0-rc.18",
+    "cross-env": "^7.0.3",
+    "jsdom": "^19.0.0",
+    "vite": "^2.7.12",
+    "vitest": "^0.1.27",
+    "vue": "^3.2.25"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.0"
   }
 }

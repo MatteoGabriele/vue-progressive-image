@@ -1,0 +1,318 @@
+// Vitest Snapshot v1
+
+exports[`ProgressiveImage > custom aspect ratio 1`] = `
+<div
+  class="v-progressive-image"
+  style="border-radius: 0; max-width: 100%;"
+>
+  <div
+    style="padding-bottom: 320%;"
+  >
+    <img
+      class="v-progressive-image-main"
+      src="main-image.jpg"
+      style="display: none;"
+    />
+    <!--v-if-->
+    <!--v-if-->
+  </div>
+</div>
+`;
+
+exports[`ProgressiveImage > render default slot 1`] = `
+<div
+  class="v-progressive-image"
+  style="border-radius: 0; max-width: 100%;"
+>
+  <div
+    style="padding-bottom: 56.25%;"
+  >
+    <img
+      class="v-progressive-image-main"
+      src="main-image.jpg"
+      style="display: none;"
+    />
+    <!--v-if-->
+    <div
+      class="v-progressive-image-slot-default"
+    >
+      
+      <div>
+        lorem ipsum
+      </div>
+      
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ProgressiveImage > render default slot props 1`] = `
+<div
+  class="v-progressive-image"
+  style="border-radius: 0; max-width: 100%;"
+>
+  <div
+    style="padding-bottom: 56.25%;"
+  >
+    <img
+      class="v-progressive-image-main"
+      src="main-image.jpg"
+      style="display: none;"
+    />
+    <!--v-if-->
+    <div
+      class="v-progressive-image-slot-default"
+    >
+      
+      {
+  "isLoading": true
+}
+      
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ProgressiveImage > render image 1`] = `
+<div
+  class="v-progressive-image"
+  style="border-radius: 0; max-width: 100%;"
+>
+  <div
+    style="padding-bottom: 56.25%;"
+  >
+    <img
+      class="v-progressive-image-main"
+      src="main-image.jpg"
+      style="display: none;"
+    />
+    <!--v-if-->
+    <!--v-if-->
+  </div>
+</div>
+`;
+
+exports[`ProgressiveImage > render image with placeholder 1`] = `
+<div
+  class="v-progressive-image"
+  style="border-radius: 0; max-width: 100%;"
+>
+  <div
+    style="padding-bottom: 56.25%;"
+  >
+    <img
+      class="v-progressive-image-main"
+      src="main-image.jpg"
+      style="display: none;"
+    />
+    
+    <transition-stub>
+      <img
+        class="v-progressive-image-placeholder"
+        src="placeholder-image.jpg"
+        style="filter: blur(20px);"
+      />
+    </transition-stub>
+    <canvas
+      height="1"
+      hidden=""
+      width="1"
+    />
+    
+    <!--v-if-->
+  </div>
+</div>
+`;
+
+exports[`ProgressiveImage > use alt attribute 1`] = `
+<div
+  class="v-progressive-image"
+  style="border-radius: 0; max-width: 100%;"
+>
+  <div
+    style="padding-bottom: 56.25%;"
+  >
+    <img
+      alt="image description"
+      class="v-progressive-image-main"
+      src="main-image.jpg"
+      style="display: none;"
+    />
+    
+    <transition-stub>
+      <img
+        class="v-progressive-image-placeholder"
+        src="placeholder-image.jpg"
+        style="filter: blur(20px);"
+      />
+    </transition-stub>
+    <canvas
+      height="1"
+      hidden=""
+      width="1"
+    />
+    
+    <!--v-if-->
+  </div>
+</div>
+`;
+
+exports[`ProgressiveImage > use circle shape 1`] = `
+<div
+  class="v-progressive-image"
+  style="border-radius: 50%; max-width: 100%;"
+>
+  <div
+    style="padding-bottom: 56.25%;"
+  >
+    <img
+      class="v-progressive-image-main"
+      src="main-image.jpg"
+      style="display: none;"
+    />
+    
+    <transition-stub>
+      <img
+        class="v-progressive-image-placeholder"
+        src="placeholder-image.jpg"
+        style="filter: blur(20px);"
+      />
+    </transition-stub>
+    <canvas
+      height="1"
+      hidden=""
+      width="1"
+    />
+    
+    <!--v-if-->
+  </div>
+</div>
+`;
+
+exports[`ProgressiveImage > use custom blur 1`] = `
+<div
+  class="v-progressive-image"
+  style="border-radius: 0; max-width: 100%;"
+>
+  <div
+    style="padding-bottom: 56.25%;"
+  >
+    <img
+      class="v-progressive-image-main"
+      src="main-image.jpg"
+      style="display: none;"
+    />
+    
+    <transition-stub>
+      <img
+        class="v-progressive-image-placeholder"
+        src="placeholder-image.jpg"
+        style="filter: blur(50px);"
+      />
+    </transition-stub>
+    <canvas
+      height="1"
+      hidden=""
+      width="1"
+    />
+    
+    <!--v-if-->
+  </div>
+</div>
+`;
+
+exports[`ProgressiveImage > use object contain 1`] = `
+<div
+  class="v-progressive-image"
+  style="border-radius: 0; max-width: auto;"
+>
+  <div
+    style="padding-bottom: 56.25%;"
+  >
+    <img
+      class="v-progressive-image-main v-progressive-image-object-contain"
+      src="main-image.jpg"
+      style="display: none;"
+    />
+    
+    <transition-stub>
+      <img
+        class="v-progressive-image-placeholder"
+        src="placeholder-image.jpg"
+        style="filter: blur(20px);"
+      />
+    </transition-stub>
+    <canvas
+      height="1"
+      hidden=""
+      width="1"
+    />
+    
+    <!--v-if-->
+  </div>
+</div>
+`;
+
+exports[`ProgressiveImage > use object cover 1`] = `
+<div
+  class="v-progressive-image"
+  style="border-radius: 0; max-width: auto;"
+>
+  <div
+    style="padding-bottom: 56.25%;"
+  >
+    <img
+      class="v-progressive-image-main v-progressive-image-object-cover"
+      src="main-image.jpg"
+      style="display: none;"
+    />
+    
+    <transition-stub>
+      <img
+        class="v-progressive-image-placeholder"
+        src="placeholder-image.jpg"
+        style="filter: blur(20px);"
+      />
+    </transition-stub>
+    <canvas
+      height="1"
+      hidden=""
+      width="1"
+    />
+    
+    <!--v-if-->
+  </div>
+</div>
+`;
+
+exports[`ProgressiveImage > use select none 1`] = `
+<div
+  class="v-progressive-image"
+  style="border-radius: 0; max-width: 100%;"
+>
+  <div
+    style="padding-bottom: 56.25%;"
+  >
+    <img
+      class="v-progressive-image-main v-progressive-image-select-none"
+      src="main-image.jpg"
+      style="display: none;"
+    />
+    
+    <transition-stub>
+      <img
+        class="v-progressive-image-placeholder"
+        src="placeholder-image.jpg"
+        style="filter: blur(20px);"
+      />
+    </transition-stub>
+    <canvas
+      height="1"
+      hidden=""
+      width="1"
+    />
+    
+    <!--v-if-->
+  </div>
+</div>
+`;
