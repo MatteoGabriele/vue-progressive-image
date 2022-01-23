@@ -66,6 +66,37 @@ If you need to display some content or even just a loader on top of the image, y
 </progressive-image>
 ```
 
+### Object cover and object contain
+
+These 2 options make the image act more like a background. `object-cover` will scale the image to cover the whole container, while `object-contain` scales the image so the whole images is shown. The aspect ratio of the image is respected.
+
+```html
+<progressive-image object-cover src="https://unsplash.it/1920/1080?image=10" />
+<progressive-image
+  object-contain
+  src="https://unsplash.it/1920/1080?image=10"
+/>
+```
+
+### Select none
+
+The image won't be selectable
+
+```html
+<progressive-image select-none src="https://unsplash.it/1920/1080?image=10" />
+```
+
+### Poll interval
+
+The plugin can grab the image sizes faster than a plain image tag because it starts polling to the HTML elements until it gets the first data out: `naturalWidth` and `naturalHeight`. This makes sure that we get a ratio and the space of the image as soon as possible to avoid content jumping. This prop customizes the amount of milliseconds between each check. The default poll interval is 10ms.
+
+```html
+<progressive-image
+  poll-interval="200"
+  src="https://unsplash.it/1920/1080?image=10"
+/>
+```
+
 ### Blur
 
 It is possible to adjust the level of blur applied to the placeholder image
