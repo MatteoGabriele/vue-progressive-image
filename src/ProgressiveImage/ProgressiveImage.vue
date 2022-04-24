@@ -180,6 +180,13 @@ onMounted(() => {
 </script>
 
 <style>
+.v-progressive-image,
+.v-progressive-image *,
+.v-progressive-image *:before,
+.v-progressive-image *:after {
+  box-sizing: border-box;
+}
+
 .v-progressive-image {
   position: relative;
   overflow: hidden;
