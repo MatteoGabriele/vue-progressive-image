@@ -35,114 +35,148 @@
   </div>
 </template>
 
-<script>
-import { ref, onMounted, computed } from "vue";
-import { MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR } from "./constants";
-import useImage from "./use/image";
-import useObjectToArray from "./use/objectToArray";
-import props from "./props";
+<script setup>
+import { ref, onMounted, defineProps, defineEmits, computed } from "vue";
+import useImage from "@/composables/useImage";
+import { objectToArray } from "@/utils";
+import {
+  MAIN_IMAGE_LOAD_SUCCESS,
+  MAIN_IMAGE_LOAD_ERROR,
+  DEFAULT_IMAGE_RENDERING_DELAY,
+  DEFAULT_IMAGE_BLUR,
+  DEFAULT_IMAGE_ASPECT_RATIO,
+  DEFAULT_IMAGE_POLL_INTERVAL,
+} from "@/constants";
 
-export default {
-  name: "ProgressiveImage",
+const emit = defineEmits([MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR]);
 
-  emits: [MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR],
-
-  props,
-
-  setup(props, { emit }) {
-    const canvasRef = ref(null);
-    const mainImageRef = ref(null);
-    const mainImage = useImage(props.src, {
-      imageAspectRatio: props.aspectRatio,
-    });
-    const isMainImageRendered = ref(false);
-    const isFallbackImageRendered = ref(false);
-    const isLoading = computed(() => !isMainImageRendered.value);
-    const imageClasses = computed(() => {
-      return useObjectToArray({
-        "v-progressive-image-object-cover": props.objectCover,
-        "v-progressive-image-object-contain": props.objectContain,
-        "v-progressive-image-select-none": props.selectNone,
-      });
-    });
-
-    const paddingHack = computed(() => {
-      const padding = mainImage.aspectRatio.value * 100;
-
-      return {
-        paddingBottom: `${padding}%`,
-      };
-    });
-
-    const componentMaxWidth = computed(() => {
-      if (props.objectCover || props.objectContain) {
-        return "auto";
-      }
-
-      if (mainImage.naturalWidth.value) {
-        return `${mainImage.naturalWidth.value}px`;
-      }
-
-      return "100%";
-    });
-
-    const componentStyle = computed(() => {
-      return {
-        borderRadius: props.circle ? "50%" : 0,
-        maxWidth: componentMaxWidth.value,
-      };
-    });
-
-    const placeholderStyle = computed(() => {
-      const blurAmount = props.blur * 1;
-
-      return {
-        filter: `blur(${blurAmount}px)`,
-      };
-    });
-
-    const loadMainImage = () => {
-      mainImage.onLoad(() => {
-        let canvasCtx;
-
-        try {
-          canvasCtx = canvasRef.value.getContext("2d");
-          canvasCtx.drawImage(mainImageRef.value, 0, 0);
-        } catch {
-          // Nobody needs to know!
-          // see https://github.com/MatteoGabriele/vue-v-progressive-image/issues/30
-        }
-
-        setTimeout(() => {
-          isMainImageRendered.value = true;
-          emit(MAIN_IMAGE_LOAD_SUCCESS);
-        }, props.delay * 1);
-      });
-
-      mainImage.onError((error) => {
-        isMainImageRendered.value = true;
-        isFallbackImageRendered.value = true;
-        emit(MAIN_IMAGE_LOAD_ERROR, error);
-      });
-    };
-
-    onMounted(() => {
-      loadMainImage();
-    });
-
-    return {
-      canvasRef,
-      mainImageRef,
-      isMainImageRendered,
-      isFallbackImageRendered,
-      paddingHack,
-      componentStyle,
-      placeholderStyle,
-      isLoading,
-      imageClasses,
-    };
+const props = defineProps({
+  src: {
+    type: String,
+    required: true,
   },
+  placeholderSrc: {
+    type: String,
+  },
+  fallbackSrc: {
+    type: String,
+  },
+  delay: {
+    type: [Number, String],
+    default: DEFAULT_IMAGE_RENDERING_DELAY,
+  },
+  blur: {
+    type: [Number, String],
+    default: DEFAULT_IMAGE_BLUR,
+  },
+  alt: {
+    type: String,
+  },
+  circle: {
+    type: Boolean,
+    default: false,
+  },
+  objectCover: {
+    type: Boolean,
+    default: false,
+  },
+  objectContain: {
+    type: Boolean,
+    default: false,
+  },
+  selectNone: {
+    type: Boolean,
+    default: false,
+  },
+  aspectRatio: {
+    type: [Number, String],
+    default: DEFAULT_IMAGE_ASPECT_RATIO,
+  },
+  pollInterval: {
+    type: [Number, String],
+    default: DEFAULT_IMAGE_POLL_INTERVAL,
+  },
+});
+
+const canvasRef = ref(null);
+const mainImageRef = ref(null);
+const { aspectRatio, naturalWidth, onError, onLoad } = useImage(props.src, {
+  imageAspectRatio: props.aspectRatio,
+});
+const isMainImageRendered = ref(false);
+const isFallbackImageRendered = ref(false);
+const isLoading = computed(() => !isMainImageRendered.value);
+const imageClasses = computed(() => {
+  return objectToArray({
+    "v-progressive-image-object-cover": props.objectCover,
+    "v-progressive-image-object-contain": props.objectContain,
+    "v-progressive-image-select-none": props.selectNone,
+  });
+});
+
+const paddingHack = computed(() => {
+  const padding = aspectRatio.value * 100;
+
+  return {
+    paddingBottom: `${padding}%`,
+  };
+});
+
+const componentMaxWidth = computed(() => {
+  if (props.objectCover || props.objectContain) {
+    return "auto";
+  }
+
+  if (naturalWidth.value) {
+    return `${naturalWidth.value}px`;
+  }
+
+  return "100%";
+});
+
+const componentStyle = computed(() => {
+  return {
+    borderRadius: props.circle ? "50%" : 0,
+    maxWidth: componentMaxWidth.value,
+  };
+});
+
+const placeholderStyle = computed(() => {
+  const blurAmount = props.blur * 1;
+
+  return {
+    filter: `blur(${blurAmount}px)`,
+  };
+});
+
+const loadMainImage = () => {
+  onLoad(() => {
+    let canvasCtx;
+
+    try {
+      canvasCtx = canvasRef.value.getContext("2d");
+      canvasCtx.drawImage(mainImageRef.value, 0, 0);
+    } catch {
+      // Nobody needs to know!
+      // see https://github.com/MatteoGabriele/vue-v-progressive-image/issues/30
+    }
+
+    setTimeout(() => {
+      isMainImageRendered.value = true;
+      emit(MAIN_IMAGE_LOAD_SUCCESS);
+    }, props.delay * 1);
+  });
+
+  onError((error) => {
+    isMainImageRendered.value = true;
+    isFallbackImageRendered.value = true;
+    emit(MAIN_IMAGE_LOAD_ERROR, error);
+  });
 };
+
+onMounted(() => {
+  loadMainImage();
+});
 </script>
 
 <style>
