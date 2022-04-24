@@ -1,6 +1,6 @@
 {
   "name": "vue-progressive-image",
-  "version": "3.2.0",
+  "version": "4.0.0-beta.1",
   "description": "Vue progressive image loading plugin",
   "main": "./dist/vue-progressive-image.umd.js",
   "module": "./dist/vue-progressive-image.es.js",
@@ -10,7 +10,8 @@
     "dist"
   ],
   "scripts": {
-    "test": "vitest --reporter=verbose",
+    "test": "vitest run",
+    "test:cov": "vitest run --coverage",
     "test:update": "vitest --update",
     "dev": "cross-env NODE_ENV=development vite build --watch",
     "build": "cross-env NODE_ENV=production vite build",
@@ -45,6 +46,7 @@
     "@babel/preset-env": "^7.16.8",
     "@vitejs/plugin-vue": "^2.0.1",
     "@vue/test-utils": "^2.0.0-rc.18",
+    "c8": "^7.11.2",
     "cross-env": "^7.0.3",
     "jsdom": "^19.0.0",
     "vite": "^2.7.12",

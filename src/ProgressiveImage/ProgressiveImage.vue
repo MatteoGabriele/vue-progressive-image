@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, defineProps, defineEmits, computed } from "vue";
+import { ref, onMounted, computed } from "vue";
 import useImage from "@/composables/useImage";
 import { objectToArray } from "@/utils";
 import {
