@@ -1,6 +1,6 @@
 import ProgressiveImage from "./ProgressiveImage";
 
-const install = (app) => {
+export const install = (app) => {
   app.component("ProgressiveImage", ProgressiveImage);
 };
 
