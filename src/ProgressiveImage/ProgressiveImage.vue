@@ -1,7 +1,8 @@
 <template>
-  <div class="v-progressive-image" :style="componentStyle">
+  <div ref="rootRef" class="v-progressive-image" :style="componentStyle">
     <div :style="paddingHack">
       <img
+        v-if="isIntersected"
         class="v-progressive-image-main"
         :class="imageClasses"
         v-show="isMainImageRendered"
@@ -24,8 +25,6 @@
             :src="placeholderSrc"
           />
         </transition>
-
-        <canvas v-if="isLoading" hidden width="1" height="1" ref="canvasRef" />
       </template>
 
       <div v-if="$slots.default" class="v-progressive-image-slot-default">
@@ -36,8 +35,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, watch } from "vue";
 import useImage from "@/composables/useImage";
+import useIntersect from "@/composables/useIntersect";
 import { objectToArray } from "@/utils";
 import {
   MAIN_IMAGE_LOAD_SUCCESS,
@@ -98,11 +98,15 @@ const props = defineProps({
   },
 });
 
-const canvasRef = ref(null);
+const rootRef = ref(null);
+const { isIntersected } = useIntersect(rootRef);
 const mainImageRef = ref(null);
-const { aspectRatio, naturalWidth, onError, onLoad } = useImage(props.src, {
+const { loadImage, aspectRatio, naturalWidth } = useImage(props.src, {
   imageAspectRatio: props.aspectRatio,
+  containerRef: rootRef,
+  imageRef: mainImageRef,
 });
+
 const isMainImageRendered = ref(false);
 const isFallbackImageRendered = ref(false);
 const isLoading = computed(() => !isMainImageRendered.value);
@@ -149,33 +153,32 @@ const placeholderStyle = computed(() => {
   };
 });
 
-const loadMainImage = () => {
-  onLoad(() => {
-    let canvasCtx;
-
-    try {
-      canvasCtx = canvasRef.value.getContext("2d");
-      canvasCtx.drawImage(mainImageRef.value, 0, 0);
-    } catch {
-      // Nobody needs to know!
-      // see https://github.com/MatteoGabriele/vue-v-progressive-image/issues/30
-    }
-
-    setTimeout(() => {
+const onComponentIntersected = () => {
+  loadImage()
+    .then(() => {
+      setTimeout(() => {
+        isMainImageRendered.value = true;
+        emit(MAIN_IMAGE_LOAD_SUCCESS);
+      }, props.delay * 1);
+    })
+    .catch(() => {
       isMainImageRendered.value = true;
-      emit(MAIN_IMAGE_LOAD_SUCCESS);
-    }, props.delay * 1);
-  });
-
-  onError((error) => {
-    isMainImageRendered.value = true;
-    isFallbackImageRendered.value = true;
-    emit(MAIN_IMAGE_LOAD_ERROR, error);
-  });
+      isFallbackImageRendered.value = true;
+      emit(MAIN_IMAGE_LOAD_ERROR, error);
+    });
 };
 
 onMounted(() => {
-  loadMainImage();
+  const stopWatcher = watch(
+    isIntersected,
+    (value) => {
+      if (value) {
+        onComponentIntersected();
+        stopWatcher();
+      }
+    },
+    { immediate: true }
+  );
 });
 </script>
 

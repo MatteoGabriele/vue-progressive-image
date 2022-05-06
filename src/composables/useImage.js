@@ -9,6 +9,8 @@ export const useImage = (
   {
     imagePollInterval = DEFAULT_IMAGE_POLL_INTERVAL,
     imageAspectRatio = DEFAULT_IMAGE_ASPECT_RATIO,
+    containerRef,
+    imageRef,
   } = {}
 ) => {
   if (!src) {
@@ -35,15 +37,36 @@ export const useImage = (
     }
   }, imagePollInterval * 1);
 
-  image.src = src;
+  const loadImage = () => {
+    image.src = src;
+
+    return new Promise((resolve, reject) => {
+      image.onload = () => {
+        const canvas = document.createElement("canvas");
+
+        if (canvas && canvas.getContext) {
+          canvas.setAttribute("hidden", true);
+          canvas.width = naturalWidth.value;
+          canvas.height = naturalHeight.value;
+
+          containerRef.value.appendChild(canvas);
+
+          canvas.getContext("2d").drawImage(imageRef.value, 0, 0);
+        }
+
+        resolve();
+      };
+
+      image.onerror = (error) => reject(error);
+    });
+  };
 
   return {
     image,
     aspectRatio,
     naturalWidth,
     naturalHeight,
-    onLoad: (fn) => (image.onload = fn),
-    onError: (fn) => (image.onerror = fn),
+    loadImage,
   };
 };
 

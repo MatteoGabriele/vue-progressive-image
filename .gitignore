@@ -2,3 +2,5 @@ node_modules
 dist
 *.map
 npm-debug.log
+.vscode
+coverage
