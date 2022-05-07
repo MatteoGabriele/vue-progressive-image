@@ -1,19 +1,30 @@
-import { isRef, onMounted, onUnmounted, ref } from "vue";
+import { isRef, onMounted, onUnmounted, nextTick, ref, watch } from "vue";
 import { INTERSECTION_THRESHOLD } from "@/constants";
 
-export default (element, { threshold = INTERSECTION_THRESHOLD }) => {
+export default (element) => {
   const isIntersected = ref(false);
-  const observer = new IntersectionObserver(
-    (entries) => {
-      if (entries[0].isIntersecting) {
-        isIntersected.value = true;
-        observer.disconnect();
-      }
-    },
-    {
-      threshold,
+  const options = {
+    threshold: INTERSECTION_THRESHOLD,
+  };
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      isIntersected.value = true;
+      observer.disconnect();
     }
-  );
+  }, options);
+
+  const watchIntersectionOnce = (callback) => {
+    const stop = watch(
+      isIntersected,
+      (is) => {
+        if (is) {
+          nextTick().then(callback);
+          stop();
+        }
+      },
+      { immediate: true }
+    );
+  };
 
   onMounted(() => {
     const el = isRef(element) ? element.value : element;
@@ -25,6 +36,7 @@ export default (element, { threshold = INTERSECTION_THRESHOLD }) => {
   });
 
   return {
+    watchIntersectionOnce,
     isIntersected,
   };
 };

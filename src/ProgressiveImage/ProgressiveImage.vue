@@ -4,7 +4,6 @@
       <img
         v-if="isIntersected"
         class="v-progressive-image-main"
-        :class="imageClasses"
         v-show="isMainImageRendered"
         ref="mainImageRef"
         :src="isFallbackImageRendered ? fallbackSrc : src"
@@ -35,10 +34,9 @@
 </template>
 
 <script setup>
-import { ref, nextTick, onMounted, computed, watch } from "vue";
+import { ref, onMounted, computed } from "vue";
 import useImage from "@/composables/useImage";
 import useIntersect from "@/composables/useIntersect";
-import { objectToArray } from "@/utils";
 import {
   MAIN_IMAGE_LOAD_SUCCESS,
   MAIN_IMAGE_LOAD_ERROR,
@@ -72,50 +70,19 @@ const props = defineProps({
   alt: {
     type: String,
   },
-  circle: {
-    type: Boolean,
-    default: false,
-  },
-  objectCover: {
-    type: Boolean,
-    default: false,
-  },
-  objectContain: {
-    type: Boolean,
-    default: false,
-  },
-  selectNone: {
-    type: Boolean,
-    default: false,
-  },
   aspectRatio: {
     type: [Number, String],
     default: IMAGE_ASPECT_RATIO,
   },
-  intersectionThreshold: {
-    type: [Number, String],
-    default: INTERSECTION_THRESHOLD,
-  },
 });
-
-console.log(props.intersectionThreshold);
 
 const rootRef = ref(null);
 const mainImageRef = ref(null);
 const isMainImageRendered = ref(false);
 const isFallbackImageRendered = ref(false);
 const isLoading = computed(() => !isMainImageRendered.value);
-const imageClasses = computed(() => {
-  return objectToArray({
-    "v-progressive-image-object-cover": props.objectCover,
-    "v-progressive-image-object-contain": props.objectContain,
-    "v-progressive-image-select-none": props.selectNone,
-  });
-});
 
-const { isIntersected } = useIntersect(rootRef, {
-  threshold: props.intersectionThreshold * 1,
-});
+const { isIntersected, watchIntersectionOnce } = useIntersect(rootRef);
 const { loadImage, aspectRatio, naturalWidth } = useImage(mainImageRef, {
   imageAspectRatio: props.aspectRatio,
 });
@@ -171,16 +138,7 @@ const onComponentIntersected = () => {
 };
 
 onMounted(() => {
-  const stopWatcher = watch(
-    isIntersected,
-    (value) => {
-      if (value) {
-        nextTick().then(onComponentIntersected);
-        stopWatcher();
-      }
-    },
-    { immediate: true }
-  );
+  watchIntersectionOnce(onComponentIntersected);
 });
 </script>
 
@@ -208,22 +166,6 @@ onMounted(() => {
   z-index: 0;
   max-width: 100%;
   max-height: 100%;
-}
-
-.v-progressive-image-object-cover {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-}
-
-.v-progressive-image-object-contain {
-  object-fit: contain;
-  width: 100%;
-  height: 100%;
-}
-
-.v-progressive-image-object-contain {
-  user-select: none;
 }
 
 .v-progressive-image-placeholder {
