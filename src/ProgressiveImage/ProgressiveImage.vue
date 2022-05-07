@@ -43,7 +43,6 @@ import {
   IMAGE_RENDERING_DELAY,
   IMAGE_BLUR,
   IMAGE_ASPECT_RATIO,
-  INTERSECTION_THRESHOLD,
 } from "@/constants";
 
 const emit = defineEmits([MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR]);
@@ -95,22 +94,9 @@ const paddingHack = computed(() => {
   };
 });
 
-const componentMaxWidth = computed(() => {
-  if (props.objectCover || props.objectContain) {
-    return "auto";
-  }
-
-  if (naturalWidth.value) {
-    return `${naturalWidth.value}px`;
-  }
-
-  return "100%";
-});
-
 const componentStyle = computed(() => {
   return {
-    borderRadius: props.circle ? "50%" : 0,
-    maxWidth: componentMaxWidth.value,
+    maxWidth: naturalWidth.value ? `${naturalWidth.value}px` : "100%",
   };
 });
 
