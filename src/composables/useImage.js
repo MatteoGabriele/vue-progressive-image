@@ -1,22 +1,13 @@
-import { ref, computed } from "vue";
-import {
-  DEFAULT_IMAGE_POLL_INTERVAL,
-  DEFAULT_IMAGE_ASPECT_RATIO,
-} from "../constants";
+import { ref, computed, isRef, onMounted } from "vue";
+import { IMAGE_POLL_INTERVAL, IMAGE_ASPECT_RATIO } from "../constants";
 
 export const useImage = (
-  src,
+  element,
   {
-    imagePollInterval = DEFAULT_IMAGE_POLL_INTERVAL,
-    imageAspectRatio = DEFAULT_IMAGE_ASPECT_RATIO,
-    containerRef,
-    imageRef,
+    imagePollInterval = IMAGE_POLL_INTERVAL,
+    imageAspectRatio = IMAGE_ASPECT_RATIO,
   } = {}
 ) => {
-  if (!src) {
-    return;
-  }
-
   const image = new Image();
   const naturalWidth = ref(0);
   const naturalHeight = ref(0);
@@ -38,21 +29,25 @@ export const useImage = (
   }, imagePollInterval * 1);
 
   const loadImage = () => {
+    const imageNode = isRef(element) ? element.value : element;
+    const src = imageNode.src;
+
     image.src = src;
 
     return new Promise((resolve, reject) => {
       image.onload = () => {
         const canvas = document.createElement("canvas");
 
-        if (canvas && canvas.getContext) {
-          canvas.setAttribute("hidden", true);
-          canvas.width = naturalWidth.value;
-          canvas.height = naturalHeight.value;
+        canvas.setAttribute("hidden", true);
+        canvas.setAttribute("data-image-src", src);
+        canvas.width = 1;
+        canvas.height = 1;
 
-          containerRef.value.appendChild(canvas);
+        document.body.appendChild(canvas);
 
-          canvas.getContext("2d").drawImage(imageRef.value, 0, 0);
-        }
+        canvas.getContext("2d").drawImage(imageNode, 0, 0);
+
+        document.body.removeChild(canvas);
 
         resolve();
       };

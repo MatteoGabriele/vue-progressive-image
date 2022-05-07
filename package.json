@@ -11,6 +11,7 @@
   ],
   "scripts": {
     "test": "vitest run",
+    "test:watch": "vitest",
     "test:cov": "vitest run --coverage",
     "test:update": "vitest --update",
     "dev": "cross-env NODE_ENV=development vite build --watch",

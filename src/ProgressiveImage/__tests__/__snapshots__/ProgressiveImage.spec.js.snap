@@ -105,7 +105,6 @@ exports[`ProgressiveImage > render image with placeholder 1`] = `
       src="main-image.jpg"
       style="display: none;"
     />
-    
     <transition-stub>
       <img
         class="v-progressive-image-placeholder"
@@ -113,12 +112,6 @@ exports[`ProgressiveImage > render image with placeholder 1`] = `
         style="filter: blur(20px);"
       />
     </transition-stub>
-    <canvas
-      height="1"
-      hidden=""
-      width="1"
-    />
-    
     <!--v-if-->
   </div>
 </div>
@@ -138,7 +131,6 @@ exports[`ProgressiveImage > use alt attribute 1`] = `
       src="main-image.jpg"
       style="display: none;"
     />
-    
     <transition-stub>
       <img
         class="v-progressive-image-placeholder"
@@ -146,12 +138,6 @@ exports[`ProgressiveImage > use alt attribute 1`] = `
         style="filter: blur(20px);"
       />
     </transition-stub>
-    <canvas
-      height="1"
-      hidden=""
-      width="1"
-    />
-    
     <!--v-if-->
   </div>
 </div>
@@ -170,7 +156,6 @@ exports[`ProgressiveImage > use circle shape 1`] = `
       src="main-image.jpg"
       style="display: none;"
     />
-    
     <transition-stub>
       <img
         class="v-progressive-image-placeholder"
@@ -178,12 +163,6 @@ exports[`ProgressiveImage > use circle shape 1`] = `
         style="filter: blur(20px);"
       />
     </transition-stub>
-    <canvas
-      height="1"
-      hidden=""
-      width="1"
-    />
-    
     <!--v-if-->
   </div>
 </div>
@@ -202,7 +181,6 @@ exports[`ProgressiveImage > use custom blur 1`] = `
       src="main-image.jpg"
       style="display: none;"
     />
-    
     <transition-stub>
       <img
         class="v-progressive-image-placeholder"
@@ -210,12 +188,6 @@ exports[`ProgressiveImage > use custom blur 1`] = `
         style="filter: blur(50px);"
       />
     </transition-stub>
-    <canvas
-      height="1"
-      hidden=""
-      width="1"
-    />
-    
     <!--v-if-->
   </div>
 </div>
@@ -234,7 +206,6 @@ exports[`ProgressiveImage > use object contain 1`] = `
       src="main-image.jpg"
       style="display: none;"
     />
-    
     <transition-stub>
       <img
         class="v-progressive-image-placeholder"
@@ -242,12 +213,6 @@ exports[`ProgressiveImage > use object contain 1`] = `
         style="filter: blur(20px);"
       />
     </transition-stub>
-    <canvas
-      height="1"
-      hidden=""
-      width="1"
-    />
-    
     <!--v-if-->
   </div>
 </div>
@@ -266,7 +231,6 @@ exports[`ProgressiveImage > use object cover 1`] = `
       src="main-image.jpg"
       style="display: none;"
     />
-    
     <transition-stub>
       <img
         class="v-progressive-image-placeholder"
@@ -274,12 +238,6 @@ exports[`ProgressiveImage > use object cover 1`] = `
         style="filter: blur(20px);"
       />
     </transition-stub>
-    <canvas
-      height="1"
-      hidden=""
-      width="1"
-    />
-    
     <!--v-if-->
   </div>
 </div>
@@ -298,7 +256,6 @@ exports[`ProgressiveImage > use select none 1`] = `
       src="main-image.jpg"
       style="display: none;"
     />
-    
     <transition-stub>
       <img
         class="v-progressive-image-placeholder"
@@ -306,12 +263,6 @@ exports[`ProgressiveImage > use select none 1`] = `
         style="filter: blur(20px);"
       />
     </transition-stub>
-    <canvas
-      height="1"
-      hidden=""
-      width="1"
-    />
-    
     <!--v-if-->
   </div>
 </div>

@@ -1,6 +1,7 @@
-import { onMounted, onUnmounted, ref } from "vue";
+import { isRef, onMounted, onUnmounted, ref } from "vue";
+import { INTERSECTION_THRESHOLD } from "@/constants";
 
-export default (element) => {
+export default (element, { threshold = INTERSECTION_THRESHOLD }) => {
   const isIntersected = ref(false);
   const observer = new IntersectionObserver(
     (entries) => {
@@ -10,12 +11,13 @@ export default (element) => {
       }
     },
     {
-      threshold: [0.2],
+      threshold,
     }
   );
 
   onMounted(() => {
-    observer.observe(element.value);
+    const el = isRef(element) ? element.value : element;
+    observer.observe(el);
   });
 
   onUnmounted(() => {

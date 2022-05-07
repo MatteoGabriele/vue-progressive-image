@@ -1,6 +1,21 @@
 import { mount } from "@vue/test-utils";
+
 import { describe, beforeEach, expect, test, vi } from "vitest";
 import ProgressiveImage from "../ProgressiveImage.vue";
+
+vi.mock("@/composables/useIntersect", () => ({
+  default: () => ({
+    isIntersected: true,
+  }),
+}));
+
+const IntersectionObserverMock = vi.fn(() => ({
+  disconnect: vi.fn(),
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+}));
+
+vi.stubGlobal("IntersectionObserver", IntersectionObserverMock);
 
 describe("ProgressiveImage", () => {
   test("render image", () => {

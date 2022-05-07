@@ -35,17 +35,17 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, watch } from "vue";
+import { ref, nextTick, onMounted, computed, watch } from "vue";
 import useImage from "@/composables/useImage";
 import useIntersect from "@/composables/useIntersect";
 import { objectToArray } from "@/utils";
 import {
   MAIN_IMAGE_LOAD_SUCCESS,
   MAIN_IMAGE_LOAD_ERROR,
-  DEFAULT_IMAGE_RENDERING_DELAY,
-  DEFAULT_IMAGE_BLUR,
-  DEFAULT_IMAGE_ASPECT_RATIO,
-  DEFAULT_IMAGE_POLL_INTERVAL,
+  IMAGE_RENDERING_DELAY,
+  IMAGE_BLUR,
+  IMAGE_ASPECT_RATIO,
+  INTERSECTION_THRESHOLD,
 } from "@/constants";
 
 const emit = defineEmits([MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR]);
@@ -63,11 +63,11 @@ const props = defineProps({
   },
   delay: {
     type: [Number, String],
-    default: DEFAULT_IMAGE_RENDERING_DELAY,
+    default: IMAGE_RENDERING_DELAY,
   },
   blur: {
     type: [Number, String],
-    default: DEFAULT_IMAGE_BLUR,
+    default: IMAGE_BLUR,
   },
   alt: {
     type: String,
@@ -90,23 +90,18 @@ const props = defineProps({
   },
   aspectRatio: {
     type: [Number, String],
-    default: DEFAULT_IMAGE_ASPECT_RATIO,
+    default: IMAGE_ASPECT_RATIO,
   },
-  pollInterval: {
+  intersectionThreshold: {
     type: [Number, String],
-    default: DEFAULT_IMAGE_POLL_INTERVAL,
+    default: INTERSECTION_THRESHOLD,
   },
 });
+
+console.log(props.intersectionThreshold);
 
 const rootRef = ref(null);
-const { isIntersected } = useIntersect(rootRef);
 const mainImageRef = ref(null);
-const { loadImage, aspectRatio, naturalWidth } = useImage(props.src, {
-  imageAspectRatio: props.aspectRatio,
-  containerRef: rootRef,
-  imageRef: mainImageRef,
-});
-
 const isMainImageRendered = ref(false);
 const isFallbackImageRendered = ref(false);
 const isLoading = computed(() => !isMainImageRendered.value);
@@ -116,6 +111,13 @@ const imageClasses = computed(() => {
     "v-progressive-image-object-contain": props.objectContain,
     "v-progressive-image-select-none": props.selectNone,
   });
+});
+
+const { isIntersected } = useIntersect(rootRef, {
+  threshold: props.intersectionThreshold * 1,
+});
+const { loadImage, aspectRatio, naturalWidth } = useImage(mainImageRef, {
+  imageAspectRatio: props.aspectRatio,
 });
 
 const paddingHack = computed(() => {
@@ -173,7 +175,7 @@ onMounted(() => {
     isIntersected,
     (value) => {
       if (value) {
-        onComponentIntersected();
+        nextTick().then(onComponentIntersected);
         stopWatcher();
       }
     },

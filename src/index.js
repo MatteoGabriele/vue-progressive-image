@@ -1,6 +1,10 @@
 import ProgressiveImage from "./ProgressiveImage";
 
-export const install = (app) => {
+export const install = (app, props = {}) => {
+  Object.keys(props).forEach((key) => {
+    ProgressiveImage.props[key].default = props[key];
+  });
+
   app.component("ProgressiveImage", ProgressiveImage);
 };
 
