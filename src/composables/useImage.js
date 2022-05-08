@@ -1,12 +1,9 @@
-import { ref, computed, isRef, onMounted } from "vue";
+import { ref, computed, isRef } from "vue";
 import { IMAGE_POLL_INTERVAL, IMAGE_ASPECT_RATIO } from "../constants";
 
 export const useImage = (
   element,
-  {
-    imagePollInterval = IMAGE_POLL_INTERVAL,
-    imageAspectRatio = IMAGE_ASPECT_RATIO,
-  } = {}
+  { imageAspectRatio = IMAGE_ASPECT_RATIO } = {}
 ) => {
   const image = new Image();
   const naturalWidth = ref(0);
@@ -26,7 +23,7 @@ export const useImage = (
       naturalWidth.value = image.naturalWidth;
       naturalHeight.value = image.naturalHeight;
     }
-  }, imagePollInterval * 1);
+  }, IMAGE_POLL_INTERVAL);
 
   const loadImage = () => {
     const imageNode = isRef(element) ? element.value : element;
@@ -34,12 +31,15 @@ export const useImage = (
 
     image.src = src;
 
+    if (image.complete) {
+      return Promise.resolve();
+    }
+
     return new Promise((resolve, reject) => {
       image.onload = () => {
         const canvas = document.createElement("canvas");
 
         canvas.setAttribute("hidden", true);
-        canvas.setAttribute("data-image-src", src);
         canvas.width = 1;
         canvas.height = 1;
 

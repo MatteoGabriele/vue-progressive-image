@@ -1,38 +1,3 @@
-<template>
-  <div ref="rootRef" class="v-progressive-image" :style="componentStyle">
-    <div :style="paddingHack">
-      <img
-        v-if="isIntersected"
-        class="v-progressive-image-main"
-        v-show="isMainImageRendered"
-        ref="mainImageRef"
-        :src="isFallbackImageRendered ? fallbackSrc : src"
-        :alt="alt"
-      />
-
-      <template v-if="placeholderSrc">
-        <transition
-          appear
-          leave-class="v-progressive-image-fade-leave"
-          leave-to-class="v-progressive-image-fade-leave-to"
-          leave-active-class="v-progressive-image-fade-leave-active"
-        >
-          <img
-            v-if="isLoading"
-            class="v-progressive-image-placeholder"
-            :style="placeholderStyle"
-            :src="placeholderSrc"
-          />
-        </transition>
-      </template>
-
-      <div v-if="$slots.default" class="v-progressive-image-slot-default">
-        <slot :isLoading="isLoading" />
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import useImage from "@/composables/useImage";
@@ -128,55 +93,38 @@ onMounted(() => {
 });
 </script>
 
-<style>
-.v-progressive-image,
-.v-progressive-image *,
-.v-progressive-image *:before,
-.v-progressive-image *:after {
-  box-sizing: border-box;
-}
+<template>
+  <div ref="rootRef" class="v-progressive-image" :style="componentStyle">
+    <div :style="paddingHack">
+      <img
+        v-if="isIntersected"
+        class="v-progressive-image-main"
+        v-show="isMainImageRendered"
+        ref="mainImageRef"
+        :src="isFallbackImageRendered ? fallbackSrc : src"
+        :alt="alt"
+      />
 
-.v-progressive-image {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  display: inline-block;
-}
+      <template v-if="placeholderSrc">
+        <transition
+          appear
+          leave-class="v-progressive-image-fade-leave"
+          leave-to-class="v-progressive-image-fade-leave-to"
+          leave-active-class="v-progressive-image-fade-leave-active"
+        >
+          <img
+            v-if="isLoading"
+            loading="lazy"
+            class="v-progressive-image-placeholder"
+            :style="placeholderStyle"
+            :src="placeholderSrc"
+          />
+        </transition>
+      </template>
 
-.v-progressive-image-main {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 0;
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.v-progressive-image-placeholder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  transform: scale(1.2);
-  object-fit: cover;
-  user-select: none;
-}
-
-.v-progressive-image-slot-default {
-  position: relative;
-  z-index: 2;
-}
-
-.v-progressive-image-fade-leave,
-.v-progressive-image-fade-leave-active {
-  transition: opacity 0.5s ease-out;
-}
-
-.v-progressive-image-fade-leave-to {
-  opacity: 0;
-}
-</style>
+      <div v-if="$slots.default" class="v-progressive-image-slot-default">
+        <slot :isLoading="isLoading" />
+      </div>
+    </div>
+  </div>
+</template>

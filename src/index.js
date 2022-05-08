@@ -1,3 +1,4 @@
+import "./style.css";
 import ProgressiveImage from "./ProgressiveImage";
 
 export const install = (app, props = {}) => {
