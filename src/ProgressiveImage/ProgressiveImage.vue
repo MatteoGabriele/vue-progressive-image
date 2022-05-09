@@ -7,7 +7,6 @@ import {
   MAIN_IMAGE_LOAD_ERROR,
   IMAGE_RENDERING_DELAY,
   IMAGE_BLUR,
-  IMAGE_ASPECT_RATIO,
 } from "@/constants";
 
 const emit = defineEmits([MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR]);
@@ -34,10 +33,6 @@ const props = defineProps({
   alt: {
     type: String,
   },
-  aspectRatio: {
-    type: [Number, String],
-    default: IMAGE_ASPECT_RATIO,
-  },
 });
 
 const rootRef = ref(null);
@@ -47,31 +42,19 @@ const isFallbackImageRendered = ref(false);
 const isLoading = computed(() => !isMainImageRendered.value);
 
 const { isIntersected, watchIntersectionOnce } = useIntersect(rootRef);
-const { loadImage, aspectRatio, naturalWidth } = useImage(mainImageRef, {
-  imageAspectRatio: props.aspectRatio,
-});
+const { loadImage, aspectRatio, naturalWidth } = useImage(mainImageRef);
 
-const paddingHack = computed(() => {
-  const padding = aspectRatio.value * 100;
+const paddingHack = computed(() => ({
+  paddingBottom: `${aspectRatio.value * 100}%`,
+}));
 
-  return {
-    paddingBottom: `${padding}%`,
-  };
-});
+const componentStyle = computed(() => ({
+  maxWidth: naturalWidth.value ? `${naturalWidth.value}px` : "100%",
+}));
 
-const componentStyle = computed(() => {
-  return {
-    maxWidth: naturalWidth.value ? `${naturalWidth.value}px` : "100%",
-  };
-});
-
-const placeholderStyle = computed(() => {
-  const blurAmount = props.blur * 1;
-
-  return {
-    filter: `blur(${blurAmount}px)`,
-  };
-});
+const placeholderStyle = computed(() => ({
+  filter: `blur(${props.blur * 1}px)`,
+}));
 
 const onComponentIntersected = () => {
   loadImage()
