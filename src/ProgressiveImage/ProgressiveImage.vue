@@ -33,6 +33,9 @@ const props = defineProps({
   alt: {
     type: String,
   },
+  customClass: {
+    type: String,
+  },
 });
 
 const rootRef = ref(null);
@@ -77,7 +80,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="rootRef" class="v-progressive-image" :style="componentStyle">
+  <div
+    ref="rootRef"
+    class="v-progressive-image"
+    :class="customClass"
+    :style="componentStyle"
+  >
     <div :style="paddingHack">
       <img
         v-if="isIntersected"
