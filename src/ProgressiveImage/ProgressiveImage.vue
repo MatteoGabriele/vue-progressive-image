@@ -36,6 +36,10 @@ const props = defineProps({
   customClass: {
     type: String,
   },
+  objectCover: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const rootRef = ref(null);
@@ -51,13 +55,28 @@ const paddingHack = computed(() => ({
   paddingBottom: `${aspectRatio.value * 100}%`,
 }));
 
-const componentStyle = computed(() => ({
-  maxWidth: naturalWidth.value ? `${naturalWidth.value}px` : "100%",
-}));
+const componentStyle = computed(() => {
+  if (props.objectCover) {
+    return;
+  }
+
+  return {
+    maxWidth: naturalWidth.value ? `${naturalWidth.value}px` : "100%",
+  };
+});
 
 const placeholderStyle = computed(() => ({
   filter: `blur(${props.blur * 1}px)`,
 }));
+
+const imageClasses = computed(() => {
+  return [
+    props.customClass,
+    {
+      "v-progressive-image-object-cover": props.objectCover,
+    },
+  ];
+});
 
 const onComponentIntersected = () => {
   loadImage()
@@ -83,7 +102,7 @@ onMounted(() => {
   <div
     ref="rootRef"
     class="v-progressive-image"
-    :class="customClass"
+    :class="imageClasses"
     :style="componentStyle"
   >
     <div :style="paddingHack">

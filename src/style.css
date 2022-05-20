@@ -48,3 +48,14 @@
 .v-progressive-image-fade-leave-to {
   opacity: 0;
 }
+
+.v-progressive-image-object-cover {
+  height: 100%;
+  width: 100%;
+}
+
+.v-progressive-image-object-cover .v-progressive-image-main {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
