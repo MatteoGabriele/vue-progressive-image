@@ -1,23 +1,21 @@
-import { ref, computed, isRef } from "vue";
+import { ref, computed, isRef, nextTick } from "vue";
 import { IMAGE_POLL_INTERVAL, IMAGE_ASPECT_RATIO } from "../constants";
 
 export const useImage = (element) => {
   const image = new Image();
-  const naturalWidth = ref(0);
-  const naturalHeight = ref(0);
+  const width = ref(0);
+  const height = ref(0);
 
   const aspectRatio = computed(() => {
-    return naturalWidth.value
-      ? naturalHeight.value / naturalWidth.value
-      : IMAGE_ASPECT_RATIO;
+    return width.value ? height.value / width.value : IMAGE_ASPECT_RATIO;
   });
 
   const pollImageData = setInterval(() => {
-    if (image && image.naturalWidth) {
+    if (image && image.width) {
       clearInterval(pollImageData);
 
-      naturalWidth.value = image.naturalWidth;
-      naturalHeight.value = image.naturalHeight;
+      width.value = image.width;
+      height.value = image.height;
     }
   }, IMAGE_POLL_INTERVAL);
 
@@ -49,7 +47,7 @@ export const useImage = (element) => {
     return new Promise((resolve, reject) => {
       image.onload = () => {
         imageRenderer(imageNode);
-        resolve();
+        nextTick(resolve);
       };
 
       image.onerror = reject;
@@ -59,8 +57,8 @@ export const useImage = (element) => {
   return {
     image,
     aspectRatio,
-    naturalWidth,
-    naturalHeight,
+    width,
+    height,
     loadImage,
   };
 };

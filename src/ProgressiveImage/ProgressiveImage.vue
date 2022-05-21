@@ -1,73 +1,36 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
+import componentProps from "./props";
+import componentEmits from "./emits";
 import useImage from "@/composables/useImage";
 import useIntersect from "@/composables/useIntersect";
-import {
-  MAIN_IMAGE_LOAD_SUCCESS,
-  MAIN_IMAGE_LOAD_ERROR,
-  IMAGE_RENDERING_DELAY,
-  IMAGE_BLUR,
-} from "@/constants";
+import { MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR } from "@/constants";
 
-const emit = defineEmits([MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR]);
-
-const props = defineProps({
-  src: {
-    type: String,
-    required: true,
-  },
-  placeholderSrc: {
-    type: String,
-  },
-  fallbackSrc: {
-    type: String,
-  },
-  delay: {
-    type: [Number, String],
-    default: IMAGE_RENDERING_DELAY,
-  },
-  blur: {
-    type: [Number, String],
-    default: IMAGE_BLUR,
-  },
-  alt: {
-    type: String,
-  },
-  customClass: {
-    type: String,
-  },
-  objectCover: {
-    type: Boolean,
-    default: false,
-  },
-});
+const emit = defineEmits(componentEmits);
+const props = defineProps(componentProps);
 
 const rootRef = ref(null);
 const mainImageRef = ref(null);
 const isMainImageRendered = ref(false);
 const isFallbackImageRendered = ref(false);
-const isLoading = computed(() => !isMainImageRendered.value);
 
 const { isIntersected, watchIntersectionOnce } = useIntersect(rootRef);
-const { loadImage, aspectRatio, naturalWidth } = useImage(mainImageRef);
+const { loadImage, aspectRatio, width } = useImage(mainImageRef);
+const isLoading = computed(() => !isMainImageRendered.value);
 
 const paddingHack = computed(() => ({
   paddingBottom: `${aspectRatio.value * 100}%`,
 }));
 
 const componentStyle = computed(() => {
-  if (props.objectCover) {
+  if (props.objectCover || width.value === 0) {
     return;
   }
 
   return {
-    maxWidth: naturalWidth.value ? `${naturalWidth.value}px` : "100%",
+    maxWidth: `${width.value}px`,
   };
 });
-
-const placeholderStyle = computed(() => ({
-  filter: `blur(${props.blur * 1}px)`,
-}));
 
 const imageClasses = computed(() => {
   return [
@@ -94,7 +57,9 @@ const onComponentIntersected = () => {
 };
 
 onMounted(() => {
-  watchIntersectionOnce(onComponentIntersected);
+  if (props.src) {
+    watchIntersectionOnce(onComponentIntersected);
+  }
 });
 </script>
 
@@ -116,17 +81,16 @@ onMounted(() => {
       />
 
       <template v-if="placeholderSrc">
-        <transition
-          appear
-          leave-class="v-progressive-image-fade-leave"
-          leave-to-class="v-progressive-image-fade-leave-to"
-          leave-active-class="v-progressive-image-fade-leave-active"
-        >
+        <svg class="v-progressive-image-svg" v-if="isLoading">
+          <filter id="v-progressive-image-filter">
+            <feGaussianBlur in="SourceGraphic" :stdDeviation="blur" />
+          </filter>
+        </svg>
+        <transition name="v-progressive-image-fade" appear>
           <img
             v-if="isLoading"
             loading="lazy"
             class="v-progressive-image-placeholder"
-            :style="placeholderStyle"
             :src="placeholderSrc"
           />
         </transition>
