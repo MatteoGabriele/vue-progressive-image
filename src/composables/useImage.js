@@ -55,10 +55,9 @@ export const useImage = (element) => {
   };
 
   return {
-    image,
-    aspectRatio,
     width,
     height,
+    aspectRatio,
     loadImage,
   };
 };

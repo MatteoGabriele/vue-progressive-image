@@ -11,6 +11,8 @@ const props = defineProps(componentProps);
 
 const rootRef = ref(null);
 const mainImageRef = ref(null);
+const placeholderImageRef = ref(null);
+const canvasRef = ref(null);
 const isMainImageRendered = ref(false);
 const isFallbackImageRendered = ref(false);
 
@@ -57,6 +59,23 @@ const onComponentIntersected = () => {
 };
 
 onMounted(() => {
+  if (props.placeholderSrc) {
+    const canvas = canvasRef.value;
+    const ctx = canvas.getContext("2d");
+    const img = placeholderImageRef.value;
+    const blur = props.blur;
+    const width = rootRef.value.clientWidth;
+    const height = rootRef.value.clientHeight;
+
+    canvas.width = width;
+    canvas.height = height;
+
+    img.onload = () => {
+      ctx.filter = `blur(${blur}px)`;
+      ctx.drawImage(img, -blur, -blur, width + blur * 2, height + blur * 2);
+    };
+  }
+
   if (props.src) {
     watchIntersectionOnce(onComponentIntersected);
   }
@@ -81,18 +100,18 @@ onMounted(() => {
       />
 
       <template v-if="placeholderSrc">
-        <svg class="v-progressive-image-svg" v-if="isLoading">
-          <filter id="v-progressive-image-filter">
-            <feGaussianBlur in="SourceGraphic" :stdDeviation="blur" />
-          </filter>
-        </svg>
+        <img
+          ref="placeholderImageRef"
+          loading="lazy"
+          class="v-progressive-image-placeholder"
+          :src="placeholderSrc"
+        />
         <transition name="v-progressive-image-fade" appear>
-          <img
+          <canvas
             v-if="isLoading"
-            loading="lazy"
-            class="v-progressive-image-placeholder"
-            :src="placeholderSrc"
-          />
+            ref="canvasRef"
+            class="v-progressive-image-canvas"
+          ></canvas>
         </transition>
       </template>
 

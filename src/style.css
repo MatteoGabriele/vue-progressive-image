@@ -29,12 +29,17 @@
   top: 0;
   left: 0;
   z-index: 1;
+  width: 1px;
+  height: 1px;
+}
+
+.v-progressive-image-canvas {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  transform: translate3d(0, 0, 0);
-  object-fit: cover;
-  user-select: none;
-  filter: url("#v-progressive-image-filter");
 }
 
 .v-progressive-image-svg {
@@ -65,10 +70,11 @@
 .v-progressive-image-fade-leave,
 .v-progressive-image-fade-leave-active,
 .v-progressive-image-fade-enter-active {
-  transition: opacity 2s ease-out;
+  transition: opacity 1s ease-out;
 }
 
 .v-progressive-image-fade-leave-to,
 .v-progressive-image-fade-enter-from {
+  transition: opacity 1s ease-out;
   opacity: 0;
 }
