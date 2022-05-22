@@ -10,7 +10,6 @@
   overflow: hidden;
   width: 100%;
   display: inline-block;
-  background: #f7f7f7;
 }
 
 .v-progressive-image-main {
@@ -26,33 +25,16 @@
 
 .v-progressive-image-placeholder {
   position: absolute;
-  top: 0;
-  left: 0;
   z-index: 1;
-  width: 1px;
-  height: 1px;
+  object-fit: cover;
 }
 
-.v-progressive-image-canvas {
+.v-progressive-image-slot-default {
   position: absolute;
-  z-index: 1;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-}
-
-.v-progressive-image-svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  display: none;
-}
-
-.v-progressive-image-slot-default {
-  position: relative;
   z-index: 2;
 }
 
@@ -62,6 +44,7 @@
 }
 
 .v-progressive-image-object-cover .v-progressive-image-main {
+  object-position: center;
   object-fit: cover;
   height: 100%;
   width: 100%;

@@ -1,18 +1,34 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import componentProps from "./props";
-import componentEmits from "./emits";
+import { MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR } from "@/constants";
 import useImage from "@/composables/useImage";
 import useIntersect from "@/composables/useIntersect";
-import { MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR } from "@/constants";
+import { IMAGE_BLUR } from "../constants";
 
-const emit = defineEmits(componentEmits);
-const props = defineProps(componentProps);
+const emit = defineEmits([MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR]);
+
+const props = defineProps({
+  src: String,
+  placeholderSrc: String,
+  fallbackSrc: String,
+  alt: String,
+  customClass: String,
+  blur: {
+    type: [Number, String],
+    default: IMAGE_BLUR,
+  },
+  delay: {
+    type: [Number, String],
+    default: 0,
+  },
+  objectCover: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 const rootRef = ref(null);
 const mainImageRef = ref(null);
-const placeholderImageRef = ref(null);
-const canvasRef = ref(null);
 const isMainImageRendered = ref(false);
 const isFallbackImageRendered = ref(false);
 
@@ -23,6 +39,18 @@ const isLoading = computed(() => !isMainImageRendered.value);
 const paddingHack = computed(() => ({
   paddingBottom: `${aspectRatio.value * 100}%`,
 }));
+
+const placeholderStyle = computed(() => {
+  const value = props.blur;
+
+  return {
+    top: `-${value}px`,
+    left: `-${value}px`,
+    width: `calc(100% + ${value * 2}px)`,
+    height: `calc(100% + ${value * 2}px)`,
+    filter: `blur(${value}px)`,
+  };
+});
 
 const componentStyle = computed(() => {
   if (props.objectCover || width.value === 0) {
@@ -59,23 +87,6 @@ const onComponentIntersected = () => {
 };
 
 onMounted(() => {
-  if (props.placeholderSrc) {
-    const canvas = canvasRef.value;
-    const ctx = canvas.getContext("2d");
-    const img = placeholderImageRef.value;
-    const blur = props.blur;
-    const width = rootRef.value.clientWidth;
-    const height = rootRef.value.clientHeight;
-
-    canvas.width = width;
-    canvas.height = height;
-
-    img.onload = () => {
-      ctx.filter = `blur(${blur}px)`;
-      ctx.drawImage(img, -blur, -blur, width + blur * 2, height + blur * 2);
-    };
-  }
-
   if (props.src) {
     watchIntersectionOnce(onComponentIntersected);
   }
@@ -92,26 +103,22 @@ onMounted(() => {
     <div :style="paddingHack">
       <img
         v-if="isIntersected"
-        class="v-progressive-image-main"
         v-show="isMainImageRendered"
         ref="mainImageRef"
+        class="v-progressive-image-main"
         :src="isFallbackImageRendered ? fallbackSrc : src"
         :alt="alt"
       />
 
       <template v-if="placeholderSrc">
-        <img
-          ref="placeholderImageRef"
-          loading="lazy"
-          class="v-progressive-image-placeholder"
-          :src="placeholderSrc"
-        />
         <transition name="v-progressive-image-fade" appear>
-          <canvas
+          <img
             v-if="isLoading"
-            ref="canvasRef"
-            class="v-progressive-image-canvas"
-          ></canvas>
+            class="v-progressive-image-placeholder"
+            loading="lazy"
+            :style="placeholderStyle"
+            :src="placeholderSrc"
+          />
         </transition>
       </template>
 

@@ -1,3 +1,0 @@
-import { MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR } from "@/constants";
-
-export default [MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR];
