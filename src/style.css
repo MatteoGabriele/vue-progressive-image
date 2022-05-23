@@ -24,7 +24,14 @@
 }
 
 .v-progressive-image-placeholder {
+  --blur: 50px;
+
   position: absolute;
+  top: calc(var(--blur) * -1);
+  left: calc(var(--blur) * -1);
+  width: calc(100% + var(--blur) * 2);
+  height: calc(100% + var(--blur) * 2);
+  filter: blur(var(--blur));
   z-index: 1;
   object-fit: cover;
 }

@@ -28,29 +28,18 @@ const props = defineProps({
 });
 
 const rootRef = ref(null);
-const mainImageRef = ref(null);
+const imageRef = ref(null);
+const placeholderRef = ref(null);
 const isMainImageRendered = ref(false);
 const isFallbackImageRendered = ref(false);
 
 const { isIntersected, watchIntersectionOnce } = useIntersect(rootRef);
-const { loadImage, aspectRatio, width } = useImage(mainImageRef);
+const { loadImage, aspectRatio, width } = useImage(imageRef);
 const isLoading = computed(() => !isMainImageRendered.value);
 
 const paddingHack = computed(() => ({
   paddingBottom: `${aspectRatio.value * 100}%`,
 }));
-
-const placeholderStyle = computed(() => {
-  const value = props.blur;
-
-  return {
-    top: `-${value}px`,
-    left: `-${value}px`,
-    width: `calc(100% + ${value * 2}px)`,
-    height: `calc(100% + ${value * 2}px)`,
-    filter: `blur(${value}px)`,
-  };
-});
 
 const componentStyle = computed(() => {
   if (props.objectCover || width.value === 0) {
@@ -87,6 +76,12 @@ const onComponentIntersected = () => {
 };
 
 onMounted(() => {
+  const blur = props.blur * 1;
+
+  if (props.placeholderSrc && blur !== IMAGE_BLUR) {
+    placeholderRef.value.style.setProperty("--blur", `${blur}px`);
+  }
+
   if (props.src) {
     watchIntersectionOnce(onComponentIntersected);
   }
@@ -104,7 +99,7 @@ onMounted(() => {
       <img
         v-if="isIntersected"
         v-show="isMainImageRendered"
-        ref="mainImageRef"
+        ref="imageRef"
         class="v-progressive-image-main"
         :src="isFallbackImageRendered ? fallbackSrc : src"
         :alt="alt"
@@ -114,9 +109,9 @@ onMounted(() => {
         <transition name="v-progressive-image-fade" appear>
           <img
             v-if="isLoading"
+            ref="placeholderRef"
             class="v-progressive-image-placeholder"
             loading="lazy"
-            :style="placeholderStyle"
             :src="placeholderSrc"
           />
         </transition>
