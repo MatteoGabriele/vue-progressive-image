@@ -23,29 +23,6 @@ exports[`ProgressiveImage > load placeholder image regardless of intersection 1`
 </div>
 `;
 
-exports[`ProgressiveImage > preload placeholder image regardless of intersection 1`] = `
-<div
-  class="v-progressive-image"
->
-  <div
-    style="padding-bottom: 56.25%;"
-  >
-    <img
-      class="v-progressive-image-main"
-      style="display: none;"
-    />
-    <transition-stub>
-      <img
-        class="v-progressive-image-placeholder"
-        loading="eager"
-        src="placeholder-image.jpg"
-      />
-    </transition-stub>
-    <!--v-if-->
-  </div>
-</div>
-`;
-
 exports[`ProgressiveImage > render default slot 1`] = `
 <div
   class="v-progressive-image"
