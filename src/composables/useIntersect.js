@@ -3,9 +3,7 @@ import { INTERSECTION_THRESHOLD } from "@/constants";
 
 export default (element) => {
   const isIntersected = ref(false);
-  const options = {
-    threshold: INTERSECTION_THRESHOLD,
-  };
+  const options = { threshold: INTERSECTION_THRESHOLD };
   const observer = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting) {
       isIntersected.value = true;
