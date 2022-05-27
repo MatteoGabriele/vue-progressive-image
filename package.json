@@ -16,7 +16,7 @@
     "test:update": "vitest --update",
     "dev": "cross-env NODE_ENV=development vite build --watch",
     "build": "cross-env NODE_ENV=production vite build",
-    "prepublish": "yarn build"
+    "prepublish": "yarn test && yarn build"
   },
   "author": {
     "name": "Matteo Gabriele",

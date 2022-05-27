@@ -1,21 +1,17 @@
 import { mount } from "@vue/test-utils";
-
-import { describe, beforeEach, expect, test, vi } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import ProgressiveImage from "../ProgressiveImage.vue";
 
-vi.mock("@/composables/useIntersect", () => ({
-  default: () => ({
-    isIntersected: true,
-  }),
-}));
-
-const IntersectionObserverMock = vi.fn(() => ({
-  disconnect: vi.fn(),
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-}));
-
-vi.stubGlobal("IntersectionObserver", IntersectionObserverMock);
+vi.mock("../../composables/useIntersect.js", () => {
+  return {
+    default: () => {
+      return {
+        isIntersected: () => true,
+        watchIntersectionOnce: (fn) => fn(),
+      };
+    },
+  };
+});
 
 describe("ProgressiveImage", () => {
   test("render image", () => {
@@ -63,48 +59,12 @@ describe("ProgressiveImage", () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  test("use circle shape", () => {
-    const wrapper = mount(ProgressiveImage, {
-      propsData: {
-        src: "main-image.jpg",
-        placeholderSrc: "placeholder-image.jpg",
-        circle: true,
-      },
-    });
-
-    expect(wrapper.element).toMatchSnapshot();
-  });
-
   test("use object cover", () => {
     const wrapper = mount(ProgressiveImage, {
       propsData: {
         src: "main-image.jpg",
         placeholderSrc: "placeholder-image.jpg",
         objectCover: true,
-      },
-    });
-
-    expect(wrapper.element).toMatchSnapshot();
-  });
-
-  test("use object contain", () => {
-    const wrapper = mount(ProgressiveImage, {
-      propsData: {
-        src: "main-image.jpg",
-        placeholderSrc: "placeholder-image.jpg",
-        objectContain: true,
-      },
-    });
-
-    expect(wrapper.element).toMatchSnapshot();
-  });
-
-  test("use select none", () => {
-    const wrapper = mount(ProgressiveImage, {
-      propsData: {
-        src: "main-image.jpg",
-        placeholderSrc: "placeholder-image.jpg",
-        selectNone: true,
       },
     });
 
@@ -131,17 +91,6 @@ describe("ProgressiveImage", () => {
       },
       propsData: {
         src: "main-image.jpg",
-      },
-    });
-
-    expect(wrapper.element).toMatchSnapshot();
-  });
-
-  test("custom aspect ratio", () => {
-    const wrapper = mount(ProgressiveImage, {
-      propsData: {
-        src: "main-image.jpg",
-        aspectRatio: 3.2,
       },
     });
 
