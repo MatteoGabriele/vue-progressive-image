@@ -13,6 +13,10 @@ const props = defineProps({
   fallbackSrc: String,
   alt: String,
   customClass: String,
+  loadPlaceholder: {
+    type: Boolean,
+    default: false,
+  },
   blur: {
     type: [Number, String],
     default: IMAGE_BLUR,
@@ -111,7 +115,7 @@ onMounted(() => {
             v-if="isLoading"
             ref="placeholderRef"
             class="v-progressive-image-placeholder"
-            loading="lazy"
+            :loading="loadPlaceholder ? 'eager' : 'lazy'"
             :src="placeholderSrc"
           />
         </transition>

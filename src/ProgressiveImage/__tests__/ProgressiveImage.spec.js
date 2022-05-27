@@ -96,4 +96,15 @@ describe("ProgressiveImage", () => {
 
     expect(wrapper.element).toMatchSnapshot();
   });
+
+  test("load placeholder image regardless of intersection", () => {
+    const wrapper = mount(ProgressiveImage, {
+      propsData: {
+        placeholderSrc: "placeholder-image.jpg",
+        loadPlaceholder: true,
+      },
+    });
+
+    expect(wrapper.element).toMatchSnapshot();
+  });
 });
