@@ -107,4 +107,15 @@ describe("ProgressiveImage", () => {
 
     expect(wrapper.element).toMatchSnapshot();
   });
+
+  test("render title attributes", () => {
+    const wrapper = mount(ProgressiveImage, {
+      propsData: {
+        src: "main-image.jpg",
+        title: "lorem ipsum dolor sit amet",
+      },
+    });
+
+    expect(wrapper.element).toMatchSnapshot();
+  });
 });

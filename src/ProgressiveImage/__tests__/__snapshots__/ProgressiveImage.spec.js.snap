@@ -117,6 +117,25 @@ exports[`ProgressiveImage > render image with placeholder 1`] = `
 </div>
 `;
 
+exports[`ProgressiveImage > render title attributes 1`] = `
+<div
+  class="v-progressive-image"
+>
+  <div
+    style="padding-bottom: 56.25%;"
+  >
+    <img
+      class="v-progressive-image-main"
+      src="main-image.jpg"
+      style="display: none;"
+      title="lorem ipsum dolor sit amet"
+    />
+    <!--v-if-->
+    <!--v-if-->
+  </div>
+</div>
+`;
+
 exports[`ProgressiveImage > use alt attribute 1`] = `
 <div
   class="v-progressive-image"

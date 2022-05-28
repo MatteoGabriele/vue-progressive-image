@@ -1,7 +1,7 @@
 import { isRef, onMounted, onUnmounted, nextTick, ref, watch } from "vue";
 import { INTERSECTION_THRESHOLD } from "@/constants";
 
-export default (element) => {
+export const useIntersect = (element) => {
   const isIntersected = ref(false);
   const options = { threshold: INTERSECTION_THRESHOLD };
   const observer = new IntersectionObserver((entries) => {
@@ -38,3 +38,5 @@ export default (element) => {
     isIntersected,
   };
 };
+
+export default useIntersect;

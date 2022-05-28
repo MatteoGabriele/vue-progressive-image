@@ -15,6 +15,7 @@ const props = defineProps({
   placeholderSrc: String,
   fallbackSrc: String,
   alt: String,
+  title: String,
   customClass: String,
   loadPlaceholder: {
     type: Boolean,
@@ -75,7 +76,7 @@ const onComponentIntersected = () => {
         emit(MAIN_IMAGE_LOAD_SUCCESS);
       }, props.delay * 1);
     })
-    .catch(() => {
+    .catch((error) => {
       isMainImageRendered.value = true;
       isFallbackImageRendered.value = true;
       emit(MAIN_IMAGE_LOAD_ERROR, error);
@@ -110,6 +111,7 @@ onMounted(() => {
         class="v-progressive-image-main"
         :src="isFallbackImageRendered ? fallbackSrc : src"
         :alt="alt"
+        :title="title"
       />
 
       <template v-if="placeholderSrc">
