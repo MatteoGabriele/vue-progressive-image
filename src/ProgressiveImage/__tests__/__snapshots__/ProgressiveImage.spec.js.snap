@@ -1,20 +1,22 @@
 // Vitest Snapshot v1
 
-exports[`ProgressiveImage > load placeholder image regardless of intersection 1`] = `
+exports[`ProgressiveImage > lazy load placeholder images 1`] = `
 <div
-  class="v-progressive-image"
+  class="v-progressive-image v-progressive-image-loading"
 >
   <div
     style="padding-bottom: 56.25%;"
   >
-    <img
-      class="v-progressive-image-main"
-      style="display: none;"
-    />
+    <transition-stub>
+      <img
+        class="v-progressive-image-main"
+        style="display: none;"
+      />
+    </transition-stub>
     <transition-stub>
       <img
         class="v-progressive-image-placeholder"
-        loading="eager"
+        loading="lazy"
         src="placeholder-image.jpg"
       />
     </transition-stub>
@@ -25,16 +27,18 @@ exports[`ProgressiveImage > load placeholder image regardless of intersection 1`
 
 exports[`ProgressiveImage > render default slot 1`] = `
 <div
-  class="v-progressive-image"
+  class="v-progressive-image v-progressive-image-loading"
 >
   <div
     style="padding-bottom: 56.25%;"
   >
-    <img
-      class="v-progressive-image-main"
-      src="main-image.jpg"
-      style="display: none;"
-    />
+    <transition-stub>
+      <img
+        class="v-progressive-image-main"
+        src="main-image.jpg"
+        style="display: none;"
+      />
+    </transition-stub>
     <!--v-if-->
     <div
       class="v-progressive-image-slot-default"
@@ -51,16 +55,18 @@ exports[`ProgressiveImage > render default slot 1`] = `
 
 exports[`ProgressiveImage > render default slot props 1`] = `
 <div
-  class="v-progressive-image"
+  class="v-progressive-image v-progressive-image-loading"
 >
   <div
     style="padding-bottom: 56.25%;"
   >
-    <img
-      class="v-progressive-image-main"
-      src="main-image.jpg"
-      style="display: none;"
-    />
+    <transition-stub>
+      <img
+        class="v-progressive-image-main"
+        src="main-image.jpg"
+        style="display: none;"
+      />
+    </transition-stub>
     <!--v-if-->
     <div
       class="v-progressive-image-slot-default"
@@ -77,16 +83,18 @@ exports[`ProgressiveImage > render default slot props 1`] = `
 
 exports[`ProgressiveImage > render image 1`] = `
 <div
-  class="v-progressive-image"
+  class="v-progressive-image v-progressive-image-loading"
 >
   <div
     style="padding-bottom: 56.25%;"
   >
-    <img
-      class="v-progressive-image-main"
-      src="main-image.jpg"
-      style="display: none;"
-    />
+    <transition-stub>
+      <img
+        class="v-progressive-image-main"
+        src="main-image.jpg"
+        style="display: none;"
+      />
+    </transition-stub>
     <!--v-if-->
     <!--v-if-->
   </div>
@@ -95,20 +103,22 @@ exports[`ProgressiveImage > render image 1`] = `
 
 exports[`ProgressiveImage > render image with placeholder 1`] = `
 <div
-  class="v-progressive-image"
+  class="v-progressive-image v-progressive-image-loading"
 >
   <div
     style="padding-bottom: 56.25%;"
   >
-    <img
-      class="v-progressive-image-main"
-      src="main-image.jpg"
-      style="display: none;"
-    />
+    <transition-stub>
+      <img
+        class="v-progressive-image-main"
+        src="main-image.jpg"
+        style="display: none;"
+      />
+    </transition-stub>
     <transition-stub>
       <img
         class="v-progressive-image-placeholder"
-        loading="lazy"
+        loading="eager"
         src="placeholder-image.jpg"
       />
     </transition-stub>
@@ -119,17 +129,19 @@ exports[`ProgressiveImage > render image with placeholder 1`] = `
 
 exports[`ProgressiveImage > render title attributes 1`] = `
 <div
-  class="v-progressive-image"
+  class="v-progressive-image v-progressive-image-loading"
 >
   <div
     style="padding-bottom: 56.25%;"
   >
-    <img
-      class="v-progressive-image-main"
-      src="main-image.jpg"
-      style="display: none;"
-      title="lorem ipsum dolor sit amet"
-    />
+    <transition-stub>
+      <img
+        class="v-progressive-image-main"
+        src="main-image.jpg"
+        style="display: none;"
+        title="lorem ipsum dolor sit amet"
+      />
+    </transition-stub>
     <!--v-if-->
     <!--v-if-->
   </div>
@@ -138,21 +150,23 @@ exports[`ProgressiveImage > render title attributes 1`] = `
 
 exports[`ProgressiveImage > use alt attribute 1`] = `
 <div
-  class="v-progressive-image"
+  class="v-progressive-image v-progressive-image-loading"
 >
   <div
     style="padding-bottom: 56.25%;"
   >
-    <img
-      alt="image description"
-      class="v-progressive-image-main"
-      src="main-image.jpg"
-      style="display: none;"
-    />
+    <transition-stub>
+      <img
+        alt="image description"
+        class="v-progressive-image-main"
+        src="main-image.jpg"
+        style="display: none;"
+      />
+    </transition-stub>
     <transition-stub>
       <img
         class="v-progressive-image-placeholder"
-        loading="lazy"
+        loading="eager"
         src="placeholder-image.jpg"
       />
     </transition-stub>
@@ -163,22 +177,23 @@ exports[`ProgressiveImage > use alt attribute 1`] = `
 
 exports[`ProgressiveImage > use custom blur 1`] = `
 <div
-  class="v-progressive-image"
+  class="v-progressive-image v-progressive-image-loading"
 >
   <div
     style="padding-bottom: 56.25%;"
   >
-    <img
-      class="v-progressive-image-main"
-      src="main-image.jpg"
-      style="display: none;"
-    />
+    <transition-stub>
+      <img
+        class="v-progressive-image-main"
+        src="main-image.jpg"
+        style="display: none;"
+      />
+    </transition-stub>
     <transition-stub>
       <img
         class="v-progressive-image-placeholder"
-        loading="lazy"
+        loading="eager"
         src="placeholder-image.jpg"
-        style="--blur: 50px;"
       />
     </transition-stub>
     <!--v-if-->
@@ -188,20 +203,22 @@ exports[`ProgressiveImage > use custom blur 1`] = `
 
 exports[`ProgressiveImage > use object cover 1`] = `
 <div
-  class="v-progressive-image v-progressive-image-object-cover"
+  class="v-progressive-image v-progressive-image-object-cover v-progressive-image-loading"
 >
   <div
     style="padding-bottom: 56.25%;"
   >
-    <img
-      class="v-progressive-image-main"
-      src="main-image.jpg"
-      style="display: none;"
-    />
+    <transition-stub>
+      <img
+        class="v-progressive-image-main"
+        src="main-image.jpg"
+        style="display: none;"
+      />
+    </transition-stub>
     <transition-stub>
       <img
         class="v-progressive-image-placeholder"
-        loading="lazy"
+        loading="eager"
         src="placeholder-image.jpg"
       />
     </transition-stub>

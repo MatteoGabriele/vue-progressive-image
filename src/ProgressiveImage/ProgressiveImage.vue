@@ -17,7 +17,7 @@ const props = defineProps({
   alt: String,
   title: String,
   customClass: String,
-  loadPlaceholder: {
+  lazyPlaceholder: {
     type: Boolean,
     default: false,
   },
@@ -37,7 +37,6 @@ const props = defineProps({
 
 const rootRef = ref(null);
 const imageRef = ref(null);
-const placeholderRef = ref(null);
 const isMainImageRendered = ref(false);
 const isFallbackImageRendered = ref(false);
 
@@ -64,6 +63,7 @@ const imageClasses = computed(() => {
     props.customClass,
     {
       "v-progressive-image-object-cover": props.objectCover,
+      "v-progressive-image-loading": isLoading.value,
     },
   ];
 });
@@ -87,7 +87,10 @@ onMounted(() => {
   const blur = props.blur * 1;
 
   if (props.placeholderSrc && blur !== IMAGE_BLUR) {
-    placeholderRef.value.style.setProperty("--blur", `${blur}px`);
+    document.documentElement.style.setProperty(
+      "--progressive-image-blur",
+      `${blur}px`
+    );
   }
 
   if (props.src) {
@@ -104,23 +107,28 @@ onMounted(() => {
     :style="componentStyle"
   >
     <div :style="paddingHack">
-      <img
-        v-if="isIntersected"
-        v-show="isMainImageRendered"
-        ref="imageRef"
-        class="v-progressive-image-main"
-        :src="isFallbackImageRendered ? fallbackSrc : src"
-        :alt="alt"
-        :title="title"
-      />
+      <transition
+        :css="!placeholderSrc"
+        name="v-progressive-image-main-fade"
+        appear
+      >
+        <img
+          v-if="isIntersected"
+          v-show="isMainImageRendered"
+          ref="imageRef"
+          class="v-progressive-image-main"
+          :src="isFallbackImageRendered ? fallbackSrc : src"
+          :alt="alt"
+          :title="title"
+        />
+      </transition>
 
       <template v-if="placeholderSrc">
-        <transition name="v-progressive-image-fade" appear>
+        <transition name="v-progressive-image-placeholder-fade" appear>
           <img
             v-if="isLoading"
-            ref="placeholderRef"
             class="v-progressive-image-placeholder"
-            :loading="loadPlaceholder ? 'eager' : 'lazy'"
+            :loading="lazyPlaceholder ? 'lazy' : 'eager'"
             :src="placeholderSrc"
           />
         </transition>

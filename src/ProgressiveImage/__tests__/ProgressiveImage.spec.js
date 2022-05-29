@@ -97,11 +97,11 @@ describe("ProgressiveImage", () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
-  test("load placeholder image regardless of intersection", () => {
+  test("lazy load placeholder images", () => {
     const wrapper = mount(ProgressiveImage, {
       propsData: {
         placeholderSrc: "placeholder-image.jpg",
-        loadPlaceholder: true,
+        lazyPlaceholder: true,
       },
     });
 
