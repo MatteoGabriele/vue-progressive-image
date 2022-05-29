@@ -1,6 +1,6 @@
 :root {
   --progressive-image-background-color: #f8f8f8;
-  --progressive-image-blur: 50px;
+  --progressive-image-blur: 16px;
 
   --progressive-image-main-fade-ease: ease-in;
   --progressive-image-main-fade-speed: 0.9s;
@@ -75,6 +75,7 @@
   width: calc(100% + var(--progressive-image-blur) * 2);
   height: calc(100% + var(--progressive-image-blur) * 2);
   filter: blur(var(--progressive-image-blur));
+  transform: scale(1.2);
   z-index: 1;
   object-fit: cover;
 }

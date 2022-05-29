@@ -1,10 +1,6 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import {
-  IMAGE_BLUR,
-  MAIN_IMAGE_LOAD_SUCCESS,
-  MAIN_IMAGE_LOAD_ERROR,
-} from "@/constants";
+import { MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR } from "@/constants";
 import useImage from "@/composables/useImage";
 import useIntersect from "@/composables/useIntersect";
 
@@ -17,13 +13,10 @@ const props = defineProps({
   alt: String,
   title: String,
   customClass: String,
+  blur: [Number, String],
   lazyPlaceholder: {
     type: Boolean,
     default: false,
-  },
-  blur: {
-    type: [Number, String],
-    default: IMAGE_BLUR,
   },
   delay: {
     type: [Number, String],
@@ -68,7 +61,7 @@ const imageClasses = computed(() => {
   ];
 });
 
-const onComponentIntersected = () => {
+const mainImageHandler = () => {
   loadImage()
     .then(() => {
       setTimeout(() => {
@@ -84,17 +77,15 @@ const onComponentIntersected = () => {
 };
 
 onMounted(() => {
-  const blur = props.blur * 1;
-
-  if (props.placeholderSrc && blur !== IMAGE_BLUR) {
+  if (props.placeholderSrc && props.blur) {
     document.documentElement.style.setProperty(
       "--progressive-image-blur",
-      `${blur}px`
+      `${props.blur * 1}px`
     );
   }
 
   if (props.src) {
-    watchIntersectionOnce(onComponentIntersected);
+    watchIntersectionOnce(mainImageHandler);
   }
 });
 </script>
