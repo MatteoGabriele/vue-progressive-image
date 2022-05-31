@@ -1,29 +1,14 @@
-import image from './component/image.vue'
-import background from './component/background.vue'
+import "./style.css";
+import ProgressiveImage from "./ProgressiveImage";
 
-/**
- * Merges plugin installation options with a component
- * @param  {VueComponent} component
- * @param  {Object} options
- * @return {VueComponent}
- */
-const mergeOptions = function (component, options = {}) {
-  return {
-    ...component,
-    data: () => ({ options })
-  }
-}
+export const install = (app, props = {}) => {
+  Object.keys(props).forEach((key) => {
+    ProgressiveImage.props[key].default = props[key];
+  });
 
-/**
- * Vue installation method
- * @param  {VueInstance} Vue
- * @param  {Object} [options={}]
- */
-const install = function (Vue, options = {}) {
-  Vue.component('progressive-img', mergeOptions(image, options))
-  Vue.component('progressive-background', mergeOptions(background, options))
-}
+  app.component("ProgressiveImage", ProgressiveImage);
+};
 
-export default {
-  install
-}
+export { ProgressiveImage };
+
+export default install;

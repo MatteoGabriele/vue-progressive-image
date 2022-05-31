@@ -1,0 +1,128 @@
+:root {
+  --progressive-image-background-color: #f4f4f4;
+  --progressive-image-blur: 16px;
+
+  --progressive-image-main-fade-ease: ease-in;
+  --progressive-image-main-fade-speed: 0.9s;
+
+  --progressive-image-placeholder-fade-ease: ease-out;
+  --progressive-image-placeholder-fade-speed: 1.2s;
+
+  --progressive-image-skeleton-speed: 2s;
+  --progressive-image-skeleton-background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.7) 70%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.v-progressive-image,
+.v-progressive-image *,
+.v-progressive-image *:before,
+.v-progressive-image *:after {
+  box-sizing: border-box;
+}
+
+.v-progressive-image {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  display: inline-block;
+  background: var(--progressive-image-background-color);
+}
+
+.v-progressive-image-loading::before {
+  content: "";
+  display: block;
+  position: absolute;
+  background: var(--progressive-image-skeleton-background);
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  .v-progressive-image-loading::before {
+    animation: shimmer var(--progressive-image-skeleton-speed) infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+.v-progressive-image-main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.v-progressive-image-placeholder {
+  position: absolute;
+  top: calc(var(--progressive-image-blur) * -1);
+  left: calc(var(--progressive-image-blur) * -1);
+  width: calc(100% + var(--progressive-image-blur) * 2);
+  height: calc(100% + var(--progressive-image-blur) * 2);
+  filter: blur(var(--progressive-image-blur));
+  transform: scale(1.2);
+  z-index: 1;
+  object-fit: cover;
+}
+
+.v-progressive-image-slot-default {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.v-progressive-image-object-cover {
+  height: 100%;
+  width: 100%;
+}
+
+.v-progressive-image-object-cover .v-progressive-image-main {
+  object-position: center;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.v-progressive-image-main-fade-leave,
+.v-progressive-image-main-fade-leave-active,
+.v-progressive-image-main-fade-enter-active {
+  transition: opacity var(--progressive-image-main-fade-speed)
+    var(--progressive-image-main-fade-ease);
+}
+
+.v-progressive-image-main-fade-leave-to,
+.v-progressive-image-main-fade-enter-from {
+  transition: opacity var(--progressive-image-main-fade-speed)
+    var(--progressive-image-main-fade-ease);
+  opacity: 0;
+}
+
+.v-progressive-image-placeholder-fade-leave,
+.v-progressive-image-placeholder-fade-leave-active {
+  transition: opacity var(--progressive-image-placeholder-fade-speed)
+    var(--progressive-image-placeholder-fade-ease);
+}
+
+.v-progressive-image-placeholder-fade-leave-to {
+  transition: opacity var(--progressive-image-placeholder-fade-speed)
+    var(--progressive-image-placeholder-fade-ease);
+  opacity: 0;
+}

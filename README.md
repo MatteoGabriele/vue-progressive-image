@@ -2,12 +2,11 @@
 
 Vue progressive image loading plugin
 
-
 ![alt tag](https://raw.githubusercontent.com/MatteoGabriele/vue-progressive-image/master/example.gif)
 
 ## Requirements
 
-Vue ^2.0.0
+Vue ^3.0.0
 
 ## Install
 
@@ -23,4 +22,4 @@ npm install vue-progressive-image
 
 Please drop an issue, if you find something that doesn't work, or a feature request at [https://github.com/MatteoGabriele/vue-progressive-image/issues](https://github.com/MatteoGabriele/vue-progressive-image/issues)
 
-Follow me on twitter [@matteo\_gabriele](https://twitter.com/matteo_gabriele) for updates
+Follow me on twitter [@matteo_gabriele](https://twitter.com/matteo_gabriele) for updates
