@@ -22,10 +22,10 @@ export const useImage = (element) => {
   const imageRenderer = (imageNode) => {
     const canvas = document.createElement("canvas");
 
-    canvas.setAttribute("hidden", true);
-    canvas.setAttribute("data-src", imageNode.src);
     canvas.width = 1;
     canvas.height = 1;
+
+    canvas.setAttribute("hidden", true);
 
     document.body.appendChild(canvas);
 
