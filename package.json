@@ -1,6 +1,6 @@
 {
   "name": "vue-progressive-image",
-  "version": "3.1.0",
+  "version": "3.2.1",
   "description": "Vue progressive image loading plugin",
   "main": "dist/vue-progressive-image.js",
   "files": [
@@ -14,11 +14,6 @@
   "author": {
     "name": "Matteo Gabriele",
     "email": "m.gabriele.dev@gmail.com"
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
-    }
   },
   "repository": {
     "type": "git",
