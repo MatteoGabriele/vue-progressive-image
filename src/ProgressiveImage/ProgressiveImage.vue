@@ -120,6 +120,7 @@ onMounted(() => {
             v-if="isLoading"
             class="v-progressive-image-placeholder"
             :loading="lazyPlaceholder ? 'lazy' : 'eager'"
+            :alt="alt"
             :src="placeholderSrc"
           />
         </transition>

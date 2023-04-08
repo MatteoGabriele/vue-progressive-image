@@ -165,6 +165,7 @@ exports[`ProgressiveImage > use alt attribute 1`] = `
     </transition-stub>
     <transition-stub>
       <img
+        alt="image description"
         class="v-progressive-image-placeholder"
         loading="eager"
         src="placeholder-image.jpg"
