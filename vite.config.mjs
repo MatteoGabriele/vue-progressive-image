@@ -2,10 +2,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import { readFile } from "fs/promises";
-const info = JSON.parse(
-  await readFile(new URL("./package.json", import.meta.url))
-);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -34,10 +30,6 @@ export default defineConfig({
         },
       },
     },
-  },
-
-  define: {
-    VERSION: info.version,
   },
 
   test: {
