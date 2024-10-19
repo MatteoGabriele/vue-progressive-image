@@ -13,11 +13,7 @@ exports[`ProgressiveImage > lazy load placeholder images 1`] = `
       name="v-progressive-image-main-fade"
       persisted="false"
     >
-      <img
-        class="v-progressive-image-main"
-        src="main-image.jpg"
-        style="display: none;"
-      />
+      <!--v-if-->
     </transition-stub>
     <transition-stub
       appear="true"
@@ -49,11 +45,7 @@ exports[`ProgressiveImage > render default slot 1`] = `
       name="v-progressive-image-main-fade"
       persisted="false"
     >
-      <img
-        class="v-progressive-image-main"
-        src="main-image.jpg"
-        style="display: none;"
-      />
+      <!--v-if-->
     </transition-stub>
     <!--v-if-->
     <div
@@ -82,11 +74,7 @@ exports[`ProgressiveImage > render default slot props 1`] = `
       name="v-progressive-image-main-fade"
       persisted="false"
     >
-      <img
-        class="v-progressive-image-main"
-        src="main-image.jpg"
-        style="display: none;"
-      />
+      <!--v-if-->
     </transition-stub>
     <!--v-if-->
     <div
@@ -115,11 +103,7 @@ exports[`ProgressiveImage > render image 1`] = `
       name="v-progressive-image-main-fade"
       persisted="false"
     >
-      <img
-        class="v-progressive-image-main"
-        src="main-image.jpg"
-        style="display: none;"
-      />
+      <!--v-if-->
     </transition-stub>
     <!--v-if-->
     <!--v-if-->
@@ -140,11 +124,7 @@ exports[`ProgressiveImage > render image with placeholder 1`] = `
       name="v-progressive-image-main-fade"
       persisted="false"
     >
-      <img
-        class="v-progressive-image-main"
-        src="main-image.jpg"
-        style="display: none;"
-      />
+      <!--v-if-->
     </transition-stub>
     <transition-stub
       appear="true"
@@ -176,12 +156,7 @@ exports[`ProgressiveImage > render title attributes 1`] = `
       name="v-progressive-image-main-fade"
       persisted="false"
     >
-      <img
-        class="v-progressive-image-main"
-        src="main-image.jpg"
-        style="display: none;"
-        title="lorem ipsum dolor sit amet"
-      />
+      <!--v-if-->
     </transition-stub>
     <!--v-if-->
     <!--v-if-->
@@ -202,12 +177,7 @@ exports[`ProgressiveImage > use alt attribute 1`] = `
       name="v-progressive-image-main-fade"
       persisted="false"
     >
-      <img
-        alt="image description"
-        class="v-progressive-image-main"
-        src="main-image.jpg"
-        style="display: none;"
-      />
+      <!--v-if-->
     </transition-stub>
     <transition-stub
       appear="true"
@@ -239,11 +209,7 @@ exports[`ProgressiveImage > use custom blur 1`] = `
       name="v-progressive-image-main-fade"
       persisted="false"
     >
-      <img
-        class="v-progressive-image-main"
-        src="main-image.jpg"
-        style="display: none;"
-      />
+      <!--v-if-->
     </transition-stub>
     <transition-stub
       appear="true"
@@ -275,11 +241,7 @@ exports[`ProgressiveImage > use object cover 1`] = `
       name="v-progressive-image-main-fade"
       persisted="false"
     >
-      <img
-        class="v-progressive-image-main"
-        src="main-image.jpg"
-        style="display: none;"
-      />
+      <!--v-if-->
     </transition-stub>
     <transition-stub
       appear="true"

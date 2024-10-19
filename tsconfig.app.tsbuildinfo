@@ -1,1 +1,0 @@
-{"root":["./src/constants.ts","./src/index.ts","./src/progressiveimage/index.ts","./src/composables/useimage.ts","./src/composables/useintersect.ts","./src/types/progressive-image.ts","./src/progressiveimage/progressiveimage.vue"],"version":"5.6.3"}

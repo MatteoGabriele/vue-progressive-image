@@ -1,7 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, test, vi } from "vitest";
-import ProgressiveImage from "../ProgressiveImage.vue";
-import useIntersect from "../../composables/useIntersect";
+import ProgressiveImage from "./ProgressiveImage.vue";
 
 vi.mock("../../composables/useIntersect.ts", () => {
   return {
