@@ -6,7 +6,7 @@ export type ProgressiveImageProps = {
   title?: string;
   customClass?: string;
   blur?: number;
-  lazyPlaceholder: boolean;
-  objectCover: boolean;
-  delay: number;
+  lazyPlaceholder?: boolean;
+  objectCover?: boolean;
+  delay?: number;
 };

@@ -15,6 +15,7 @@ exports[`ProgressiveImage > lazy load placeholder images 1`] = `
     >
       <img
         class="v-progressive-image-main"
+        src="main-image.jpg"
         style="display: none;"
       />
     </transition-stub>

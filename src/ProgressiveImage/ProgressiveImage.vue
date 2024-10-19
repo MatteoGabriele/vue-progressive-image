@@ -3,7 +3,7 @@ import { ref, onMounted, computed } from "vue";
 import { MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR } from "../constants";
 import useImage from "../composables/useImage";
 import useIntersect from "../composables/useIntersect";
-import { ProgressiveImageProps } from "../types/progressive-image";
+import { ProgressiveImageProps } from "./types/progressive-image";
 
 const emit = defineEmits([MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR]);
 
