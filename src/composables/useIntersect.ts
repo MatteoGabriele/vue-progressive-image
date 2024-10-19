@@ -8,7 +8,7 @@ import {
   toRef,
   watch,
 } from "vue";
-import { INTERSECTION_THRESHOLD } from "../constants";
+import { INTERSECTION_THRESHOLD } from "@/constants";
 
 type UseIntersectResult = {
   isIntersecting: Ref<boolean>;

@@ -1,5 +1,5 @@
 import { ref, computed, nextTick, unref, Ref, MaybeRef } from "vue";
-import { IMAGE_POLL_INTERVAL, IMAGE_ASPECT_RATIO } from "../constants";
+import { IMAGE_POLL_INTERVAL, IMAGE_ASPECT_RATIO } from "@/constants";
 
 type UseImageResult = {
   loadImage: () => Promise<void>;

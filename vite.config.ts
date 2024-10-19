@@ -1,10 +1,6 @@
-import path from "path";
-import { fileURLToPath } from "url";
 import { defineConfig } from "vitest/config";
 import vue from "@vitejs/plugin-vue";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { fileURLToPath, URL } from "url";
 
 export default defineConfig({
   plugins: [vue()],
@@ -15,13 +11,13 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
 
   build: {
     lib: {
-      entry: path.resolve(__dirname, "./src/index.ts"),
+      entry: fileURLToPath(new URL("./src/index.ts", import.meta.url)),
       name: "VueProgressiveImage",
     },
 
