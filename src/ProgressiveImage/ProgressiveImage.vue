@@ -1,39 +1,25 @@
-<script setup>
+<script lang="ts" setup>
 import { ref, onMounted, computed } from "vue";
-import { MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR } from "@/constants";
-import useImage from "@/composables/useImage";
-import useIntersect from "@/composables/useIntersect";
+import { MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR } from "../constants";
+import useImage from "../composables/useImage";
+import useIntersect from "../composables/useIntersect";
+import { ProgressiveImageProps } from "../types/progressive-image";
 
 const emit = defineEmits([MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR]);
 
-const props = defineProps({
-  src: String,
-  placeholderSrc: String,
-  fallbackSrc: String,
-  alt: String,
-  title: String,
-  customClass: String,
-  blur: [Number, String],
-  lazyPlaceholder: {
-    type: Boolean,
-    default: false,
-  },
-  delay: {
-    type: [Number, String],
-    default: 0,
-  },
-  objectCover: {
-    type: Boolean,
-    default: false,
-  },
+const props = withDefaults(defineProps<ProgressiveImageProps>(), {
+  lazyPlaceholder: false,
+  objectCover: false,
+  delay: 0,
 });
 
-const rootRef = ref(null);
+const rootRef = ref<HTMLElement | null>(null);
 const imageRef = ref(null);
 const isMainImageRendered = ref(false);
 const isFallbackImageRendered = ref(false);
 
-const { isIntersected, watchIntersectionOnce } = useIntersect(rootRef);
+const { watchIntersectionOnce, isIntersecting, isReady } =
+  useIntersect(rootRef);
 const { loadImage, aspectRatio, width } = useImage(imageRef);
 const isLoading = computed(() => !isMainImageRendered.value);
 
@@ -104,7 +90,7 @@ onMounted(() => {
         appear
       >
         <img
-          v-if="isIntersected"
+          v-if="isIntersecting && isReady"
           v-show="isMainImageRendered"
           ref="imageRef"
           class="v-progressive-image-main"

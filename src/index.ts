@@ -1,12 +1,13 @@
 import "./style.css";
 import ProgressiveImage from "./ProgressiveImage";
+import type { App } from "vue";
+import { ProgressiveImageProps } from "./types/progressive-image";
 
-export const install = (app, props = {}) => {
-  Object.keys(props).forEach((key) => {
-    ProgressiveImage.props[key].default = props[key];
+export const install = (app: App, props: Partial<ProgressiveImageProps>) => {
+  app.component("ProgressiveImage", {
+    extends: ProgressiveImage,
+    props,
   });
-
-  app.component("ProgressiveImage", ProgressiveImage);
 };
 
 export { ProgressiveImage };
