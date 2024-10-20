@@ -2,7 +2,7 @@ import { mount } from "@vue/test-utils";
 import { vi, describe, expect, test } from "vitest";
 import ProgressiveImage from "./ProgressiveImage.vue";
 
-vi.mock("../composables/useIntersect", () => {
+vi.mock("@/composables/useIntersect", () => {
   return {
     default: () => ({
       isIntersecting: true,
