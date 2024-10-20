@@ -111,38 +111,6 @@ exports[`ProgressiveImage > render image 1`] = `
 </div>
 `;
 
-exports[`ProgressiveImage > render image with placeholder 1`] = `
-<div
-  class="v-progressive-image v-progressive-image-loading"
->
-  <div
-    style="padding-bottom: 56.25%;"
-  >
-    <transition-stub
-      appear="true"
-      css="false"
-      name="v-progressive-image-main-fade"
-      persisted="false"
-    >
-      <!--v-if-->
-    </transition-stub>
-    <transition-stub
-      appear="true"
-      css="true"
-      name="v-progressive-image-placeholder-fade"
-      persisted="false"
-    >
-      <img
-        class="v-progressive-image-placeholder"
-        loading="eager"
-        src="placeholder-image.jpg"
-      />
-    </transition-stub>
-    <!--v-if-->
-  </div>
-</div>
-`;
-
 exports[`ProgressiveImage > render title attributes 1`] = `
 <div
   class="v-progressive-image v-progressive-image-loading"
