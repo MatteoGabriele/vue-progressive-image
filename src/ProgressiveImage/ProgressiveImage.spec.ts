@@ -1,6 +1,16 @@
 import { mount } from "@vue/test-utils";
-import { describe, expect, test } from "vitest";
+import { vi, describe, expect, test } from "vitest";
 import ProgressiveImage from "./ProgressiveImage.vue";
+
+vi.mock("../composables/useIntersect", () => {
+  return {
+    default: () => ({
+      isIntersecting: true,
+      isReady: true,
+      watchIntersectionOnce: vi.fn(),
+    }),
+  };
+});
 
 describe("ProgressiveImage", () => {
   test("render image", () => {
@@ -21,10 +31,7 @@ describe("ProgressiveImage", () => {
       },
     });
 
-    expect(wrapper.find("v-progressive-image-main").exists()).toEqual(true);
-    expect(wrapper.find("v-progressive-image-placeholder").exists()).toEqual(
-      true
-    );
+    expect(wrapper.element).toMatchSnapshot();
   });
 
   test("use custom blur", () => {
