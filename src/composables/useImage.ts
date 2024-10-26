@@ -20,7 +20,7 @@ export default function useImage(
   });
 
   const pollImageData = setInterval(() => {
-    if (image && image.width) {
+    if (image?.width) {
       clearInterval(pollImageData);
 
       width.value = image.width;
@@ -55,7 +55,7 @@ export default function useImage(
     image.src = src;
 
     if (image.complete) {
-      return Promise.resolve();
+      return;
     }
 
     return new Promise((resolve, reject) => {

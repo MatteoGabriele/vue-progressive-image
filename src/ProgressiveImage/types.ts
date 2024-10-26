@@ -10,3 +10,8 @@ export type ProgressiveImageProps = {
   objectCover?: boolean;
   delay?: number;
 };
+
+export type ProgressiveImageGlobalProps = Omit<
+  ProgressiveImageProps,
+  "src" | "objectCover | title | alt"
+>;

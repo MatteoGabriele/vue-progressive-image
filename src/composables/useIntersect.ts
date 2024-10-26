@@ -12,6 +12,7 @@ import { INTERSECTION_THRESHOLD } from "@/constants";
 
 type UseIntersectResult = {
   isIntersecting: Ref<boolean>;
+  hasIntersectedOnce: Ref<boolean>;
   isReady: Ref<boolean>;
   watchIntersectionOnce: (callback: () => void) => void;
 };
@@ -23,9 +24,9 @@ export default function useIntersect(
 
   const elementRef = toRef(element);
 
-  // This is needed to avoid element glitching before the observer initializes
   const isReady = ref(false);
   const isIntersecting = ref(false);
+  const hasIntersectedOnce = ref(false);
 
   const observeElement = () => {
     if (!elementRef.value) {
@@ -49,12 +50,13 @@ export default function useIntersect(
   };
 
   const watchIntersectionOnce = (callback: () => void) => {
-    const stop = watch(
+    const unwatch = watch(
       isIntersecting,
       (is) => {
-        if (is) {
+        if (is && !hasIntersectedOnce.value) {
           nextTick().then(callback);
-          stop();
+          unwatch();
+          hasIntersectedOnce.value = true;
         }
       },
       { immediate: true }
@@ -69,6 +71,7 @@ export default function useIntersect(
 
   return {
     isIntersecting,
+    hasIntersectedOnce,
     watchIntersectionOnce,
     isReady,
   };

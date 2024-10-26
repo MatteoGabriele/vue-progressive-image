@@ -1,9 +1,17 @@
 import { defineConfig } from "vitest/config";
 import vue from "@vitejs/plugin-vue";
 import tsconfigPaths from "vite-tsconfig-paths";
+import dts from "vite-plugin-dts";
 
 export default defineConfig({
-  plugins: [tsconfigPaths(), vue()],
+  plugins: [
+    tsconfigPaths(),
+    vue(),
+    dts({
+      rollupTypes: true,
+      tsconfigPath: new URL("./tsconfig.app.json", import.meta.url).pathname,
+    }),
+  ],
 
   resolve: {
     alias: {
@@ -15,12 +23,13 @@ export default defineConfig({
     lib: {
       entry: new URL("./src/index.ts", import.meta.url).pathname,
       name: "VueProgressiveImage",
+      formats: ["es"],
+      fileName: "vue-progressive-image",
     },
 
     rollupOptions: {
       external: ["vue"],
       output: {
-        exports: "named",
         globals: {
           vue: "Vue",
         },

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, watch } from "vue";
 import { MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR } from "../constants";
 import useImage from "@/composables/useImage";
 import useIntersect from "@/composables/useIntersect";
@@ -14,13 +14,13 @@ const props = withDefaults(defineProps<ProgressiveImageProps>(), {
 });
 
 const rootRef = ref<HTMLElement | null>(null);
-const imageRef = ref(null);
+const imageRef = ref<HTMLImageElement | null>(null);
 const isMainImageRendered = ref(false);
 const isFallbackImageRendered = ref(false);
 
-const { watchIntersectionOnce, isIntersecting, isReady } =
+const { watchIntersectionOnce, hasIntersectedOnce, isReady } =
   useIntersect(rootRef);
-const { loadImage, aspectRatio, width } = useImage(imageRef);
+const { loadImage, aspectRatio, width, height } = useImage(imageRef);
 const isLoading = computed(() => !isMainImageRendered.value);
 
 const paddingHack = computed(() => ({
@@ -53,7 +53,7 @@ const mainImageHandler = () => {
       setTimeout(() => {
         isMainImageRendered.value = true;
         emit(MAIN_IMAGE_LOAD_SUCCESS);
-      }, props.delay * 1);
+      }, props.delay);
     })
     .catch((error) => {
       isMainImageRendered.value = true;
@@ -66,7 +66,7 @@ onMounted(() => {
   if (props.placeholderSrc && props.blur) {
     document.documentElement.style.setProperty(
       "--progressive-image-blur",
-      `${props.blur * 1}px`
+      `${props.blur}px`
     );
   }
 
@@ -90,10 +90,11 @@ onMounted(() => {
         appear
       >
         <img
-          v-if="isIntersecting && isReady"
-          v-show="isMainImageRendered"
+          v-if="hasIntersectedOnce && isReady"
           ref="imageRef"
           class="v-progressive-image-main"
+          :width="width"
+          :height="height"
           :src="isFallbackImageRendered ? fallbackSrc : src"
           :alt="alt"
           :title="title"
