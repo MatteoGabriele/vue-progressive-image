@@ -8,9 +8,9 @@ type UseImageResult = {
   height: Ref<number>;
 };
 
-export default function useImage(
+export const useImage = (
   element: MaybeRef<HTMLImageElement | null>
-): UseImageResult {
+): UseImageResult => {
   const image = new Image();
   const width = ref(0);
   const height = ref(0);
@@ -74,4 +74,4 @@ export default function useImage(
     aspectRatio,
     loadImage,
   };
-}
+};

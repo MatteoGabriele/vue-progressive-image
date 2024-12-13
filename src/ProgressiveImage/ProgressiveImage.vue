@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { ref, onMounted, computed, watch } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR } from "../constants";
-import useImage from "@/composables/useImage";
-import useIntersect from "@/composables/useIntersect";
+import { useImage } from "@/composables/useImage";
+import { useIntersect } from "@/composables/useIntersect";
 import { ProgressiveImageProps } from "./types";
 
 const emit = defineEmits([MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR]);
@@ -20,6 +20,8 @@ const isFallbackImageRendered = ref(false);
 
 const { watchIntersectionOnce, hasIntersectedOnce, isReady } =
   useIntersect(rootRef);
+
+console.log(hasIntersectedOnce.value, isReady.value);
 const { loadImage, aspectRatio, width, height } = useImage(imageRef);
 const isLoading = computed(() => !isMainImageRendered.value);
 

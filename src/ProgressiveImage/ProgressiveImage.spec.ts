@@ -1,19 +1,56 @@
+import { ref } from "vue";
 import { mount } from "@vue/test-utils";
-import { vi, describe, expect, test } from "vitest";
+import {
+  beforeEach,
+  afterEach,
+  describe,
+  expect,
+  test,
+  vi,
+  Mock,
+} from "vitest";
 import ProgressiveImage from "./ProgressiveImage.vue";
+import { useIntersect } from "../composables/useIntersect.ts";
+import { useImage } from "../composables/useImage.ts";
 
-vi.mock("@/composables/useIntersect", () => {
+vi.mock("../composables/useIntersect.ts", async (importOriginal) => {
+  const actual = await importOriginal();
   return {
-    default: () => ({
-      isIntersecting: true,
-      isReady: true,
-      watchIntersectionOnce: vi.fn(),
-    }),
+    ...(typeof actual === "object" ? actual : {}),
+    useIntersect: vi.fn(),
+  };
+});
+
+vi.mock("../composables/useImage.ts", async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...(typeof actual === "object" ? actual : {}),
+    useImage: vi.fn(),
   };
 });
 
 describe("ProgressiveImage", () => {
-  test("render image", () => {
+  beforeEach(() => {
+    (useIntersect as Mock).mockReturnValue({
+      isIntersecting: ref(true),
+      isReady: ref(true),
+      hasIntersectedOnce: ref(true),
+      watchIntersectionOnce: vi.fn(),
+    });
+
+    (useImage as Mock).mockReturnValue({
+      width: ref(700),
+      height: ref(400),
+      aspectRatio: ref(0.5625),
+      loadImage: vi.fn(() => Promise.resolve()),
+    });
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
+  test.only("render image", () => {
     const wrapper = mount(ProgressiveImage, {
       props: {
         src: "main-image.jpg",

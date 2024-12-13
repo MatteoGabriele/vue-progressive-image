@@ -17,9 +17,9 @@ type UseIntersectResult = {
   watchIntersectionOnce: (callback: () => void) => void;
 };
 
-export default function useIntersect(
+export const useIntersect = (
   element: MaybeRef<HTMLElement | null>
-): UseIntersectResult {
+): UseIntersectResult => {
   let observer: IntersectionObserver;
 
   const elementRef = toRef(element);
@@ -75,4 +75,4 @@ export default function useIntersect(
     watchIntersectionOnce,
     isReady,
   };
-}
+};
