@@ -3,6 +3,7 @@
 exports[`ProgressiveImage > lazy load placeholder images 1`] = `
 <div
   class="v-progressive-image v-progressive-image-loading"
+  style="max-width: 700px;"
 >
   <div
     style="padding-bottom: 56.25%;"
@@ -15,8 +16,9 @@ exports[`ProgressiveImage > lazy load placeholder images 1`] = `
     >
       <img
         class="v-progressive-image-main"
+        height="400"
         src="main-image.jpg"
-        style="display: none;"
+        width="700"
       />
     </transition-stub>
     <transition-stub
@@ -39,6 +41,7 @@ exports[`ProgressiveImage > lazy load placeholder images 1`] = `
 exports[`ProgressiveImage > render default slot 1`] = `
 <div
   class="v-progressive-image v-progressive-image-loading"
+  style="max-width: 700px;"
 >
   <div
     style="padding-bottom: 56.25%;"
@@ -51,8 +54,9 @@ exports[`ProgressiveImage > render default slot 1`] = `
     >
       <img
         class="v-progressive-image-main"
+        height="400"
         src="main-image.jpg"
-        style="display: none;"
+        width="700"
       />
     </transition-stub>
     <!--v-if-->
@@ -72,6 +76,7 @@ exports[`ProgressiveImage > render default slot 1`] = `
 exports[`ProgressiveImage > render default slot props 1`] = `
 <div
   class="v-progressive-image v-progressive-image-loading"
+  style="max-width: 700px;"
 >
   <div
     style="padding-bottom: 56.25%;"
@@ -84,8 +89,9 @@ exports[`ProgressiveImage > render default slot props 1`] = `
     >
       <img
         class="v-progressive-image-main"
+        height="400"
         src="main-image.jpg"
-        style="display: none;"
+        width="700"
       />
     </transition-stub>
     <!--v-if-->
@@ -105,6 +111,7 @@ exports[`ProgressiveImage > render default slot props 1`] = `
 exports[`ProgressiveImage > render image 1`] = `
 <div
   class="v-progressive-image v-progressive-image-loading"
+  style="max-width: 700px;"
 >
   <div
     style="padding-bottom: 56.25%;"
@@ -117,8 +124,9 @@ exports[`ProgressiveImage > render image 1`] = `
     >
       <img
         class="v-progressive-image-main"
+        height="400"
         src="main-image.jpg"
-        style="display: none;"
+        width="700"
       />
     </transition-stub>
     <!--v-if-->
@@ -130,6 +138,7 @@ exports[`ProgressiveImage > render image 1`] = `
 exports[`ProgressiveImage > render image with placeholder 1`] = `
 <div
   class="v-progressive-image v-progressive-image-loading"
+  style="max-width: 700px;"
 >
   <div
     style="padding-bottom: 56.25%;"
@@ -142,8 +151,9 @@ exports[`ProgressiveImage > render image with placeholder 1`] = `
     >
       <img
         class="v-progressive-image-main"
+        height="400"
         src="main-image.jpg"
-        style="display: none;"
+        width="700"
       />
     </transition-stub>
     <transition-stub
@@ -166,6 +176,7 @@ exports[`ProgressiveImage > render image with placeholder 1`] = `
 exports[`ProgressiveImage > render title attributes 1`] = `
 <div
   class="v-progressive-image v-progressive-image-loading"
+  style="max-width: 700px;"
 >
   <div
     style="padding-bottom: 56.25%;"
@@ -178,9 +189,10 @@ exports[`ProgressiveImage > render title attributes 1`] = `
     >
       <img
         class="v-progressive-image-main"
+        height="400"
         src="main-image.jpg"
-        style="display: none;"
         title="lorem ipsum dolor sit amet"
+        width="700"
       />
     </transition-stub>
     <!--v-if-->
@@ -192,6 +204,7 @@ exports[`ProgressiveImage > render title attributes 1`] = `
 exports[`ProgressiveImage > use alt attribute 1`] = `
 <div
   class="v-progressive-image v-progressive-image-loading"
+  style="max-width: 700px;"
 >
   <div
     style="padding-bottom: 56.25%;"
@@ -205,8 +218,9 @@ exports[`ProgressiveImage > use alt attribute 1`] = `
       <img
         alt="image description"
         class="v-progressive-image-main"
+        height="400"
         src="main-image.jpg"
-        style="display: none;"
+        width="700"
       />
     </transition-stub>
     <transition-stub
@@ -229,6 +243,7 @@ exports[`ProgressiveImage > use alt attribute 1`] = `
 exports[`ProgressiveImage > use custom blur 1`] = `
 <div
   class="v-progressive-image v-progressive-image-loading"
+  style="max-width: 700px;"
 >
   <div
     style="padding-bottom: 56.25%;"
@@ -241,8 +256,9 @@ exports[`ProgressiveImage > use custom blur 1`] = `
     >
       <img
         class="v-progressive-image-main"
+        height="400"
         src="main-image.jpg"
-        style="display: none;"
+        width="700"
       />
     </transition-stub>
     <transition-stub
@@ -277,8 +293,9 @@ exports[`ProgressiveImage > use object cover 1`] = `
     >
       <img
         class="v-progressive-image-main"
+        height="400"
         src="main-image.jpg"
-        style="display: none;"
+        width="700"
       />
     </transition-stub>
     <transition-stub

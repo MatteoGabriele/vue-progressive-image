@@ -50,7 +50,7 @@ describe("ProgressiveImage", () => {
     vi.clearAllMocks();
   });
 
-  test.only("render image", () => {
+  test("render image", () => {
     const wrapper = mount(ProgressiveImage, {
       props: {
         src: "main-image.jpg",
@@ -58,6 +58,25 @@ describe("ProgressiveImage", () => {
     });
 
     expect(wrapper.element).toMatchSnapshot();
+  });
+
+  test("the image is not rendered when is not intersected", () => {
+    (useIntersect as Mock).mockReturnValue({
+      isIntersecting: ref(false),
+      isReady: ref(true),
+      hasIntersectedOnce: ref(false),
+      watchIntersectionOnce: vi.fn(),
+    });
+
+    const wrapper = mount(ProgressiveImage, {
+      props: {
+        src: "main-image.jpg",
+      },
+    });
+
+    expect(wrapper.find("img.v-progressive-image-main").exists()).toEqual(
+      false
+    );
   });
 
   test("render image with placeholder", () => {
