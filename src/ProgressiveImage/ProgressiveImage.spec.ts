@@ -10,10 +10,10 @@ import {
   Mock,
 } from "vitest";
 import ProgressiveImage from "./ProgressiveImage.vue";
-import { useIntersect } from "../composables/useIntersect.ts";
-import { useImage } from "../composables/useImage.ts";
+import { useIntersect } from "../composables/useIntersect";
+import { useImage } from "../composables/useImage";
 
-vi.mock("../composables/useIntersect.ts", async (importOriginal) => {
+vi.mock("../composables/useIntersect", async (importOriginal) => {
   const actual = await importOriginal();
   return {
     ...(typeof actual === "object" ? actual : {}),
@@ -21,7 +21,7 @@ vi.mock("../composables/useIntersect.ts", async (importOriginal) => {
   };
 });
 
-vi.mock("../composables/useImage.ts", async (importOriginal) => {
+vi.mock("../composables/useImage", async (importOriginal) => {
   const actual = await importOriginal();
   return {
     ...(typeof actual === "object" ? actual : {}),

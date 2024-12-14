@@ -2,18 +2,17 @@ import "./style.css";
 
 import ProgressiveImage from "./ProgressiveImage";
 
-import { App } from "vue";
-import { ProgressiveImageGlobalProps } from "./ProgressiveImage/types";
+import { App, Plugin } from "vue";
+import { ProgressiveImagePluginOptions } from "./ProgressiveImage/types";
 
-export const install = (
-  app: App,
-  props?: Partial<ProgressiveImageGlobalProps>
-) => {
-  app.provide("globalProps", props);
-  app.component("ProgressiveImage", ProgressiveImage);
+const ProgressiveImagePlugin: Plugin = {
+  install(app: App, options?: Partial<ProgressiveImagePluginOptions>) {
+    app.provide("pluginOptions", options);
+    app.component("ProgressiveImage", ProgressiveImage);
+  },
 };
 
 export { ProgressiveImage };
 export * from "./ProgressiveImage/types";
 
-export default install;
+export default ProgressiveImagePlugin;

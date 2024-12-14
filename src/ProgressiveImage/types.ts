@@ -11,7 +11,7 @@ export type ProgressiveImageProps = {
   delay?: number;
 };
 
-export type ProgressiveImageGlobalProps = Omit<
+export type ProgressiveImagePluginOptions = Omit<
   ProgressiveImageProps,
   "src" | "objectCover | title | alt"
 >;

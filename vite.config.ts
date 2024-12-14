@@ -9,7 +9,7 @@ export default defineConfig({
     vue(),
     dts({
       rollupTypes: true,
-      tsconfigPath: new URL("./tsconfig.app.json", import.meta.url).pathname,
+      tsconfigPath: new URL("./tsconfig.json", import.meta.url).pathname,
     }),
   ],
 
