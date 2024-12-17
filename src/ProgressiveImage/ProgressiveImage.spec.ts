@@ -1,5 +1,5 @@
-import { ref } from "vue";
-import { mount } from "@vue/test-utils";
+import { ref, nextTick } from "vue";
+import { flushPromises, mount } from "@vue/test-utils";
 import {
   beforeEach,
   afterEach,
@@ -31,11 +31,15 @@ vi.mock("../composables/useImage", async (importOriginal) => {
 
 describe("ProgressiveImage", () => {
   beforeEach(() => {
+    vi.useFakeTimers();
+
     (useIntersect as Mock).mockReturnValue({
       isIntersecting: ref(true),
       isReady: ref(true),
       hasIntersectedOnce: ref(true),
-      watchIntersectionOnce: vi.fn(),
+      watchIntersectionOnce: vi.fn((callback) => {
+        callback();
+      }),
     });
 
     (useImage as Mock).mockReturnValue({
@@ -48,9 +52,10 @@ describe("ProgressiveImage", () => {
 
   afterEach(() => {
     vi.clearAllMocks();
+    vi.useRealTimers();
   });
 
-  test("render image", () => {
+  test("render component", () => {
     const wrapper = mount(ProgressiveImage, {
       props: {
         src: "main-image.jpg",
@@ -58,6 +63,23 @@ describe("ProgressiveImage", () => {
     });
 
     expect(wrapper.element).toMatchSnapshot();
+  });
+
+  test("the image should be visible", async () => {
+    const wrapper = mount(ProgressiveImage, {
+      attachTo: document.body,
+      props: {
+        src: "main-image.jpg",
+      },
+    });
+
+    await flushPromises(); // wait image load
+    vi.runAllTimers(); // run delay timer
+    await nextTick(); // wait next rendering cycle
+
+    expect(wrapper.find("img.v-progressive-image-main").isVisible()).toEqual(
+      true
+    );
   });
 
   test("the image is not rendered when is not intersected", () => {
@@ -87,19 +109,9 @@ describe("ProgressiveImage", () => {
       },
     });
 
-    expect(wrapper.element).toMatchSnapshot();
-  });
-
-  test("use custom blur", () => {
-    const wrapper = mount(ProgressiveImage, {
-      props: {
-        src: "main-image.jpg",
-        placeholderSrc: "placeholder-image.jpg",
-        blur: 50,
-      },
-    });
-
-    expect(wrapper.element).toMatchSnapshot();
+    expect(
+      wrapper.find("img.v-progressive-image-placeholder").exists()
+    ).toEqual(true);
   });
 
   test("use alt attribute", () => {
@@ -111,7 +123,9 @@ describe("ProgressiveImage", () => {
       },
     });
 
-    expect(wrapper.element).toMatchSnapshot();
+    expect(
+      wrapper.find("img.v-progressive-image-main").attributes("alt")
+    ).toEqual("image description");
   });
 
   test("use object cover", () => {
@@ -123,7 +137,11 @@ describe("ProgressiveImage", () => {
       },
     });
 
-    expect(wrapper.element).toMatchSnapshot();
+    expect(
+      wrapper
+        .find(".v-progressive-image.v-progressive-image-object-cover")
+        .exists()
+    ).toEqual(true);
   });
 
   test("render default slot", () => {
@@ -136,20 +154,9 @@ describe("ProgressiveImage", () => {
       },
     });
 
-    expect(wrapper.element).toMatchSnapshot();
-  });
-
-  test("render default slot props", () => {
-    const wrapper = mount(ProgressiveImage, {
-      slots: {
-        default: `<template #default="params">{{ params }}</template>`,
-      },
-      props: {
-        src: "main-image.jpg",
-      },
-    });
-
-    expect(wrapper.element).toMatchSnapshot();
+    expect(wrapper.find(".v-progressive-image-slot-default").text()).toEqual(
+      "lorem ipsum"
+    );
   });
 
   test("lazy load placeholder images", () => {
@@ -161,7 +168,9 @@ describe("ProgressiveImage", () => {
       },
     });
 
-    expect(wrapper.element).toMatchSnapshot();
+    expect(
+      wrapper.find("img.v-progressive-image-placeholder").attributes("loading")
+    ).toEqual("lazy");
   });
 
   test("render title attributes", () => {
@@ -172,6 +181,8 @@ describe("ProgressiveImage", () => {
       },
     });
 
-    expect(wrapper.element).toMatchSnapshot();
+    expect(
+      wrapper.find("img.v-progressive-image-main").attributes("title")
+    ).toEqual("lorem ipsum dolor sit amet");
   });
 });

@@ -92,6 +92,7 @@ onMounted(() => {
       >
         <img
           v-if="hasIntersectedOnce && isReady"
+          v-show="isMainImageRendered"
           ref="imageRef"
           class="v-progressive-image-main"
           :width="width"
