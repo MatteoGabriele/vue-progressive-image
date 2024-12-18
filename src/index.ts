@@ -1,7 +1,7 @@
 import "./style.css";
 
-import ProgressiveImage from "@/ProgressiveImage";
-import { ProgressiveImagePluginOptions } from "@/ProgressiveImage/types";
+import ProgressiveImage from "@/ProgressiveImage.vue";
+import { ProgressiveImagePluginOptions } from "@/types.ts";
 import { App, Plugin } from "vue";
 
 const ProgressiveImagePlugin: Plugin = {
@@ -12,6 +12,6 @@ const ProgressiveImagePlugin: Plugin = {
 };
 
 export { ProgressiveImage };
-export * from "./ProgressiveImage/types";
+export * from "@/types.ts";
 
 export default ProgressiveImagePlugin;
