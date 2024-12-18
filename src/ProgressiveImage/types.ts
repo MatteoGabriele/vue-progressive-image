@@ -5,13 +5,12 @@ export type ProgressiveImageProps = {
   alt?: string;
   title?: string;
   customClass?: string;
-  blur?: number;
   lazyPlaceholder?: boolean;
   objectCover?: boolean;
-  delay?: number;
+  blur?: number | string;
+  delay?: number | string;
 };
 
-export type ProgressiveImagePluginOptions = Omit<
-  ProgressiveImageProps,
-  "src" | "objectCover | title | alt"
+export type ProgressiveImagePluginOptions = Partial<
+  Omit<ProgressiveImageProps, "src" | "objectCover | title | alt">
 >;

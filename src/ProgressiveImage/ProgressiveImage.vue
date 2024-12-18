@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, ImgHTMLAttributes } from "vue";
 import { MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR } from "../constants";
 import { useImage } from "@/composables/useImage";
 import { useIntersect } from "@/composables/useIntersect";
@@ -48,13 +48,37 @@ const imageClasses = computed(() => {
   ];
 });
 
+const mainImageAttributes = computed(() => {
+  let attrs: ImgHTMLAttributes = {
+    width: width.value,
+    height: height.value,
+  };
+
+  if (props.fallbackSrc && isFallbackImageRendered.value) {
+    attrs.src = props.fallbackSrc;
+  } else if (props.src) {
+    attrs.src = props.src;
+  }
+
+  if (props.alt) {
+    attrs.alt = props.alt;
+  }
+
+  if (props.title) {
+    attrs.title = props.title;
+  }
+
+  return attrs;
+});
+
+const delay = computed(() => parseInt(props.delay.toString()));
 const mainImageHandler = () => {
   loadImage()
     .then(() => {
       setTimeout(() => {
         isMainImageRendered.value = true;
         emit(MAIN_IMAGE_LOAD_SUCCESS);
-      }, props.delay);
+      }, delay.value);
     })
     .catch((error) => {
       isMainImageRendered.value = true;
@@ -95,11 +119,7 @@ onMounted(() => {
           v-show="isMainImageRendered"
           ref="imageRef"
           class="v-progressive-image-main"
-          :width="width"
-          :height="height"
-          :src="isFallbackImageRendered ? fallbackSrc : src"
-          :alt="alt"
-          :title="title"
+          v-bind="mainImageAttributes"
         />
       </transition>
 

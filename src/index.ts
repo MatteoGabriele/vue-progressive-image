@@ -1,12 +1,11 @@
 import "./style.css";
 
-import ProgressiveImage from "./ProgressiveImage";
-
+import ProgressiveImage from "@/ProgressiveImage";
+import { ProgressiveImagePluginOptions } from "@/ProgressiveImage/types";
 import { App, Plugin } from "vue";
-import { ProgressiveImagePluginOptions } from "./ProgressiveImage/types";
 
 const ProgressiveImagePlugin: Plugin = {
-  install(app: App, options?: Partial<ProgressiveImagePluginOptions>) {
+  install(app: App, options?: ProgressiveImagePluginOptions) {
     app.provide("pluginOptions", options);
     app.component("ProgressiveImage", ProgressiveImage);
   },
