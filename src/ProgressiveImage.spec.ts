@@ -106,18 +106,29 @@ describe("ProgressiveImage", () => {
     ).toEqual(true);
   });
 
-  test("use alt attribute", () => {
+  test("use alt and title attributes", () => {
     const wrapper = mount(ProgressiveImage, {
       props: {
         src: "main-image.jpg",
         placeholderSrc: "placeholder-image.jpg",
         alt: "image description",
+        title: "lorem ipsum dolor sit amet",
       },
     });
 
-    expect(
-      wrapper.find("img.v-progressive-image-main").attributes("alt")
-    ).toEqual("image description");
+    const mainImage = wrapper.find("img.v-progressive-image-main");
+
+    expect(mainImage.attributes("alt")).toEqual("image description");
+    expect(mainImage.attributes("title")).toEqual("lorem ipsum dolor sit amet");
+
+    const placeholderImage = wrapper.find(
+      "img.v-progressive-image-placeholder"
+    );
+
+    expect(placeholderImage.attributes("alt")).toEqual("image description");
+    expect(placeholderImage.attributes("title")).toEqual(
+      "lorem ipsum dolor sit amet"
+    );
   });
 
   test("use object cover", () => {
@@ -163,18 +174,5 @@ describe("ProgressiveImage", () => {
     expect(
       wrapper.find("img.v-progressive-image-placeholder").attributes("loading")
     ).toEqual("lazy");
-  });
-
-  test("render title attributes", () => {
-    const wrapper = mount(ProgressiveImage, {
-      props: {
-        src: "main-image.jpg",
-        title: "lorem ipsum dolor sit amet",
-      },
-    });
-
-    expect(
-      wrapper.find("img.v-progressive-image-main").attributes("title")
-    ).toEqual("lorem ipsum dolor sit amet");
   });
 });

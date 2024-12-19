@@ -145,6 +145,8 @@ onMounted(() => {
             class="v-progressive-image-placeholder"
             :loading="placeholderImageLoadingType"
             :src="placeholderSrc"
+            :alt="alt"
+            :title="title"
           />
         </transition>
       </template>
