@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { ref, onMounted, computed, ImgHTMLAttributes } from "vue";
-import { MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR } from "@/constants.ts";
-import { useImage } from "@/composables/useImage.ts";
-import { useIntersect } from "@/composables/useIntersect.ts";
-import { ProgressiveImageProps } from "@/types.ts";
+import { ref, onMounted, computed, type ImgHTMLAttributes } from "vue";
+import { MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR } from "@/constants";
+import { useImage } from "@/composables/useImage";
+import { useIntersect } from "@/composables/useIntersect";
+import { type ProgressiveImageProps } from "@/types";
 
 const emit = defineEmits([MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR]);
 
@@ -46,29 +46,6 @@ const imageClasses = computed(() => {
       "v-progressive-image-loading": isLoading.value,
     },
   ];
-});
-
-const mainImageAttributes = computed(() => {
-  let attrs: ImgHTMLAttributes = {
-    width: width.value,
-    height: height.value,
-  };
-
-  if (props.fallbackSrc && isFallbackImageRendered.value) {
-    attrs.src = props.fallbackSrc;
-  } else if (props.src) {
-    attrs.src = props.src;
-  }
-
-  if (props.alt) {
-    attrs.alt = props.alt;
-  }
-
-  if (props.title) {
-    attrs.title = props.title;
-  }
-
-  return attrs;
 });
 
 const delay = computed(() => parseInt(props.delay.toString()));
@@ -119,7 +96,11 @@ onMounted(() => {
           v-show="isMainImageRendered"
           ref="imageRef"
           class="v-progressive-image-main"
-          v-bind="mainImageAttributes"
+          :src="fallbackSrc && isFallbackImageRendered ? fallbackSrc : src"
+          :title="title"
+          :alt="alt"
+          :width="width"
+          :height="height"
         />
       </transition>
 

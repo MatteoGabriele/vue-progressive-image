@@ -1,9 +1,5 @@
-export type ProgressiveImageProps = {
-  src: string;
-  placeholderSrc?: string;
+export type ProgressiveImagePluginOptions = {
   fallbackSrc?: string;
-  alt?: string;
-  title?: string;
   customClass?: string;
   lazyPlaceholder?: boolean;
   objectCover?: boolean;
@@ -11,6 +7,9 @@ export type ProgressiveImageProps = {
   delay?: number | string;
 };
 
-export type ProgressiveImagePluginOptions = Partial<
-  Omit<ProgressiveImageProps, "src" | "objectCover | title | alt">
->;
+export type ProgressiveImageProps = {
+  src: string;
+  placeholderSrc?: string;
+  alt?: string;
+  title?: string;
+} & ProgressiveImagePluginOptions;

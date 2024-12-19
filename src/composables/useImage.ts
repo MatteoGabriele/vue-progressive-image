@@ -1,4 +1,4 @@
-import { ref, computed, nextTick, unref, Ref, MaybeRef } from "vue";
+import { ref, computed, nextTick, unref, type Ref, type MaybeRef } from "vue";
 import { IMAGE_POLL_INTERVAL, IMAGE_ASPECT_RATIO } from "@/constants";
 
 type UseImageResult = {

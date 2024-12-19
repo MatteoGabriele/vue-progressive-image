@@ -1,9 +1,9 @@
 import {
-  MaybeRef,
+  type MaybeRef,
+  type Ref,
   nextTick,
   onMounted,
   onUnmounted,
-  Ref,
   ref,
   toRef,
   watch,
@@ -37,6 +37,11 @@ export const useIntersect = (
       (entries) => {
         if (entries?.length) {
           const [entry] = entries;
+
+          if (!entry) {
+            return;
+          }
+
           isIntersecting.value = entry.isIntersecting;
           isReady.value = true;
         }
