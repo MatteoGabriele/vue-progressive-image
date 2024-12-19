@@ -1,7 +1,6 @@
 import { ref, nextTick } from "vue";
 import { flushPromises, mount } from "@vue/test-utils";
 import type { Mock } from "vitest";
-
 import ProgressiveImage from "@/ProgressiveImage.vue";
 import { useIntersect } from "@/composables/useIntersect";
 import { useImage } from "@/composables/useImage";

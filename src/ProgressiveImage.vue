@@ -1,16 +1,27 @@
 <script lang="ts" setup>
-import { ref, onMounted, computed, type ImgHTMLAttributes } from "vue";
-import { MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR } from "@/constants";
+import { ref, onMounted, computed, inject } from "vue";
+import {
+  MAIN_IMAGE_LOAD_SUCCESS,
+  MAIN_IMAGE_LOAD_ERROR,
+  IMG_LOADING_LAZY,
+  IMG_LOADING_EAGER,
+} from "@/constants";
 import { useImage } from "@/composables/useImage";
 import { useIntersect } from "@/composables/useIntersect";
-import { type ProgressiveImageProps } from "@/types";
+import {
+  ProgressiveImagePluginOptions,
+  type ProgressiveImageProps,
+} from "@/types";
 
 const emit = defineEmits([MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR]);
 
+const pluginOptions = inject<ProgressiveImagePluginOptions>(
+  "pluginOptions",
+  {}
+);
 const props = withDefaults(defineProps<ProgressiveImageProps>(), {
   lazyPlaceholder: false,
   objectCover: false,
-  delay: 0,
 });
 
 const rootRef = ref<HTMLElement | null>(null);
@@ -40,6 +51,7 @@ const componentStyle = computed(() => {
 
 const imageClasses = computed(() => {
   return [
+    pluginOptions.customClass,
     props.customClass,
     {
       "v-progressive-image-object-cover": props.objectCover,
@@ -48,7 +60,27 @@ const imageClasses = computed(() => {
   ];
 });
 
-const delay = computed(() => parseInt(props.delay.toString()));
+const mainImageSrc = computed(() => {
+  const fallbackSrc = props.fallbackSrc || pluginOptions.fallbackSrc;
+
+  if (isFallbackImageRendered.value && fallbackSrc) {
+    return fallbackSrc;
+  }
+
+  return props.src;
+});
+
+const placeholderImageLoadingType = computed(() => {
+  return props.lazyPlaceholder || pluginOptions.lazyPlaceholder
+    ? IMG_LOADING_LAZY
+    : IMG_LOADING_EAGER;
+});
+
+const delay = computed(() => {
+  const delayValue = props.delay || pluginOptions.delay || 0;
+  return parseInt(delayValue.toString());
+});
+
 const mainImageHandler = () => {
   loadImage()
     .then(() => {
@@ -65,10 +97,12 @@ const mainImageHandler = () => {
 };
 
 onMounted(() => {
-  if (props.placeholderSrc && props.blur) {
+  const blur = props.blur || pluginOptions.blur;
+
+  if (props.placeholderSrc && blur) {
     document.documentElement.style.setProperty(
       "--progressive-image-blur",
-      `${props.blur}px`
+      `${blur}px`
     );
   }
 
@@ -96,7 +130,7 @@ onMounted(() => {
           v-show="isMainImageRendered"
           ref="imageRef"
           class="v-progressive-image-main"
-          :src="fallbackSrc && isFallbackImageRendered ? fallbackSrc : src"
+          :src="mainImageSrc"
           :title="title"
           :alt="alt"
           :width="width"
@@ -109,7 +143,7 @@ onMounted(() => {
           <img
             v-if="isLoading"
             class="v-progressive-image-placeholder"
-            :loading="lazyPlaceholder ? 'lazy' : 'eager'"
+            :loading="placeholderImageLoadingType"
             :src="placeholderSrc"
           />
         </transition>
