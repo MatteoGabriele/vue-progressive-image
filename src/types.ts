@@ -3,7 +3,7 @@ export type ProgressiveImagePluginOptions = {
   customClass?: string;
   blur?: number | string;
   delay?: number | string;
-  lazyPlaceholder?: boolean;
+  defer?: boolean;
 };
 
 export type ProgressiveImageProps = {
@@ -16,3 +16,4 @@ export type ProgressiveImageProps = {
 
 export type CssClasses = string | Record<string, boolean> | undefined;
 export type InlineStyle = Record<string, string>;
+export type ImageLoadingType = "eager" | "lazy";

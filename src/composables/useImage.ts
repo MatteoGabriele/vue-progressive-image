@@ -46,8 +46,6 @@ export const useImage = (
   useImagePoll(image, (data) => {
     width.value = data.width;
     height.value = data.height;
-
-    console.log(data);
   });
 
   const aspectRatio: ComputedRef<number> = computed(() => {

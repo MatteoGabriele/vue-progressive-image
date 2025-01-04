@@ -14,6 +14,7 @@ import type {
   InlineStyle,
   ProgressiveImagePluginOptions,
   ProgressiveImageProps,
+  ImageLoadingType,
 } from "@/types";
 
 const emit = defineEmits<{
@@ -26,7 +27,7 @@ const pluginOptions = inject<ProgressiveImagePluginOptions>(
   {}
 );
 const props = withDefaults(defineProps<ProgressiveImageProps>(), {
-  lazyPlaceholder: false,
+  defer: true,
   objectCover: false,
 });
 
@@ -76,11 +77,12 @@ const mainImageSrc: ComputedRef<string> = computed(() => {
   return props.src;
 });
 
-const placeholderImageLoadingType: ComputedRef<"lazy" | "eager"> = computed(
+const placeholderImageLoadingType: ComputedRef<ImageLoadingType> = computed(
   () => {
-    return props.lazyPlaceholder || pluginOptions.lazyPlaceholder
-      ? "lazy"
-      : "eager";
+    const defer =
+      pluginOptions.defer == null ? props.defer : pluginOptions.defer;
+
+    return defer ? "lazy" : "eager";
   }
 );
 
