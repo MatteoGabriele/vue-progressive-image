@@ -13,3 +13,6 @@ export type ProgressiveImageProps = {
   title?: string;
   objectCover?: boolean;
 } & ProgressiveImagePluginOptions;
+
+export type CssClasses = string | Record<string, boolean> | undefined;
+export type InlineStyle = Record<string, string>;

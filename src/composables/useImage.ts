@@ -1,5 +1,14 @@
-import { ref, computed, nextTick, unref, type Ref, type MaybeRef } from "vue";
+import {
+  ref,
+  computed,
+  nextTick,
+  unref,
+  type Ref,
+  type MaybeRef,
+  type ComputedRef,
+} from "vue";
 import { IMAGE_POLL_INTERVAL, IMAGE_ASPECT_RATIO } from "@/constants";
+import { getImage } from "@/utils";
 
 type UseImageResult = {
   loadImage: () => Promise<void>;
@@ -8,27 +17,44 @@ type UseImageResult = {
   height: Ref<number>;
 };
 
+const useImagePoll = (
+  image: HTMLImageElement | null,
+  callback: (payload: { width: number; height: number }) => void
+): void => {
+  if (!image) {
+    return;
+  }
+
+  const pollImageData = setInterval(() => {
+    if (image?.width && pollImageData) {
+      clearInterval(pollImageData);
+      callback({
+        width: image.width,
+        height: image.height,
+      });
+    }
+  }, IMAGE_POLL_INTERVAL);
+};
+
 export const useImage = (
   element: MaybeRef<HTMLImageElement | null>
 ): UseImageResult => {
-  const image = new Image();
+  const image: HTMLImageElement | null = getImage();
   const width = ref(0);
   const height = ref(0);
 
-  const aspectRatio = computed(() => {
+  useImagePoll(image, (data) => {
+    width.value = data.width;
+    height.value = data.height;
+
+    console.log(data);
+  });
+
+  const aspectRatio: ComputedRef<number> = computed(() => {
     return width.value ? height.value / width.value : IMAGE_ASPECT_RATIO;
   });
 
-  const pollImageData = setInterval(() => {
-    if (image?.width) {
-      clearInterval(pollImageData);
-
-      width.value = image.width;
-      height.value = image.height;
-    }
-  }, IMAGE_POLL_INTERVAL);
-
-  const imageRenderer = (imageNode: HTMLImageElement) => {
+  const imageRenderer = (imageNode: HTMLImageElement): void => {
     const canvas = document.createElement("canvas");
 
     canvas.width = 1;
@@ -44,6 +70,10 @@ export const useImage = (
   };
 
   const loadImage = async (): Promise<void> => {
+    if (!image) {
+      return;
+    }
+
     const imageNode = unref(element);
 
     if (!imageNode) {

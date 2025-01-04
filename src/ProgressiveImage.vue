@@ -1,19 +1,25 @@
 <script lang="ts" setup>
-import { ref, onMounted, computed, inject } from "vue";
 import {
-  MAIN_IMAGE_LOAD_SUCCESS,
-  MAIN_IMAGE_LOAD_ERROR,
-  IMG_LOADING_LAZY,
-  IMG_LOADING_EAGER,
-} from "@/constants";
+  ref,
+  onMounted,
+  computed,
+  inject,
+  type ComputedRef,
+  type Ref,
+} from "vue";
 import { useImage } from "@/composables/useImage";
 import { useIntersect } from "@/composables/useIntersect";
-import {
+import type {
+  CssClasses,
+  InlineStyle,
   ProgressiveImagePluginOptions,
-  type ProgressiveImageProps,
+  ProgressiveImageProps,
 } from "@/types";
 
-const emit = defineEmits([MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR]);
+const emit = defineEmits<{
+  success: [];
+  error: [any];
+}>();
 
 const pluginOptions = inject<ProgressiveImagePluginOptions>(
   "pluginOptions",
@@ -24,8 +30,8 @@ const props = withDefaults(defineProps<ProgressiveImageProps>(), {
   objectCover: false,
 });
 
-const rootRef = ref<HTMLElement | null>(null);
-const imageRef = ref<HTMLImageElement | null>(null);
+const rootRef: Ref<HTMLElement | null> = ref(null);
+const imageRef: Ref<HTMLImageElement | null> = ref(null);
 const isMainImageRendered = ref(false);
 const isFallbackImageRendered = ref(false);
 
@@ -35,11 +41,11 @@ const { watchIntersectionOnce, hasIntersectedOnce, isReady } =
 const { loadImage, aspectRatio, width, height } = useImage(imageRef);
 const isLoading = computed(() => !isMainImageRendered.value);
 
-const paddingHack = computed(() => ({
+const paddingHack: ComputedRef<InlineStyle> = computed(() => ({
   paddingBottom: `${aspectRatio.value * 100}%`,
 }));
 
-const componentStyle = computed(() => {
+const componentStyle: ComputedRef<InlineStyle | undefined> = computed(() => {
   if (props.objectCover || width.value === 0) {
     return;
   }
@@ -49,7 +55,7 @@ const componentStyle = computed(() => {
   };
 });
 
-const imageClasses = computed(() => {
+const imageClasses: ComputedRef<CssClasses[]> = computed(() => {
   return [
     pluginOptions.customClass,
     props.customClass,
@@ -60,7 +66,7 @@ const imageClasses = computed(() => {
   ];
 });
 
-const mainImageSrc = computed(() => {
+const mainImageSrc: ComputedRef<string> = computed(() => {
   const fallbackSrc = props.fallbackSrc || pluginOptions.fallbackSrc;
 
   if (isFallbackImageRendered.value && fallbackSrc) {
@@ -70,29 +76,31 @@ const mainImageSrc = computed(() => {
   return props.src;
 });
 
-const placeholderImageLoadingType = computed(() => {
-  return props.lazyPlaceholder || pluginOptions.lazyPlaceholder
-    ? IMG_LOADING_LAZY
-    : IMG_LOADING_EAGER;
-});
+const placeholderImageLoadingType: ComputedRef<"lazy" | "eager"> = computed(
+  () => {
+    return props.lazyPlaceholder || pluginOptions.lazyPlaceholder
+      ? "lazy"
+      : "eager";
+  }
+);
 
-const delay = computed(() => {
+const delay: ComputedRef<number> = computed(() => {
   const delayValue = props.delay || pluginOptions.delay || 0;
   return parseInt(delayValue.toString());
 });
 
-const mainImageHandler = () => {
+const mainImageHandler = (): void => {
   loadImage()
     .then(() => {
       setTimeout(() => {
         isMainImageRendered.value = true;
-        emit(MAIN_IMAGE_LOAD_SUCCESS);
+        emit("success");
       }, delay.value);
     })
     .catch((error) => {
       isMainImageRendered.value = true;
       isFallbackImageRendered.value = true;
-      emit(MAIN_IMAGE_LOAD_ERROR, error);
+      emit("error", error);
     });
 };
 
