@@ -70,7 +70,7 @@ describe("ProgressiveImage", () => {
     await nextTick(); // wait next rendering cycle
 
     expect(wrapper.find("img.v-progressive-image-main").isVisible()).toEqual(
-      true
+      true,
     );
   });
 
@@ -89,7 +89,7 @@ describe("ProgressiveImage", () => {
     });
 
     expect(wrapper.find("img.v-progressive-image-main").exists()).toEqual(
-      false
+      false,
     );
   });
 
@@ -102,7 +102,7 @@ describe("ProgressiveImage", () => {
     });
 
     expect(
-      wrapper.find("img.v-progressive-image-placeholder").exists()
+      wrapper.find("img.v-progressive-image-placeholder").exists(),
     ).toEqual(true);
   });
 
@@ -122,12 +122,12 @@ describe("ProgressiveImage", () => {
     expect(mainImage.attributes("title")).toEqual("lorem ipsum dolor sit amet");
 
     const placeholderImage = wrapper.find(
-      "img.v-progressive-image-placeholder"
+      "img.v-progressive-image-placeholder",
     );
 
     expect(placeholderImage.attributes("alt")).toEqual("image description");
     expect(placeholderImage.attributes("title")).toEqual(
-      "lorem ipsum dolor sit amet"
+      "lorem ipsum dolor sit amet",
     );
   });
 
@@ -143,7 +143,7 @@ describe("ProgressiveImage", () => {
     expect(
       wrapper
         .find(".v-progressive-image.v-progressive-image-object-cover")
-        .exists()
+        .exists(),
     ).toEqual(true);
   });
 
@@ -158,7 +158,7 @@ describe("ProgressiveImage", () => {
     });
 
     expect(wrapper.find(".v-progressive-image-slot-default").text()).toEqual(
-      "lorem ipsum"
+      "lorem ipsum",
     );
   });
 
@@ -172,7 +172,7 @@ describe("ProgressiveImage", () => {
     });
 
     expect(
-      wrapper.find("img.v-progressive-image-placeholder").attributes("loading")
+      wrapper.find("img.v-progressive-image-placeholder").attributes("loading"),
     ).toEqual("lazy");
   });
 });

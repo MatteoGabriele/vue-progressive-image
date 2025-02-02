@@ -18,13 +18,13 @@ import type {
 } from "@/types";
 
 const emit = defineEmits<{
-  success: [];
-  error: [any];
+  (e: "success"): void;
+  (e: "error", error: Error): void;
 }>();
 
 const pluginOptions = inject<ProgressiveImagePluginOptions>(
   "pluginOptions",
-  {}
+  {},
 );
 const props = withDefaults(defineProps<ProgressiveImageProps>(), {
   defer: true,
@@ -83,7 +83,7 @@ const placeholderImageLoadingType: ComputedRef<ImageLoadingType> = computed(
       pluginOptions.defer == null ? props.defer : pluginOptions.defer;
 
     return defer ? "lazy" : "eager";
-  }
+  },
 );
 
 const delay: ComputedRef<number> = computed(() => {
@@ -112,7 +112,7 @@ onMounted(() => {
   if (props.placeholderSrc && blur) {
     document.documentElement.style.setProperty(
       "--progressive-image-blur",
-      `${blur}px`
+      `${blur}px`,
     );
   }
 
@@ -134,6 +134,7 @@ onMounted(() => {
         :css="!placeholderSrc"
         name="v-progressive-image-main-fade"
         appear
+        mode="out-in"
       >
         <img
           v-if="hasIntersectedOnce && isReady"
@@ -145,21 +146,27 @@ onMounted(() => {
           :alt="alt"
           :width="width"
           :height="height"
+          loading="lazy"
+          decoding="async"
         />
       </transition>
 
-      <template v-if="placeholderSrc">
-        <transition name="v-progressive-image-placeholder-fade" appear>
-          <img
-            v-if="isLoading"
-            class="v-progressive-image-placeholder"
-            :loading="placeholderImageLoadingType"
-            :src="placeholderSrc"
-            :alt="alt"
-            :title="title"
-          />
-        </transition>
-      </template>
+      <transition
+        v-if="placeholderSrc"
+        name="v-progressive-image-placeholder-fade"
+        appear
+        mode="out-in"
+      >
+        <img
+          v-if="isLoading"
+          class="v-progressive-image-placeholder"
+          :loading="placeholderImageLoadingType"
+          :src="placeholderSrc"
+          :alt="alt"
+          :title="title"
+          decoding="async"
+        />
+      </transition>
 
       <div v-if="$slots.default" class="v-progressive-image-slot-default">
         <slot :isLoading="isLoading" />

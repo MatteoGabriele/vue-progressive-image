@@ -6,7 +6,7 @@ export const getImage = (): HTMLImageElement | null => {
 
 export const createPoll = (
   callback: () => void,
-  delay: number
+  delay: number,
 ): NodeJS.Timer | null => {
   return isClient ? setInterval(callback, delay) : null;
 };
