@@ -8,7 +8,7 @@ import {
   type ComputedRef,
 } from "vue";
 import { IMAGE_POLL_INTERVAL, IMAGE_ASPECT_RATIO } from "@/constants";
-import { getImage } from "@/utils";
+import { getImage, isServer } from "@/utils";
 
 type UseImageResult = {
   loadImage: () => Promise<void>;
@@ -21,6 +21,10 @@ const useImagePoll = (
   image: HTMLImageElement | null,
   callback: (payload: { width: number; height: number }) => void
 ): void => {
+  if (isServer()) {
+    return
+  }
+  
   if (!image) {
     return;
   }

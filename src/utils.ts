@@ -10,3 +10,7 @@ export const createPoll = (
 ): NodeJS.Timer | null => {
   return isClient ? setInterval(callback, delay) : null;
 };
+
+export function isServer(): boolean {
+  return typeof window === "undefined" || typeof document === "undefined";
+}
