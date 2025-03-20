@@ -11,12 +11,15 @@ exports[`ProgressiveImage > render component 1`] = `
     <transition-stub
       appear="true"
       css="true"
+      mode="out-in"
       name="v-progressive-image-main-fade"
       persisted="false"
     >
       <img
         class="v-progressive-image-main"
+        decoding="async"
         height="400"
+        loading="lazy"
         src="main-image.jpg"
         style="display: none;"
         width="700"
