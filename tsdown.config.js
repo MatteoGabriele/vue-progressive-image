@@ -5,7 +5,7 @@ import { name } from "./package.json";
 
 export default defineConfig({
   entry: {
-    [name]: "./src/index.js",
+    [name]: "./src/index.ts",
   },
   platform: "browser",
   minify: true,
@@ -13,7 +13,7 @@ export default defineConfig({
   external: ["vue"],
   outDir: "./dist",
   publint: true,
-  dts: false,
+  dts: true,
   clean: true,
   inputOptions: {
     resolve: {

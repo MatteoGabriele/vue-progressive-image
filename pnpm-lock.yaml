@@ -13,7 +13,7 @@ importers:
         version: 1.9.4
       '@vitejs/plugin-vue':
         specifier: 5.2.3
-        version: 5.2.3(vite@6.3.5(jiti@2.4.2))(vue@3.5.13)
+        version: 5.2.3(vite@6.3.5(jiti@2.4.2))(vue@3.5.13(typescript@5.8.3))
       '@vue/test-utils':
         specifier: 2.4.6
         version: 2.4.6
@@ -25,16 +25,19 @@ importers:
         version: 0.3.12
       tsdown:
         specifier: 0.11.1
-        version: 0.11.1(publint@0.3.12)
+        version: 0.11.1(publint@0.3.12)(typescript@5.8.3)
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
       unplugin-vue:
         specifier: 6.2.0
-        version: 6.2.0(jiti@2.4.2)(vue@3.5.13)
+        version: 6.2.0(jiti@2.4.2)(vue@3.5.13(typescript@5.8.3))
       vitest:
         specifier: 3.1.3
         version: 3.1.3(jiti@2.4.2)(jsdom@26.1.0)
       vue:
         specifier: 3.5.13
-        version: 3.5.13
+        version: 3.5.13(typescript@5.8.3)
 
 packages:
 
@@ -1140,6 +1143,11 @@ packages:
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
+  typescript@5.8.3:
+    resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   unconfig@7.3.2:
     resolution: {integrity: sha512-nqG5NNL2wFVGZ0NA/aCFw0oJ2pxSf1lwg4Z5ill8wd7K4KX/rQbHlwbh+bjctXL5Ly1xtzHenHGOK0b+lG6JVg==}
 
@@ -1666,10 +1674,10 @@ snapshots:
 
   '@types/estree@1.0.7': {}
 
-  '@vitejs/plugin-vue@5.2.3(vite@6.3.5(jiti@2.4.2))(vue@3.5.13)':
+  '@vitejs/plugin-vue@5.2.3(vite@6.3.5(jiti@2.4.2))(vue@3.5.13(typescript@5.8.3))':
     dependencies:
       vite: 6.3.5(jiti@2.4.2)
-      vue: 3.5.13
+      vue: 3.5.13(typescript@5.8.3)
 
   '@vitest/expect@3.1.3':
     dependencies:
@@ -1757,11 +1765,11 @@ snapshots:
       '@vue/shared': 3.5.13
       csstype: 3.1.3
 
-  '@vue/server-renderer@3.5.13(vue@3.5.13)':
+  '@vue/server-renderer@3.5.13(vue@3.5.13(typescript@5.8.3))':
     dependencies:
       '@vue/compiler-ssr': 3.5.13
       '@vue/shared': 3.5.13
-      vue: 3.5.13
+      vue: 3.5.13(typescript@5.8.3)
 
   '@vue/shared@3.5.13': {}
 
@@ -2118,7 +2126,7 @@ snapshots:
 
   resolve-pkg-maps@1.0.0: {}
 
-  rolldown-plugin-dts@0.11.1(rolldown@1.0.0-beta.8-commit.534fde3):
+  rolldown-plugin-dts@0.11.1(rolldown@1.0.0-beta.8-commit.534fde3)(typescript@5.8.3):
     dependencies:
       '@babel/generator': 7.27.1
       '@babel/parser': 7.27.2
@@ -2128,6 +2136,8 @@ snapshots:
       dts-resolver: 1.1.1
       get-tsconfig: 4.10.0
       rolldown: 1.0.0-beta.8-commit.534fde3
+    optionalDependencies:
+      typescript: 5.8.3
     transitivePeerDependencies:
       - supports-color
 
@@ -2258,7 +2268,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  tsdown@0.11.1(publint@0.3.12):
+  tsdown@0.11.1(publint@0.3.12)(typescript@5.8.3):
     dependencies:
       ansis: 3.17.0
       cac: 6.7.14
@@ -2268,7 +2278,7 @@ snapshots:
       empathic: 1.1.0
       hookable: 5.5.3
       rolldown: 1.0.0-beta.8-commit.534fde3
-      rolldown-plugin-dts: 0.11.1(rolldown@1.0.0-beta.8-commit.534fde3)
+      rolldown-plugin-dts: 0.11.1(rolldown@1.0.0-beta.8-commit.534fde3)(typescript@5.8.3)
       semver: 7.7.1
       tinyexec: 1.0.1
       tinyglobby: 0.2.13
@@ -2283,6 +2293,8 @@ snapshots:
   tslib@2.8.1:
     optional: true
 
+  typescript@5.8.3: {}
+
   unconfig@7.3.2:
     dependencies:
       '@quansync/fs': 0.1.2
@@ -2290,13 +2302,13 @@ snapshots:
       jiti: 2.4.2
       quansync: 0.2.10
 
-  unplugin-vue@6.2.0(jiti@2.4.2)(vue@3.5.13):
+  unplugin-vue@6.2.0(jiti@2.4.2)(vue@3.5.13(typescript@5.8.3)):
     dependencies:
       '@vue/reactivity': 3.5.13
       debug: 4.4.0
       unplugin: 2.3.2
       vite: 6.3.5(jiti@2.4.2)
-      vue: 3.5.13
+      vue: 3.5.13(typescript@5.8.3)
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -2391,13 +2403,15 @@ snapshots:
 
   vue-component-type-helpers@2.2.10: {}
 
-  vue@3.5.13:
+  vue@3.5.13(typescript@5.8.3):
     dependencies:
       '@vue/compiler-dom': 3.5.13
       '@vue/compiler-sfc': 3.5.13
       '@vue/runtime-dom': 3.5.13
-      '@vue/server-renderer': 3.5.13(vue@3.5.13)
+      '@vue/server-renderer': 3.5.13(vue@3.5.13(typescript@5.8.3))
       '@vue/shared': 3.5.13
+    optionalDependencies:
+      typescript: 5.8.3
 
   w3c-xmlserializer@5.0.0:
     dependencies:
