@@ -1,5 +1,5 @@
-import { isRef, onMounted, onUnmounted, nextTick, ref, watch } from "vue";
 import { INTERSECTION_THRESHOLD } from "@/constants";
+import { isRef, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 
 export const useIntersect = (element) => {
   const isIntersected = ref(false);
@@ -20,7 +20,7 @@ export const useIntersect = (element) => {
           stop();
         }
       },
-      { immediate: true }
+      { immediate: true },
     );
   };
 

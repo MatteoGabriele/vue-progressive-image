@@ -2,9 +2,9 @@ import "./style.css";
 import ProgressiveImage from "./ProgressiveImage";
 
 export const install = (app, props = {}) => {
-  Object.keys(props).forEach((key) => {
+  for (const key of Object.keys(props)) {
     ProgressiveImage.props[key].default = props[key];
-  });
+  }
 
   app.component("ProgressiveImage", ProgressiveImage);
 };

@@ -1,5 +1,5 @@
-import { ref, computed, isRef, nextTick } from "vue";
-import { IMAGE_POLL_INTERVAL, IMAGE_ASPECT_RATIO } from "../constants";
+import { computed, isRef, nextTick, ref } from "vue";
+import { IMAGE_ASPECT_RATIO, IMAGE_POLL_INTERVAL } from "../constants";
 
 export const useImage = (element) => {
   const image = new Image();
@@ -11,7 +11,7 @@ export const useImage = (element) => {
   });
 
   const pollImageData = setInterval(() => {
-    if (image && image.width) {
+    if (image?.width) {
       clearInterval(pollImageData);
 
       width.value = image.width;
