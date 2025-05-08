@@ -1,6 +1,16 @@
 import { IMAGE_ASPECT_RATIO, IMAGE_POLL_INTERVAL } from "@/constants";
 import { type MaybeRef, computed, nextTick, ref, unref } from "vue";
 
+/**
+ * Provides reactive image loading and dimension tracking for a given HTMLImageElement.
+ *
+ * Returns reactive references to the image's width, height, and aspect ratio, along with a function to asynchronously load the image and update its dimensions.
+ *
+ * @param element - A reactive or plain reference to an HTMLImageElement or null.
+ * @returns An object containing reactive `width`, `height`, `aspectRatio`, and the `loadImage` function.
+ *
+ * @remark If the image fails to load, the `loadImage` function's returned Promise will reject.
+ */
 export default function useImage(element: MaybeRef<HTMLImageElement | null>) {
   const image = new Image();
   const width = ref(0);
