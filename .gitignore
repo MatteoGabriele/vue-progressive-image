@@ -1,7 +1,6 @@
-dist/
-node_modules/
-.DS_Store
+node_modules
+dist
+*.map
 npm-debug.log
-yarn-error.log
-coverage/
-.idea/
+.vscode
+coverage

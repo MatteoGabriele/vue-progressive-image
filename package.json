@@ -2,57 +2,59 @@
   "name": "vue-progressive-image",
   "version": "4.0.0",
   "description": "Vue progressive image loading plugin",
-  "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/vue-progressive-image.d.ts",
-      "import": "./dist/vue-progressive-image.js"
-    },
-    "./style.css": {
-      "import": "./dist/vue-progressive-image.css"
-    }
-  },
-  "main": "./dist/vue-progressive-image.js",
-  "module": "./dist/vue-progressive-image.js",
-  "types": "./dist/vue-progressive-image.d.ts",
-  "files": ["dist"],
+  "main": "./dist/vue-progressive-image.umd.js",
+  "module": "./dist/vue-progressive-image.es.js",
+  "unpkg": "./dist/vue-progressive-image.umd.js",
+  "jsdelivr": "./dist/vue-progressive-image.umd.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "dev": "tsdown --watch",
-    "fix": "biome check --write",
-    "lint": "biome lint",
-    "build": "tsdown",
-    "test": "vitest",
-    "test:once": "vitest run",
-    "validate": "npm run lint && npm run test:once && npm run build",
-    "prepublishOnly": "npm run lint && npm run test:once && npm run build"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:cov": "vitest run --coverage",
+    "test:update": "vitest --update",
+    "dev": "cross-env NODE_ENV=development vite build --watch",
+    "build": "cross-env NODE_ENV=production vite build",
+    "prepublish": "yarn test && yarn build"
   },
   "author": {
     "name": "Matteo Gabriele",
     "email": "m.gabriele.dev@gmail.com"
   },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MatteoGabriele/vue-progressive-image.git"
+    "url": "https://github.com/MatteoGabriele/vue-progressive-image"
   },
-  "keywords": ["progressive", "image", "img", "lazy loading"],
-  "license": "MIT",
+  "keywords": [
+    "progressive",
+    "image",
+    "img",
+    "lazy loading"
+  ],
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/MatteoGabriele/vue-progressive-image/issues"
   },
   "homepage": "https://github.com/MatteoGabriele/vue-progressive-image#readme",
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@vitejs/plugin-vue": "5.2.3",
-    "@vue/test-utils": "2.4.6",
-    "jsdom": "26.1.0",
-    "publint": "0.3.12",
-    "tsdown": "0.11.1",
-    "typescript": "5.8.3",
-    "unplugin-vue": "6.2.0",
-    "vitest": "3.1.3",
-    "vue": "3.5.13"
+    "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.16.8",
+    "@vitejs/plugin-vue": "^2.0.1",
+    "@vue/test-utils": "^2.0.0-rc.18",
+    "c8": "^7.11.2",
+    "cross-env": "^7.0.3",
+    "jsdom": "^19.0.0",
+    "vite": "^2.7.12",
+    "vitest": "^0.1.27",
+    "vue": "^3.2.25"
   },
   "peerDependencies": {
-    "vue": "3.5.13"
+    "vue": "^3.2.0"
   }
 }

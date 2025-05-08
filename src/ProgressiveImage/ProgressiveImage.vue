@@ -1,45 +1,37 @@
-<script setup lang="ts">
+<script setup>
+import { ref, onMounted, computed } from "vue";
+import { MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR } from "@/constants";
 import useImage from "@/composables/useImage";
 import useIntersect from "@/composables/useIntersect";
-import {
-  MAIN_IMAGE_LOAD_ERROR,
-  MAIN_IMAGE_LOAD_SUCCESS,
-  globalPropsKey,
-} from "@/constants";
-import { computed, inject, onMounted, reactive, ref } from "vue";
-
-export type ProgressiveImageProps = {
-  src: string;
-  placeholderSrc?: string;
-  fallbackSrc?: string;
-  alt?: string;
-  title?: string;
-  customClass?: string;
-  blur?: number | string;
-  lazyPlaceholder?: boolean;
-  delay?: number | string;
-  objectCover?: boolean;
-};
-
-const props = defineProps<ProgressiveImageProps>();
-const globalProps = inject(globalPropsKey, {});
-const mergedProps = reactive<ProgressiveImageProps>({
-  ...props,
-  ...globalProps,
-});
 
 const emit = defineEmits([MAIN_IMAGE_LOAD_SUCCESS, MAIN_IMAGE_LOAD_ERROR]);
+
+const props = defineProps({
+  src: String,
+  placeholderSrc: String,
+  fallbackSrc: String,
+  alt: String,
+  title: String,
+  customClass: String,
+  blur: [Number, String],
+  lazyPlaceholder: {
+    type: Boolean,
+    default: false,
+  },
+  delay: {
+    type: [Number, String],
+    default: 0,
+  },
+  objectCover: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 const rootRef = ref(null);
 const imageRef = ref(null);
 const isMainImageRendered = ref(false);
 const isFallbackImageRendered = ref(false);
-
-const imageSrc = computed<string | undefined>(() => {
-  return isFallbackImageRendered.value
-    ? mergedProps.fallbackSrc
-    : mergedProps.src;
-});
 
 const { isIntersected, watchIntersectionOnce } = useIntersect(rootRef);
 const { loadImage, aspectRatio, width } = useImage(imageRef);
@@ -50,7 +42,7 @@ const paddingHack = computed(() => ({
 }));
 
 const componentStyle = computed(() => {
-  if (mergedProps.objectCover || width.value === 0) {
+  if (props.objectCover || width.value === 0) {
     return;
   }
 
@@ -61,50 +53,38 @@ const componentStyle = computed(() => {
 
 const imageClasses = computed(() => {
   return [
-    mergedProps.customClass,
+    props.customClass,
     {
-      "v-progressive-image-object-cover": mergedProps.objectCover,
+      "v-progressive-image-object-cover": props.objectCover,
       "v-progressive-image-loading": isLoading.value,
     },
   ];
 });
 
-function toNumber(input: string | number | undefined): number {
-  let value = 0;
-
-  if (typeof input === "string") {
-    value = Number.parseInt(input);
-  } else if (typeof input === "number") {
-    value = input;
-  }
-
-  return value;
-}
-
-function mainImageHandler() {
+const mainImageHandler = () => {
   loadImage()
     .then(() => {
       setTimeout(() => {
         isMainImageRendered.value = true;
         emit(MAIN_IMAGE_LOAD_SUCCESS);
-      }, toNumber(mergedProps.delay));
+      }, props.delay * 1);
     })
     .catch((error) => {
       isMainImageRendered.value = true;
       isFallbackImageRendered.value = true;
       emit(MAIN_IMAGE_LOAD_ERROR, error);
     });
-}
+};
 
 onMounted(() => {
-  if (mergedProps.placeholderSrc && mergedProps.blur) {
+  if (props.placeholderSrc && props.blur) {
     document.documentElement.style.setProperty(
       "--progressive-image-blur",
-      `${toNumber(mergedProps.blur)}px`,
+      `${props.blur * 1}px`
     );
   }
 
-  if (mergedProps.src) {
+  if (props.src) {
     watchIntersectionOnce(mainImageHandler);
   }
 });
@@ -119,7 +99,7 @@ onMounted(() => {
   >
     <div :style="paddingHack">
       <transition
-        :css="!mergedProps.placeholderSrc"
+        :css="!placeholderSrc"
         name="v-progressive-image-main-fade"
         appear
       >
@@ -128,19 +108,19 @@ onMounted(() => {
           v-show="isMainImageRendered"
           ref="imageRef"
           class="v-progressive-image-main"
-          :src="imageSrc"
-          :alt="mergedProps.alt"
-          :title="mergedProps.title"
+          :src="isFallbackImageRendered ? fallbackSrc : src"
+          :alt="alt"
+          :title="title"
         />
       </transition>
 
-      <template v-if="mergedProps.placeholderSrc">
+      <template v-if="placeholderSrc">
         <transition name="v-progressive-image-placeholder-fade" appear>
           <img
             v-if="isLoading"
             class="v-progressive-image-placeholder"
-            :loading="mergedProps.lazyPlaceholder ? 'lazy' : 'eager'"
-            :src="mergedProps.placeholderSrc"
+            :loading="lazyPlaceholder ? 'lazy' : 'eager'"
+            :src="placeholderSrc"
           />
         </transition>
       </template>
