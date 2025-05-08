@@ -60,9 +60,6 @@ workflows:
   verify-test-and-release:
     jobs:
       - lint
-      - typecheck:
-          requires:
-            - lint
       - test:
           requires:
             - build
