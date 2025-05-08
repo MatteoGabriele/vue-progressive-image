@@ -40,7 +40,7 @@ export default function useIntersect(element: MaybeRef<HTMLElement | null>){
 
   return {
     watchIntersectionOnce,
-    isIntersected,
+    isIntersected
   };
 };
 

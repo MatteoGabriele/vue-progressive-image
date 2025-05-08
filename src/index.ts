@@ -1,11 +1,8 @@
 import "./style.css";
 import type { App } from "vue";
-import ProgressiveImage, { ProgressiveImageProps } from "./ProgressiveImage/ProgressiveImage.vue";
+import ProgressiveImage from "./ProgressiveImage.vue";
 
-export const ProgressiveImageConfigKey = Symbol("ProgressiveImageConfig");
-
-export function install(app: App, props?: ProgressiveImageProps) {
-  app.provide(ProgressiveImageConfigKey, props)
+export function install(app: App) {
   app.component("ProgressiveImage", ProgressiveImage);
 };
 

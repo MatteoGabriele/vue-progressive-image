@@ -8,8 +8,12 @@ export default defineConfig({
     [name]: "./src/index.ts",
   },
   platform: "browser",
-  minify: true,
-  plugins: [Vue({ isProduction: true })],
+  minify: false,
+  plugins: [
+    Vue({
+      isProduction: true,
+    }),
+  ],
   external: ["vue"],
   outDir: "./dist",
   publint: true,
