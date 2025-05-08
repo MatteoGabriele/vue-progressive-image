@@ -1,4 +1,4 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+// Vitest Snapshot v1
 
 exports[`ProgressiveImage > lazy load placeholder images 1`] = `
 <div
@@ -7,24 +7,13 @@ exports[`ProgressiveImage > lazy load placeholder images 1`] = `
   <div
     style="padding-bottom: 56.25%;"
   >
-    <transition-stub
-      appear="true"
-      css="false"
-      name="v-progressive-image-main-fade"
-      persisted="false"
-    >
+    <transition-stub>
       <img
         class="v-progressive-image-main"
-        src="image.jpg"
         style="display: none;"
       />
     </transition-stub>
-    <transition-stub
-      appear="true"
-      css="true"
-      name="v-progressive-image-placeholder-fade"
-      persisted="false"
-    >
+    <transition-stub>
       <img
         class="v-progressive-image-placeholder"
         loading="lazy"
@@ -43,12 +32,7 @@ exports[`ProgressiveImage > render default slot 1`] = `
   <div
     style="padding-bottom: 56.25%;"
   >
-    <transition-stub
-      appear="true"
-      css="true"
-      name="v-progressive-image-main-fade"
-      persisted="false"
-    >
+    <transition-stub>
       <img
         class="v-progressive-image-main"
         src="main-image.jpg"
@@ -76,12 +60,7 @@ exports[`ProgressiveImage > render default slot props 1`] = `
   <div
     style="padding-bottom: 56.25%;"
   >
-    <transition-stub
-      appear="true"
-      css="true"
-      name="v-progressive-image-main-fade"
-      persisted="false"
-    >
+    <transition-stub>
       <img
         class="v-progressive-image-main"
         src="main-image.jpg"
@@ -109,12 +88,7 @@ exports[`ProgressiveImage > render image 1`] = `
   <div
     style="padding-bottom: 56.25%;"
   >
-    <transition-stub
-      appear="true"
-      css="true"
-      name="v-progressive-image-main-fade"
-      persisted="false"
-    >
+    <transition-stub>
       <img
         class="v-progressive-image-main"
         src="main-image.jpg"
@@ -134,24 +108,14 @@ exports[`ProgressiveImage > render image with placeholder 1`] = `
   <div
     style="padding-bottom: 56.25%;"
   >
-    <transition-stub
-      appear="true"
-      css="false"
-      name="v-progressive-image-main-fade"
-      persisted="false"
-    >
+    <transition-stub>
       <img
         class="v-progressive-image-main"
         src="main-image.jpg"
         style="display: none;"
       />
     </transition-stub>
-    <transition-stub
-      appear="true"
-      css="true"
-      name="v-progressive-image-placeholder-fade"
-      persisted="false"
-    >
+    <transition-stub>
       <img
         class="v-progressive-image-placeholder"
         loading="eager"
@@ -170,12 +134,7 @@ exports[`ProgressiveImage > render title attributes 1`] = `
   <div
     style="padding-bottom: 56.25%;"
   >
-    <transition-stub
-      appear="true"
-      css="true"
-      name="v-progressive-image-main-fade"
-      persisted="false"
-    >
+    <transition-stub>
       <img
         class="v-progressive-image-main"
         src="main-image.jpg"
@@ -196,12 +155,7 @@ exports[`ProgressiveImage > use alt attribute 1`] = `
   <div
     style="padding-bottom: 56.25%;"
   >
-    <transition-stub
-      appear="true"
-      css="false"
-      name="v-progressive-image-main-fade"
-      persisted="false"
-    >
+    <transition-stub>
       <img
         alt="image description"
         class="v-progressive-image-main"
@@ -209,12 +163,7 @@ exports[`ProgressiveImage > use alt attribute 1`] = `
         style="display: none;"
       />
     </transition-stub>
-    <transition-stub
-      appear="true"
-      css="true"
-      name="v-progressive-image-placeholder-fade"
-      persisted="false"
-    >
+    <transition-stub>
       <img
         class="v-progressive-image-placeholder"
         loading="eager"
@@ -233,24 +182,14 @@ exports[`ProgressiveImage > use custom blur 1`] = `
   <div
     style="padding-bottom: 56.25%;"
   >
-    <transition-stub
-      appear="true"
-      css="false"
-      name="v-progressive-image-main-fade"
-      persisted="false"
-    >
+    <transition-stub>
       <img
         class="v-progressive-image-main"
         src="main-image.jpg"
         style="display: none;"
       />
     </transition-stub>
-    <transition-stub
-      appear="true"
-      css="true"
-      name="v-progressive-image-placeholder-fade"
-      persisted="false"
-    >
+    <transition-stub>
       <img
         class="v-progressive-image-placeholder"
         loading="eager"
@@ -269,24 +208,14 @@ exports[`ProgressiveImage > use object cover 1`] = `
   <div
     style="padding-bottom: 56.25%;"
   >
-    <transition-stub
-      appear="true"
-      css="false"
-      name="v-progressive-image-main-fade"
-      persisted="false"
-    >
+    <transition-stub>
       <img
         class="v-progressive-image-main"
         src="main-image.jpg"
         style="display: none;"
       />
     </transition-stub>
-    <transition-stub
-      appear="true"
-      css="true"
-      name="v-progressive-image-placeholder-fade"
-      persisted="false"
-    >
+    <transition-stub>
       <img
         class="v-progressive-image-placeholder"
         loading="eager"
