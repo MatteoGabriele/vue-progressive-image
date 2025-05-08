@@ -9,9 +9,10 @@
     "ignoreUnknown": false,
     "ignore": ["dist"],
     "include": [
-      "./src/**/*.js",
+      "./src/**/*.ts",
+      "./src/**/*.vue",
       "./tsconfig.json",
-      "./tsdown.config.js",
+      "./tsdown.config.ts",
       "./package.json"
     ]
   },

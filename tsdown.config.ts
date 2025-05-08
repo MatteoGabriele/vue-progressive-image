@@ -8,7 +8,7 @@ export default defineConfig({
     [name]: "./src/index.ts",
   },
   platform: "browser",
-  minify: false,
+  minify: true,
   plugins: [
     Vue({
       isProduction: true,

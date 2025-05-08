@@ -6,4 +6,4 @@ export function objectToArray(map: Record<string, unknown>) {
 
     return acc;
   }, []);
-};
+}

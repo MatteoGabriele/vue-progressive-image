@@ -1,5 +1,5 @@
-import { computed, type MaybeRef, nextTick, ref, unref } from "vue";
 import { IMAGE_ASPECT_RATIO, IMAGE_POLL_INTERVAL } from "@/constants";
+import { type MaybeRef, computed, nextTick, ref, unref } from "vue";
 
 export default function useImage(element: MaybeRef<HTMLImageElement | null>) {
   const image = new Image();
@@ -25,28 +25,28 @@ export default function useImage(element: MaybeRef<HTMLImageElement | null>) {
     canvas.width = 1;
     canvas.height = 1;
 
-    canvas.setAttribute("hidden", 'true');
+    canvas.setAttribute("hidden", "true");
 
     document.body.appendChild(canvas);
-    
-    canvas.getContext('2d')?.drawImage(imageNode,0,0)
+
+    canvas.getContext("2d")?.drawImage(imageNode, 0, 0);
 
     document.body.removeChild(canvas);
   };
 
   async function loadImage(): Promise<void> {
     const imageNode = unref(element);
-    
+
     if (!imageNode) {
-      return
+      return;
     }
-    
+
     const src = imageNode.src;
 
     image.src = src;
 
     if (image.complete) {
-      return
+      return;
     }
 
     return new Promise<void>((resolve, reject) => {
@@ -57,7 +57,7 @@ export default function useImage(element: MaybeRef<HTMLImageElement | null>) {
 
       image.onerror = reject;
     });
-  };
+  }
 
   return {
     width,
@@ -65,4 +65,4 @@ export default function useImage(element: MaybeRef<HTMLImageElement | null>) {
     aspectRatio,
     loadImage,
   };
-};
+}
