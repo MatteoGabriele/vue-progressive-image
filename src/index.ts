@@ -17,7 +17,7 @@ export type PluginOptoins = Partial<
   >
 >;
 
-export function install(app: App, options: PluginOptoins) {
+export function install(app: App, options?: PluginOptoins) {
   app.provide(globalPropsKey, options);
   app.component("ProgressiveImage", ProgressiveImage);
 }
