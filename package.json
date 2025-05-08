@@ -15,7 +15,9 @@
   "main": "./dist/vue-progressive-image.js",
   "module": "./dist/vue-progressive-image.js",
   "types": "./dist/vue-progressive-image.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "tsdown --watch",
     "fix": "biome check --write",
@@ -34,7 +36,12 @@
     "type": "git",
     "url": "git+https://github.com/MatteoGabriele/vue-progressive-image.git"
   },
-  "keywords": ["progressive", "image", "img", "lazy loading"],
+  "keywords": [
+    "progressive",
+    "image",
+    "img",
+    "lazy loading"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/MatteoGabriele/vue-progressive-image/issues"
@@ -42,10 +49,13 @@
   "homepage": "https://github.com/MatteoGabriele/vue-progressive-image#readme",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@semantic-release/changelog": "6.0.3",
+    "@semantic-release/git": "10.0.1",
     "@vitejs/plugin-vue": "5.2.3",
     "@vue/test-utils": "2.4.6",
     "jsdom": "26.1.0",
     "publint": "0.3.12",
+    "semantic-release": "24.2.3",
     "tsdown": "0.11.1",
     "typescript": "5.8.3",
     "unplugin-vue": "6.2.0",
