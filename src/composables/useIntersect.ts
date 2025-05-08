@@ -1,7 +1,15 @@
-import { isRef, onMounted, onUnmounted, nextTick, ref, watch } from "vue";
 import { INTERSECTION_THRESHOLD } from "@/constants";
+import {
+  type MaybeRef,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  ref,
+  unref,
+  watch,
+} from "vue";
 
-export const useIntersect = (element) => {
+export default function useIntersect(element: MaybeRef<HTMLElement | null>) {
   const isIntersected = ref(false);
   const options = { threshold: INTERSECTION_THRESHOLD };
   const observer = new IntersectionObserver((entries) => {
@@ -11,7 +19,7 @@ export const useIntersect = (element) => {
     }
   }, options);
 
-  const watchIntersectionOnce = (callback) => {
+  const watchIntersectionOnce = (callback: () => void) => {
     const stop = watch(
       isIntersected,
       (is) => {
@@ -20,12 +28,17 @@ export const useIntersect = (element) => {
           stop();
         }
       },
-      { immediate: true }
+      { immediate: true },
     );
   };
 
   onMounted(() => {
-    const el = isRef(element) ? element.value : element;
+    const el = unref(element);
+
+    if (!el) {
+      return;
+    }
+
     observer.observe(el);
   });
 
@@ -37,6 +50,4 @@ export const useIntersect = (element) => {
     watchIntersectionOnce,
     isIntersected,
   };
-};
-
-export default useIntersect;
+}

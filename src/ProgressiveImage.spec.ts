@@ -1,13 +1,13 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, test, vi } from "vitest";
-import ProgressiveImage from "../ProgressiveImage.vue";
+import ProgressiveImage from "./ProgressiveImage.vue";
 
-vi.mock("../../composables/useIntersect.js", () => {
+vi.mock("@/composables/useIntersect", () => {
   return {
     default: () => {
       return {
         isIntersected: () => true,
-        watchIntersectionOnce: (fn) => fn(),
+        watchIntersectionOnce: () => vi.fn(),
       };
     },
   };
@@ -16,7 +16,7 @@ vi.mock("../../composables/useIntersect.js", () => {
 describe("ProgressiveImage", () => {
   test("render image", () => {
     const wrapper = mount(ProgressiveImage, {
-      propsData: {
+      props: {
         src: "main-image.jpg",
       },
     });
@@ -26,7 +26,7 @@ describe("ProgressiveImage", () => {
 
   test("render image with placeholder", () => {
     const wrapper = mount(ProgressiveImage, {
-      propsData: {
+      props: {
         src: "main-image.jpg",
         placeholderSrc: "placeholder-image.jpg",
       },
@@ -37,7 +37,7 @@ describe("ProgressiveImage", () => {
 
   test("use custom blur", () => {
     const wrapper = mount(ProgressiveImage, {
-      propsData: {
+      props: {
         src: "main-image.jpg",
         placeholderSrc: "placeholder-image.jpg",
         blur: 50,
@@ -49,7 +49,7 @@ describe("ProgressiveImage", () => {
 
   test("use alt attribute", () => {
     const wrapper = mount(ProgressiveImage, {
-      propsData: {
+      props: {
         src: "main-image.jpg",
         placeholderSrc: "placeholder-image.jpg",
         alt: "image description",
@@ -61,7 +61,7 @@ describe("ProgressiveImage", () => {
 
   test("use object cover", () => {
     const wrapper = mount(ProgressiveImage, {
-      propsData: {
+      props: {
         src: "main-image.jpg",
         placeholderSrc: "placeholder-image.jpg",
         objectCover: true,
@@ -76,7 +76,7 @@ describe("ProgressiveImage", () => {
       slots: {
         default: "<div>lorem ipsum</div>",
       },
-      propsData: {
+      props: {
         src: "main-image.jpg",
       },
     });
@@ -89,7 +89,7 @@ describe("ProgressiveImage", () => {
       slots: {
         default: `<template #default="params">{{ params }}</template>`,
       },
-      propsData: {
+      props: {
         src: "main-image.jpg",
       },
     });
@@ -99,7 +99,8 @@ describe("ProgressiveImage", () => {
 
   test("lazy load placeholder images", () => {
     const wrapper = mount(ProgressiveImage, {
-      propsData: {
+      props: {
+        src: "image.jpg",
         placeholderSrc: "placeholder-image.jpg",
         lazyPlaceholder: true,
       },
@@ -110,7 +111,7 @@ describe("ProgressiveImage", () => {
 
   test("render title attributes", () => {
     const wrapper = mount(ProgressiveImage, {
-      propsData: {
+      props: {
         src: "main-image.jpg",
         title: "lorem ipsum dolor sit amet",
       },
