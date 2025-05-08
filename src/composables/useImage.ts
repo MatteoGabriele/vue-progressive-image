@@ -1,7 +1,7 @@
-import { ref, computed, isRef, nextTick } from "vue";
-import { IMAGE_POLL_INTERVAL, IMAGE_ASPECT_RATIO } from "../constants";
+import { IMAGE_ASPECT_RATIO, IMAGE_POLL_INTERVAL } from "@/constants";
+import { type MaybeRef, computed, nextTick, ref, unref } from "vue";
 
-export const useImage = (element) => {
+export default function useImage(element: MaybeRef<HTMLImageElement | null>) {
   const image = new Image();
   const width = ref(0);
   const height = ref(0);
@@ -11,7 +11,7 @@ export const useImage = (element) => {
   });
 
   const pollImageData = setInterval(() => {
-    if (image && image.width) {
+    if (image?.width) {
       clearInterval(pollImageData);
 
       width.value = image.width;
@@ -19,40 +19,45 @@ export const useImage = (element) => {
     }
   }, IMAGE_POLL_INTERVAL);
 
-  const imageRenderer = (imageNode) => {
+  const imageRenderer = (imageNode: HTMLImageElement) => {
     const canvas = document.createElement("canvas");
 
     canvas.width = 1;
     canvas.height = 1;
 
-    canvas.setAttribute("hidden", true);
+    canvas.setAttribute("hidden", "true");
 
     document.body.appendChild(canvas);
 
-    canvas.getContext("2d").drawImage(imageNode, 0, 0);
+    canvas.getContext("2d")?.drawImage(imageNode, 0, 0);
 
     document.body.removeChild(canvas);
   };
 
-  const loadImage = () => {
-    const imageNode = isRef(element) ? element.value : element;
+  async function loadImage(): Promise<void> {
+    const imageNode = unref(element);
+
+    if (!imageNode) {
+      return;
+    }
+
     const src = imageNode.src;
 
     image.src = src;
 
     if (image.complete) {
-      return Promise.resolve();
+      return;
     }
 
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       image.onload = () => {
         imageRenderer(imageNode);
-        nextTick(resolve);
+        nextTick(() => resolve());
       };
 
       image.onerror = reject;
     });
-  };
+  }
 
   return {
     width,
@@ -60,6 +65,4 @@ export const useImage = (element) => {
     aspectRatio,
     loadImage,
   };
-};
-
-export default useImage;
+}
