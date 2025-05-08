@@ -60,6 +60,7 @@ workflows:
   verify-test-and-release:
     jobs:
       - lint
+      - build
       - test:
           requires:
             - build
