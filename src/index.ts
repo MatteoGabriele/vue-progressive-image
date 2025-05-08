@@ -1,23 +1,10 @@
 import "./style.css";
 import { globalPropsKey } from "@/constants";
+import type { PluginOptions } from "@/types";
 import type { App } from "vue";
-import ProgressiveImage, {
-  type ProgressiveImageProps,
-} from "./ProgressiveImage.vue";
+import ProgressiveImage from "./ProgressiveImage.vue";
 
-export type PluginOptoins = Partial<
-  Pick<
-    ProgressiveImageProps,
-    | "customClass"
-    | "blur"
-    | "delay"
-    | "objectCover"
-    | "lazyPlaceholder"
-    | "fallbackSrc"
-  >
->;
-
-export function install(app: App, options?: PluginOptoins) {
+export function install(app: App, options?: PluginOptions) {
   app.provide(globalPropsKey, options);
   app.component("ProgressiveImage", ProgressiveImage);
 }

@@ -6,20 +6,8 @@ import {
   MAIN_IMAGE_LOAD_SUCCESS,
   globalPropsKey,
 } from "@/constants";
+import type { ProgressiveImageProps } from "@/types";
 import { computed, inject, onMounted, reactive, ref } from "vue";
-
-export type ProgressiveImageProps = {
-  src: string;
-  placeholderSrc?: string;
-  fallbackSrc?: string;
-  alt?: string;
-  title?: string;
-  customClass?: string;
-  blur?: number | string;
-  lazyPlaceholder?: boolean;
-  delay?: number | string;
-  objectCover?: boolean;
-};
 
 const props = defineProps<ProgressiveImageProps>();
 const globalProps = inject(globalPropsKey, {});
