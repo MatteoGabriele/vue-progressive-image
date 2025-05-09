@@ -88,7 +88,7 @@ onMounted(() => {
   if (mergedProps.placeholderSrc && mergedProps.blur) {
     document.documentElement.style.setProperty(
       "--progressive-image-blur",
-      `${toNumber(mergedProps.blur)}px`,
+      `${toNumber(mergedProps.blur)}px`
     );
   }
 
@@ -126,6 +126,7 @@ onMounted(() => {
         <transition name="v-progressive-image-placeholder-fade" appear>
           <img
             v-if="isLoading"
+            :alt="mergedProps.alt"
             class="v-progressive-image-placeholder"
             :loading="mergedProps.lazyPlaceholder ? 'lazy' : 'eager'"
             :src="mergedProps.placeholderSrc"
