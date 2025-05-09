@@ -1,3 +1,10 @@
+## [5.0.3](https://github.com/MatteoGabriele/vue-progressive-image/compare/v5.0.2...v5.0.3) (2025-05-09)
+
+
+### Bug Fixes
+
+* **progressive-image:** placeholder image missing alt tag ([e6fd9b1](https://github.com/MatteoGabriele/vue-progressive-image/commit/e6fd9b172a95621de191ba5af36cd90314baec00))
+
 ## [5.0.2](https://github.com/MatteoGabriele/vue-progressive-image/compare/v5.0.1...v5.0.2) (2025-05-08)
 
 
