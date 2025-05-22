@@ -1,3 +1,10 @@
+## [5.0.4](https://github.com/MatteoGabriele/vue-progressive-image/compare/v5.0.3...v5.0.4) (2025-05-22)
+
+
+### Bug Fixes
+
+* typescript declaration for vue files ([998533e](https://github.com/MatteoGabriele/vue-progressive-image/commit/998533e318a2750ec3fce8ffe5374a467edb4bc2)), closes [#103](https://github.com/MatteoGabriele/vue-progressive-image/issues/103)
+
 ## [5.0.3](https://github.com/MatteoGabriele/vue-progressive-image/compare/v5.0.2...v5.0.3) (2025-05-09)
 
 

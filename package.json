@@ -1,6 +1,6 @@
 {
   "name": "vue-progressive-image",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "Vue progressive image loading plugin",
   "type": "module",
   "exports": {
@@ -15,7 +15,9 @@
   "main": "./dist/vue-progressive-image.js",
   "module": "./dist/vue-progressive-image.js",
   "types": "./dist/vue-progressive-image.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "tsdown --watch",
     "fix": "biome check --write",
@@ -34,7 +36,12 @@
     "type": "git",
     "url": "git+https://github.com/MatteoGabriele/vue-progressive-image.git"
   },
-  "keywords": ["progressive", "image", "img", "lazy loading"],
+  "keywords": [
+    "progressive",
+    "image",
+    "img",
+    "lazy loading"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/MatteoGabriele/vue-progressive-image/issues"
