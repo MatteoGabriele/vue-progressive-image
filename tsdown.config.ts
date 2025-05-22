@@ -17,7 +17,7 @@ export default defineConfig({
   external: ["vue"],
   outDir: "./dist",
   publint: true,
-  dts: true,
+  dts: { vue: true },
   clean: true,
   inputOptions: {
     resolve: {
