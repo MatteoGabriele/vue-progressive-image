@@ -1,6 +1,9 @@
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "tsdown";
 import Vue from 'unplugin-vue/rolldown'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   entry: {
