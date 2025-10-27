@@ -9,7 +9,7 @@ export default defineConfig({
   entry: {
     'vue-progressive-image': "./src/index.ts",
   },
-  platform: "neutral",
+  platform: "browser",
   plugins: [Vue({ isProduction: true })],
   minify: true,
   outDir: "./dist",
