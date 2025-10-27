@@ -1,20 +1,14 @@
 import path from "node:path";
 import { defineConfig } from "tsdown";
-import Vue from "unplugin-vue/rolldown";
-import { name } from "./package.json";
+import Vue from 'unplugin-vue/rolldown'
 
 export default defineConfig({
   entry: {
-    [name]: "./src/index.ts",
+    'vue-progressive-image': "./src/index.ts",
   },
-  platform: "browser",
+  platform: "neutral",
+  plugins: [Vue({ isProduction: true })],
   minify: true,
-  plugins: [
-    Vue({
-      isProduction: true,
-    }),
-  ],
-  external: ["vue"],
   outDir: "./dist",
   publint: true,
   dts: { vue: true },
