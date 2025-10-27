@@ -1,3 +1,10 @@
+## [5.0.6](https://github.com/MatteoGabriele/vue-progressive-image/compare/v5.0.5...v5.0.6) (2025-10-27)
+
+
+### Bug Fixes
+
+* **build:** use browser platform ([1baa782](https://github.com/MatteoGabriele/vue-progressive-image/commit/1baa7823926abd4ab4a4879b293cc0d351accc23))
+
 ## [5.0.5](https://github.com/MatteoGabriele/vue-progressive-image/compare/v5.0.4...v5.0.5) (2025-10-27)
 
 
