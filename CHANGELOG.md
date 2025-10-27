@@ -1,3 +1,11 @@
+## [5.0.5](https://github.com/MatteoGabriele/vue-progressive-image/compare/v5.0.4...v5.0.5) (2025-10-27)
+
+
+### Bug Fixes
+
+*  __dirname is not defined in ES module scope ([b107cef](https://github.com/MatteoGabriele/vue-progressive-image/commit/b107cefda36ee6016c59db9a71ca716beeda95ca))
+* **deps:** change vue to use version range ([eeaa830](https://github.com/MatteoGabriele/vue-progressive-image/commit/eeaa83092a878286bbbe5be7bc4258bfbc930523))
+
 ## [5.0.4](https://github.com/MatteoGabriele/vue-progressive-image/compare/v5.0.3...v5.0.4) (2025-05-22)
 
 
