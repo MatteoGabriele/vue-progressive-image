@@ -1,6 +1,6 @@
 {
   "name": "vue-progressive-image",
-  "version": "5.0.4",
+  "version": "5.0.5",
   "description": "Vue progressive image loading plugin",
   "type": "module",
   "exports": {
